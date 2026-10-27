@@ -3276,6 +3276,176 @@
         display: none;
       }
     }
+
+    /* ==========================================================================
+       15. ترقيات المرحلة السابعة: التباعد الشامل 5px، تقسيم المؤشرات بسطر فاصل ولون أغمق، وتأطير الوفرة والندرة
+       ========================================================================== */
+    :root {
+      --kpi-matte-bg: #ffffff;
+      --kpi-matte-lower-bg: #f8fafc;
+      --kpi-matte-footer-bg: #f1f5f9;
+      --kpi-top-subtle-line: rgba(15, 23, 42, 0.05);
+      --kpi-divider-line: rgba(100, 116, 139, 0.25);
+    }
+
+    [data-theme="dark"], body.dark-mode {
+      --kpi-matte-bg: #1e293b;
+      --kpi-matte-lower-bg: #172133;
+      --kpi-matte-footer-bg: #121a29;
+      --kpi-top-subtle-line: rgba(255, 255, 255, 0.05);
+      --kpi-divider-line: rgba(148, 163, 184, 0.22);
+    }
+
+    /* التباعد الشامل 5px في صفحة لوحة المؤشرات والقيادة من جميع الجوانب والأعلى والأسفل وبين البطاقات */
+    .app-container:has(#dashboard-view:not([style*="display: none"])),
+    .app-container.dashboard-view-active {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 5px !important;
+      box-sizing: border-box !important;
+    }
+
+    #app-main:has(#dashboard-view:not([style*="display: none"])) {
+      padding-bottom: 5px !important;
+    }
+
+    /* إخفاء الشريط الوسيط داخل الداشبورد ليكون التباعد بين الشريط العلوي والمؤشرات 5px بالضبط */
+    #dashboard-view .dashboard-header-bar {
+      display: none !important;
+    }
+
+    #dashboard-view:not([style*="display: none"]) {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 5px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #dashboard-view .kpi-grid-6.kpi-matte-grid-6,
+    #dashboard-view .grid-2 {
+      gap: 5px !important;
+      row-gap: 5px !important;
+      column-gap: 5px !important;
+      margin: 0 !important;
+    }
+
+    #dashboard-view .card,
+    #dashboard-view .kpi-card {
+      margin: 0 !important;
+    }
+
+    /* تقسيم بطاقة المؤشر إلى 3 مناطق متناسقة مع تظليل أغمق للقسم السفلي (ابتداءً من الرقم) وسطر رفيع فاصل تحت الرقم */
+    #dashboard-view .kpi-matte-card {
+      padding: 0 !important;
+      min-height: 104px !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      align-items: stretch !important;
+      background: var(--kpi-matte-bg) !important;
+    }
+
+    /* المنطقة العلوية: العنوان على اليمين واللوغو/الأيقونة في الزاوية اليسرى بلون الحاوية الأساسي */
+    #dashboard-view .kpi-matte-top {
+      padding: 9px 14px 7px 14px !important;
+      background: var(--kpi-matte-bg) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 8px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* المنطقة الوسطى (ابتداءً من الرقم): درجة لون أغمق قليلاً من رأس الحاوية */
+    #dashboard-view .kpi-matte-number {
+      background: var(--kpi-matte-lower-bg) !important;
+      border-top: 1px solid var(--kpi-top-subtle-line) !important;
+      padding: 7px 12px 7px 12px !important;
+      margin: 0 !important;
+      font-size: 2.15rem !important;
+      font-weight: 900 !important;
+      line-height: 1.08 !important;
+      text-align: center !important;
+      color: var(--kpi-number-color) !important;
+      flex: 1 1 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* السطر الرفيع الفاصل تحت الرقم مباشرة + القسم السفلي بلون أغمق لعبارة شرح الرقم */
+    #dashboard-view .kpi-matte-footer {
+      background: var(--kpi-matte-footer-bg) !important;
+      border-top: 1px solid var(--kpi-divider-line) !important;
+      padding: 6px 12px !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-blue .kpi-matte-footer {
+      border-top-color: rgba(59, 130, 246, 0.35) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-amber .kpi-matte-footer {
+      border-top-color: rgba(245, 158, 11, 0.35) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-green .kpi-matte-footer {
+      border-top-color: rgba(16, 185, 129, 0.35) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-red .kpi-matte-footer {
+      border-top-color: rgba(239, 68, 68, 0.35) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-purple .kpi-matte-footer {
+      border-top-color: rgba(168, 85, 247, 0.35) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan .kpi-matte-footer {
+      border-top-color: rgba(6, 182, 212, 0.35) !important;
+    }
+
+    /* تأطير المواد الحرجة بالأحمر الرفيع والمواد المتوفرة بوفرة بالأخضر الرفيع في جداول التطبيق فقط (وليس في الطباعة) */
+    @media screen {
+      .data-table tbody tr.inv-row-critical td {
+        border-top: 1px solid rgba(239, 68, 68, 0.80) !important;
+        border-bottom: 1px solid rgba(239, 68, 68, 0.80) !important;
+        background-color: rgba(239, 68, 68, 0.045) !important;
+      }
+      .data-table tbody tr.inv-row-critical td:first-child {
+        border-right: 2px solid #ef4444 !important;
+      }
+      .data-table tbody tr.inv-row-critical td:last-child {
+        border-left: 1px solid rgba(239, 68, 68, 0.80) !important;
+      }
+
+      .data-table tbody tr.inv-row-abundant td {
+        border-top: 1px solid rgba(16, 185, 129, 0.80) !important;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.80) !important;
+        background-color: rgba(16, 185, 129, 0.045) !important;
+      }
+      .data-table tbody tr.inv-row-abundant td:first-child {
+        border-right: 2px solid #10b981 !important;
+      }
+      .data-table tbody tr.inv-row-abundant td:last-child {
+        border-left: 1px solid rgba(16, 185, 129, 0.80) !important;
+      }
+    }
+
+    @media print {
+      .data-table tbody tr.inv-row-critical td,
+      .data-table tbody tr.inv-row-abundant td {
+        border-color: #000000 !important;
+        background-color: transparent !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -3448,6 +3618,11 @@
         </div>
 
         <div class="header-end-box">
+          <!-- زر تخصيص النطاق الزمني للإحصائيات في الشريط العلوي -->
+          <button type="button" class="theme-toggle-btn header-icon-only-btn" id="header-timeframe-icon-btn" onclick="openTimeframeModal()" title="تخصيص النطاق الزمني للإحصائيات (كامل البيانات)" aria-label="تخصيص النطاق الزمني للإحصائيات">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </button>
+
           <!-- الأيقونة 2: زر البحث كأيقونة فقط (Icon-only) بنفس حجم وستايل أيقونة الوضع الليلي -->
           <button type="button" class="theme-toggle-btn header-icon-only-btn" id="header-search-icon-btn" onclick="openCommandPalette()" title="البحث السريع (Ctrl + K)" aria-label="البحث السريع">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -3581,7 +3756,7 @@
             </div>
 
             <!-- البطاقة 4: المواد الحرجة أو النافدة | أحمر (Red) | أيقونة مثلث تحذير خطية -->
-            <div class="kpi-card kpi-matte-card kpi-theme-red" id="kpi-subcard-lowstock" onclick="switchTab('notifications-view')" title="النقر للانتقال إلى مركز التنبيهات">
+            <div class="kpi-card kpi-matte-card kpi-theme-red" id="kpi-subcard-lowstock" onclick="openInventoryFilteredByStatus('critical')" title="انقر لعرض لائحة المواد الحرجة فقط (المؤطرة بالأحمر) في الجرد">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">المواد الحرجة أو النافدة</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
@@ -3596,14 +3771,14 @@
               <div class="kpi-matte-number tabular-nums" id="kpi-low-stock">0</div>
               <div class="kpi-matte-footer">
                 <span class="kpi-matte-sub">
-                  <span>بلغت الحد الأدنى</span>
+                  <span id="kpi-low-stock-sub">بلغت الحد الأدنى (≤ حد الندرة)</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                 </span>
               </div>
             </div>
 
-            <!-- البطاقة 5: المواد المتوفرة فعلياً | بنفسجي (Purple) | أيقونة صندوق مخزن خطية -->
-            <div class="kpi-card kpi-matte-card kpi-theme-purple" id="kpi-subcard-stock" onclick="switchTab('inventory-view')" title="النقر للانتقال إلى الجرد الدوري للمخزون">
+            <!-- البطاقة 5: المواد المتوفرة فعلياً (بوفرة) | بنفسجي (Purple) | أيقونة صندوق مخزن خطية -->
+            <div class="kpi-card kpi-matte-card kpi-theme-purple" id="kpi-subcard-stock" onclick="openInventoryFilteredByStatus('good')" title="انقر لعرض لائحة المواد المتوفرة بوفرة فقط (المؤطرة بالأخضر) في الجرد">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">المواد المتوفرة فعلياً</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
@@ -3616,10 +3791,10 @@
                   </svg>
                 </span>
               </div>
-              <div class="kpi-matte-number tabular-nums" id="kpi-total-stock">9465</div>
+              <div class="kpi-matte-number tabular-nums" id="kpi-total-stock">0</div>
               <div class="kpi-matte-footer">
                 <span class="kpi-matte-sub">
-                  <span>مجموع الكميات الفعلية</span>
+                  <span id="kpi-total-stock-sub">مادة بوفرة كافية (&gt; حد الوفرة)</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
                 </span>
               </div>
@@ -4385,14 +4560,14 @@
                     <option value="">كافة الأصناف</option>
                   </select>
                 </div>
-                <!-- 3. مرشح مستويات التوفر -->
+                <!-- 3. مرشح مستويات التوفر (حسب خصائص كل مادة: حرجة / عادية / متوفرة بوفرة) -->
                 <div class="form-group" style="margin-bottom: 0;">
-                  <label class="form-label" style="font-size: 0.78rem; margin-bottom: 4px;">مستوى التوفر</label>
+                  <label class="form-label" style="font-size: 0.78rem; margin-bottom: 4px;">مستوى التوفر (حسب كل مادة)</label>
                   <select id="inventory-status-filter" class="form-control" onchange="renderInventoryTable()">
                     <option value="">كافة مستويات التوفر</option>
-                    <option value="critical">وضع حرج (&le; 30)</option>
-                    <option value="limited">محدود (&le; 100)</option>
-                    <option value="good">متوفر (&gt; 100)</option>
+                    <option value="critical">🔴 المواد الحرجة فقط (≤ حد الندرة، القياسي 10)</option>
+                    <option value="limited">🟡 المواد في المعدل العادي (بين الندرة والوفرة)</option>
+                    <option value="good">🟢 المواد المتوفرة بوفرة فقط (&gt; حد الوفرة، القياسي 60)</option>
                   </select>
                 </div>
                 <!-- 4. خيار عدد العناصر أو النتائج -->
@@ -4427,9 +4602,10 @@
               </table>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.82rem; color: var(--text-muted);">
+            <div id="inventory-active-filter-banner" style="display: none; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 14px; margin-bottom: 8px; border-radius: var(--radius-md); font-size: 0.84rem; font-weight: 700;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; gap: 8px;">
               <span id="inventory-items-count">إجمالي المواد: 0</span>
-              <span>المعايير المعتمدة بالدائرة: حرج &le; 30 | محدود &le; 100 | متوفر &gt; 100</span>
+              <span>المعايير القياسية لكل مادة (قابلة للتخصيص لكل مادة): 🔴 حرج &le; 10 | 🟡 عادي (11 إلى 60) | 🟢 متوفر بوفرة &gt; 60</span>
             </div>
 
           </div>
@@ -5280,6 +5456,18 @@
             <label class="form-label">الرصيد الأولي المتوفر <span style="color: var(--danger);">*</span></label>
             <input type="number" id="modal-item-stock" class="form-control tabular-nums" min="0" value="50" required />
           </div>
+          <div class="grid-2" style="gap: 10px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="modal-item-critical-min" style="color: var(--danger);">🔴 حد الندرة / الحرجة (القياسي: 10)</label>
+              <input type="number" id="modal-item-critical-min" class="form-control tabular-nums" min="0" value="10" required />
+              <span style="font-size: 0.72rem; color: var(--text-muted);">تحت أو يساوي هذا العدد تُعتبر المادة حرجة</span>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="modal-item-abundant-min" style="color: var(--success);">🟢 حد الوفرة / الكفاية (القياسي: 60)</label>
+              <input type="number" id="modal-item-abundant-min" class="form-control tabular-nums" min="1" value="60" required />
+              <span style="font-size: 0.72rem; color: var(--text-muted);">فوق هذا العدد تُعتبر المادة متوفرة بوفرة (وبينهما عادي)</span>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -5310,6 +5498,18 @@
           <div class="form-group">
             <label class="form-label">الرصيد الفعلي الحالي <span style="color: var(--danger);">*</span></label>
             <input type="number" id="edit-item-stock" class="form-control tabular-nums" min="0" required />
+          </div>
+          <div class="grid-2" style="gap: 10px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="edit-item-critical-min" style="color: var(--danger);">🔴 حد الندرة / الحرجة (القياسي: 10)</label>
+              <input type="number" id="edit-item-critical-min" class="form-control tabular-nums" min="0" value="10" required />
+              <span style="font-size: 0.72rem; color: var(--text-muted);">تحت أو يساوي هذا العدد تظهر في المواد الحرجة (إطار أحمر)</span>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="edit-item-abundant-min" style="color: var(--success);">🟢 حد الوفرة / الكفاية (القياسي: 60)</label>
+              <input type="number" id="edit-item-abundant-min" class="form-control tabular-nums" min="1" value="60" required />
+              <span style="font-size: 0.72rem; color: var(--text-muted);">فوق هذا العدد تظهر في المواد المتوفرة بوفرة (إطار أخضر)</span>
+            </div>
           </div>
         </form>
       </div>
@@ -5862,9 +6062,9 @@
         versionNumber: "2.5 Enterprise"
       },
       invThresholds: {
-        critical: 30,
-        limited: 100,
-        available: 200
+        critical: 10,
+        limited: 60,
+        available: 60
       },
       aboutApp: {
         appName: "المنظومة الرقمية لتدبير المخزون وإصدار إشهادات التسليم",
@@ -6797,12 +6997,20 @@
         if (!it || typeof it !== 'object') return null;
         const cat = safeText(it.category || it.cat, dataObj.categories[0] || 'أدوات معلوماتية');
         if (!dataObj.categories.includes(cat)) dataObj.categories.push(cat);
+        const cMin = (it.criticalThreshold !== undefined && it.criticalThreshold !== null && it.criticalThreshold !== '')
+          ? safeNum(it.criticalThreshold, 10, false)
+          : 10;
+        const aMin = (it.abundantThreshold !== undefined && it.abundantThreshold !== null && it.abundantThreshold !== '')
+          ? Math.max(cMin + 1, safeNum(it.abundantThreshold, 60, false))
+          : 60;
         return {
           ...it,
           id: safeText(it.id, 'item-' + Math.random().toString(16).slice(2, 8)),
           name: safeText(it.name || it.label || it.designation, 'مادة غير مسماة'),
           category: cat,
-          stock: safeNum(it.stock !== undefined ? it.stock : it.qty, 0, false)
+          stock: safeNum(it.stock !== undefined ? it.stock : (it.quantity !== undefined ? it.quantity : it.qty), 0, false),
+          criticalThreshold: cMin,
+          abundantThreshold: aMin
         };
       }).filter(Boolean);
 
@@ -6964,30 +7172,18 @@
           if (storedData) {
             rawData = JSON.parse(storedData);
 
-            if (!rawData._intentionallyClearedArchive) {
-              const existingTxIds = new Set((rawData.transactions || []).map(t => t.id));
-              (DEFAULT_DATA.transactions || []).forEach(dt => {
-                if (!existingTxIds.has(dt.id)) {
-                  if (!Array.isArray(rawData.transactions)) rawData.transactions = [];
-                  rawData.transactions.push(dt);
-                }
-              });
-              if (!rawData.orders || !Array.isArray(rawData.orders) || rawData.orders.length === 0) {
-                rawData.orders = JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
-              }
+            // عدم إعادة حقن مواد أو عمليات افتراضية إذا كانت قاعدة البيانات المحفوظة تحتوي بالفعل على مصفوفة المواد/العمليات الخاصة بالمستخدم
+            if (!Array.isArray(rawData.transactions) && !rawData._intentionallyClearedArchive) {
+              rawData.transactions = JSON.parse(JSON.stringify(DEFAULT_DATA.transactions));
             }
-
-            if (!rawData._intentionallyClearedInventory) {
-              const existingItemIds = new Set((rawData.items || []).map(i => i.id));
-              (DEFAULT_DATA.items || []).forEach(di => {
-                if (!existingItemIds.has(di.id)) {
-                  if (!Array.isArray(rawData.items)) rawData.items = [];
-                  rawData.items.push(di);
-                }
-              });
-              if (!rawData.auditHistory || !Array.isArray(rawData.auditHistory) || rawData.auditHistory.length === 0) {
-                rawData.auditHistory = JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
-              }
+            if (!Array.isArray(rawData.orders) && !rawData._intentionallyClearedArchive) {
+              rawData.orders = JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
+            }
+            if (!Array.isArray(rawData.items) && !rawData._intentionallyClearedInventory) {
+              rawData.items = JSON.parse(JSON.stringify(DEFAULT_DATA.items));
+            }
+            if (!Array.isArray(rawData.auditHistory) && !rawData._intentionallyClearedInventory) {
+              rawData.auditHistory = JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
             }
 
             if (!rawData.quickNotes || !Array.isArray(rawData.quickNotes)) {
@@ -7168,6 +7364,14 @@
       }
 
       state.currentTab = viewId;
+      const appCont = document.querySelector('.app-container');
+      if (appCont) {
+        appCont.classList.toggle('dashboard-view-active', viewId === 'dashboard-view');
+      }
+      const headerTfBtn = document.getElementById('header-timeframe-icon-btn');
+      if (headerTfBtn) {
+        headerTfBtn.style.display = (viewId === 'dashboard-view') ? '' : 'none';
+      }
 
       if (viewId === 'dashboard-view') renderDashboard();
       else if (viewId === 'issuance-view') populateIssuanceFields();
@@ -7356,14 +7560,13 @@
         });
       });
 
-      let totalStock = 0;
+      let abundantItemsCount = 0;
       let lowStock = 0;
-      const critThresh = safeNum(state.profile?.invThresholds?.critical, 30, false);
       (Array.isArray(state.data.items) ? state.data.items : []).forEach(it => {
-        if (!it) return;
-        const st = Math.max(0, sanitize(it.stock));
-        totalStock += st;
-        if (st <= critThresh) lowStock++;
+        if (!it || it.isDeleted) return;
+        const lvl = getItemAvailabilityLevel(it);
+        if (lvl === 'critical') lowStock++;
+        else if (lvl === 'good') abundantItemsCount++;
       });
 
       const totalDests = sanitize(Object.keys(state.data.destinations || {}).length);
@@ -7371,7 +7574,7 @@
 
       document.getElementById('kpi-total-vouchers').textContent = sanitize(totalVouchers);
       document.getElementById('kpi-total-distributed').textContent = sanitize(totalDistributed);
-      document.getElementById('kpi-total-stock').textContent = sanitize(totalStock);
+      document.getElementById('kpi-total-stock').textContent = sanitize(abundantItemsCount);
       document.getElementById('kpi-low-stock').textContent = sanitize(lowStock);
       document.getElementById('kpi-total-destinations').textContent = sanitize(totalDests);
       document.getElementById('kpi-total-categories').textContent = sanitize(totalCats);
@@ -9011,6 +9214,44 @@ ${itemsText}
       showToast('تم حفظ التعديلات وتحديث المخزون بنجاح وفق المعادلة الصارمة', 'success');
     }
 
+    // دوال حساب عتبات الندرة (الحرجة) والوفرة (الكفاية) الخاصة بكل مادة على حدة
+    function getItemCriticalThreshold(item) {
+      if (item && item.criticalThreshold !== undefined && item.criticalThreshold !== null && item.criticalThreshold !== '') {
+        return Math.max(0, safeNum(item.criticalThreshold, 10, false));
+      }
+      return 10; // الوضع القياسي لحد الندرة / الحرجة: 10 وحدات
+    }
+
+    function getItemAbundantThreshold(item) {
+      const cMin = getItemCriticalThreshold(item);
+      if (item && item.abundantThreshold !== undefined && item.abundantThreshold !== null && item.abundantThreshold !== '') {
+        return Math.max(cMin + 1, safeNum(item.abundantThreshold, 60, false));
+      }
+      return Math.max(cMin + 1, 60); // الوضع القياسي لحد الوفرة / الكفاية: 60 وحدة
+    }
+
+    function getItemAvailabilityLevel(item) {
+      const st = Math.max(0, sanitize(item && (item.stock !== undefined ? item.stock : (item.quantity !== undefined ? item.quantity : item.qty))));
+      const cMin = getItemCriticalThreshold(item);
+      const aMin = getItemAbundantThreshold(item);
+      if (st <= cMin) return 'critical'; // حرجة أو نافدة (≤ حد الندرة)
+      if (st > aMin) return 'good';      // متوفرة بوفرة (> حد الوفرة)
+      return 'limited';                  // عادية (بين حد الندرة وحد الوفرة)
+    }
+
+    function openInventoryFilteredByStatus(targetStatus) {
+      switchTab('inventory-view');
+      const sInput = document.getElementById('inventory-search-input');
+      const cSelect = document.getElementById('inventory-cat-filter');
+      const stSelect = document.getElementById('inventory-status-filter');
+      const limSelect = document.getElementById('inventory-limit-filter');
+      if (sInput) sInput.value = '';
+      if (cSelect) cSelect.value = '';
+      if (limSelect) limSelect.value = 'all';
+      if (stSelect) stSelect.value = targetStatus || '';
+      renderInventoryTable();
+    }
+
     // 15. الجرد الدوري للمخزون
     function renderInventoryTable() {
       const tbody = document.getElementById('inventory-table-body');
@@ -9018,6 +9259,7 @@ ${itemsText}
       const catFilter = document.getElementById('inventory-cat-filter').value;
       const statusFilter = document.getElementById('inventory-status-filter').value;
       const countEl = document.getElementById('inventory-items-count');
+      const bannerEl = document.getElementById('inventory-active-filter-banner');
       if (!tbody) return;
 
       const catSelect = document.getElementById('inventory-cat-filter');
@@ -9030,16 +9272,39 @@ ${itemsText}
         });
       }
 
-      const critThresh = state.profile.invThresholds?.critical || 30;
-      const limThresh = state.profile.invThresholds?.limited || 100;
+      if (bannerEl) {
+        if (statusFilter === 'critical') {
+          bannerEl.style.display = 'flex';
+          bannerEl.style.background = 'rgba(239, 68, 68, 0.12)';
+          bannerEl.style.border = '1px solid rgba(239, 68, 68, 0.65)';
+          bannerEl.style.color = '#ef4444';
+          bannerEl.innerHTML = `<span>🔴 عرض المواد الحرجة أو النافدة فقط (التي بلغ رصيدها حد الندرة الخاص بالمادة أو أقل)</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
+        } else if (statusFilter === 'good') {
+          bannerEl.style.display = 'flex';
+          bannerEl.style.background = 'rgba(16, 185, 129, 0.12)';
+          bannerEl.style.border = '1px solid rgba(16, 185, 129, 0.65)';
+          bannerEl.style.color = '#10b981';
+          bannerEl.innerHTML = `<span>🟢 عرض المواد المتوفرة بوفرة فقط (التي يتجاوز رصيدها حد الوفرة الخاص بالمادة)</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
+        } else if (statusFilter === 'limited') {
+          bannerEl.style.display = 'flex';
+          bannerEl.style.background = 'rgba(245, 158, 11, 0.12)';
+          bannerEl.style.border = '1px solid rgba(245, 158, 11, 0.65)';
+          bannerEl.style.color = '#f59e0b';
+          bannerEl.innerHTML = `<span>🟡 عرض المواد ذات الرصيد العادي (بين حد الندرة وحد الوفرة)</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
+        } else {
+          bannerEl.style.display = 'none';
+          bannerEl.innerHTML = '';
+        }
+      }
 
       let filtered = (state.data.items || []).filter(item => {
         if (!item || item.isDeleted) return false;
         if (search && !fuzzyMatch(`${item.name || ''} ${item.category || ''} ${item.id || ''}`, search)) return false;
         if (catFilter && item.category !== catFilter) return false;
-        if (statusFilter === 'critical' && item.stock > critThresh) return false;
-        if (statusFilter === 'limited' && (item.stock <= critThresh || item.stock > limThresh)) return false;
-        if (statusFilter === 'good' && item.stock <= limThresh) return false;
+        const level = getItemAvailabilityLevel(item);
+        if (statusFilter === 'critical' && level !== 'critical') return false;
+        if (statusFilter === 'limited' && level !== 'limited') return false;
+        if (statusFilter === 'good' && level !== 'good') return false;
         return true;
       });
 
@@ -9097,20 +9362,32 @@ ${itemsText}
         `;
 
         itemsInGroup.forEach(item => {
-          let statusBadge = '<span class="badge badge-success">متوفر بالمخزون</span>';
-          if (item.stock <= 0) statusBadge = '<span class="badge badge-danger">نفد من المخزون</span>';
-          else if (item.stock <= critThresh) statusBadge = '<span class="badge badge-danger">رصيد حرج</span>';
-          else if (item.stock <= limThresh) statusBadge = '<span class="badge badge-warning">رصيد محدود</span>';
+          const itemStock = Math.max(0, sanitize(item.stock));
+          const cMin = getItemCriticalThreshold(item);
+          const aMin = getItemAbundantThreshold(item);
+          const level = getItemAvailabilityLevel(item);
+
+          let rowStatusClass = 'inv-row-normal';
+          let statusBadge = `<span class="badge badge-warning" title="عادي: أكبر من ${cMin} وحتى ${aMin}">رصيد عادي (${cMin + 1}–${aMin})</span>`;
+          if (level === 'critical') {
+            rowStatusClass = 'inv-row-critical';
+            statusBadge = itemStock <= 0
+              ? `<span class="badge badge-danger" title="حد الندرة: ≤ ${cMin}">نفد / حرج (0 ≤ ${cMin})</span>`
+              : `<span class="badge badge-danger" title="حد الندرة: ≤ ${cMin}">رصيد حرج (≤ ${cMin})</span>`;
+          } else if (level === 'good') {
+            rowStatusClass = 'inv-row-abundant';
+            statusBadge = `<span class="badge badge-success" title="حد الوفرة: > ${aMin}">متوفر بوفرة (&gt; ${aMin})</span>`;
+          }
 
           const fullNameEsc = escapeHtml(item.name);
           const smartDisplayHtml = formatItemDisplayHtml(item.name);
 
           html += `
-            <tr class="inventory-cat-item-row" data-parent-cat="${catAttrEsc}" style="${isExpanded ? '' : 'display: none;'}">
+            <tr class="inventory-cat-item-row ${rowStatusClass}" data-parent-cat="${catAttrEsc}" style="${isExpanded ? '' : 'display: none;'}">
               <td style="text-align: center; font-size: 0.75rem;" class="tabular-nums">${rowIdx++}</td>
-              <td><strong class="inventory-item-name" onclick="openEditItemModal('${item.id}')" title="${fullNameEsc} (انقر لعرض التفاصيل وتعديل المادة)">${smartDisplayHtml}</strong></td>
+              <td><strong class="inventory-item-name" onclick="openEditItemModal('${item.id}')" title="${fullNameEsc} (انقر لتعديل المادة وتخصيص حد الوفرة والندرة)">${smartDisplayHtml}</strong></td>
               <td><span class="inventory-item-cat">${escapeHtml(item.category)}</span></td>
-              <td style="text-align: center;"><strong class="tabular-nums font-bold" style="font-size: 0.88rem;">${item.stock}</strong></td>
+              <td style="text-align: center;"><strong class="tabular-nums font-bold" style="font-size: 0.88rem;">${itemStock}</strong></td>
               <td style="text-align: center;">${statusBadge}</td>
               <td style="text-align: center;">
                 <button class="btn-icon" style="width: 30px; height: 30px;" onclick="openEditItemModal('${item.id}')" title="تعديل المادة">
@@ -10303,10 +10580,15 @@ ${itemsText}
         const smartDisplayHtml = formatItemDisplayHtml(it.name);
         const catEsc = escapeHtml(safeText(it.category, 'غير مصنف'));
         const stockVal = sanitize(it.stock);
+        const cMin = getItemCriticalThreshold(it);
+        const aMin = getItemAbundantThreshold(it);
+        const level = getItemAvailabilityLevel(it);
+        const rowClass = level === 'critical' ? 'inv-row-critical' : (level === 'good' ? 'inv-row-abundant' : 'inv-row-normal');
+        const threshBadge = `<div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;">حرج ≤ ${cMin} | وفرة &gt; ${aMin}</div>`;
         return `
-        <tr>
+        <tr class="${rowClass}">
           <td style="text-align: center; font-size: 0.75rem;" class="tabular-nums">${idx + 1}</td>
-          <td><strong class="inventory-item-name" onclick="openEditItemModal('${escapeHtml(it.id)}')" title="${nameEsc} (اضغط للتعديل وعرض التفاصيل الكاملة)">${smartDisplayHtml}</strong></td>
+          <td><strong class="inventory-item-name" onclick="openEditItemModal('${escapeHtml(it.id)}')" title="${nameEsc} (اضغط لتعديل الرصيد وحد الندرة والوفرة)">${smartDisplayHtml}</strong>${threshBadge}</td>
           <td><span class="inventory-item-cat">${catEsc}</span></td>
           <td style="text-align: center;"><strong class="tabular-nums font-bold" style="font-size: 0.84rem;">${stockVal}</strong></td>
           <td style="text-align: center;">
@@ -10331,6 +10613,10 @@ ${itemsText}
       }
       document.getElementById('modal-item-name').value = '';
       document.getElementById('modal-item-stock').value = 50;
+      const critIn = document.getElementById('modal-item-critical-min');
+      const abundIn = document.getElementById('modal-item-abundant-min');
+      if (critIn) critIn.value = 10;
+      if (abundIn) abundIn.value = 60;
       document.getElementById('new-item-modal').classList.add('open');
     }
 
@@ -10347,6 +10633,8 @@ ${itemsText}
       const name = (document.getElementById('modal-item-name').value || '').trim();
       const cat = (document.getElementById('modal-item-cat').value || '').trim();
       const stock = parseInt(document.getElementById('modal-item-stock').value, 10);
+      const critMin = Math.max(0, safeNum(document.getElementById('modal-item-critical-min')?.value, 10, false));
+      const abundMin = Math.max(critMin + 1, safeNum(document.getElementById('modal-item-abundant-min')?.value, 60, false));
 
       if (!name) {
         showToast('يرجى كتابة بيان المادة والمواصفات', 'warning');
@@ -10361,19 +10649,23 @@ ${itemsText}
         id: Math.random().toString(16).slice(2, 10),
         name: name,
         category: cat,
-        stock: isNaN(stock) || stock < 0 ? 0 : stock
+        stock: isNaN(stock) || stock < 0 ? 0 : stock,
+        criticalThreshold: critMin,
+        abundantThreshold: abundMin
       };
 
       state.data.items.unshift(newItem);
       persistAll();
       closeNewItemModal();
       refreshAllBadges();
+      if (typeof updateDashboardDualCardsMetrics === 'function') updateDashboardDualCardsMetrics();
+      if (typeof scanLowStockNotifications === 'function') scanLowStockNotifications(false);
       if (state.currentTab === 'inventory-view') renderInventoryTable();
       if (state.currentTab === 'settings-view') {
         renderSettingsItemsTable();
         renderSettingsCatsTable();
       }
-      showToast(`تمت إضافة المادة "${name}" ضمن صنف "${cat}" بنجاح`, 'success');
+      showToast(`تمت إضافة المادة "${name}" (حرج ≤ ${critMin} | وفرة > ${abundMin}) بنجاح`, 'success');
     }
 
     function openEditItemModal(id) {
@@ -10383,6 +10675,10 @@ ${itemsText}
       document.getElementById('edit-item-id').value = it.id;
       document.getElementById('edit-item-name').value = safeText(it.name, '');
       document.getElementById('edit-item-stock').value = sanitize(it.stock);
+      const critIn = document.getElementById('edit-item-critical-min');
+      const abundIn = document.getElementById('edit-item-abundant-min');
+      if (critIn) critIn.value = getItemCriticalThreshold(it);
+      if (abundIn) abundIn.value = getItemAbundantThreshold(it);
 
       const catSelect = document.getElementById('edit-item-cat');
       catSelect.innerHTML = (state.data.categories || []).map(c => `
@@ -10412,18 +10708,26 @@ ${itemsText}
         return;
       }
 
+      const critMin = Math.max(0, safeNum(document.getElementById('edit-item-critical-min')?.value, 10, false));
+      const abundMin = Math.max(critMin + 1, safeNum(document.getElementById('edit-item-abundant-min')?.value, 60, false));
+
       it.name = newName;
       it.category = newCat;
       it.stock = Math.max(0, safeNum(document.getElementById('edit-item-stock').value, 0, false));
+      it.criticalThreshold = critMin;
+      it.abundantThreshold = abundMin;
 
       persistAll();
       closeEditItemModal();
+      refreshAllBadges();
+      if (typeof updateDashboardDualCardsMetrics === 'function') updateDashboardDualCardsMetrics();
+      if (typeof scanLowStockNotifications === 'function') scanLowStockNotifications(false);
       if (state.currentTab === 'inventory-view') renderInventoryTable();
       if (state.currentTab === 'settings-view') {
         renderSettingsItemsTable();
         renderSettingsCatsTable();
       }
-      showToast('تم حفظ تعديل المادة بنجاح', 'success');
+      showToast(`تم حفظ تعديل المادة وتحديث عتبتي الندرة (≤ ${critMin}) والوفرة (> ${abundMin}) بنجاح`, 'success');
     }
 
     function deleteItem(id) {
@@ -12325,26 +12629,39 @@ ${itemsText}
       const pendingEl = document.getElementById('kpi-pending-orders-dash');
       if (pendingEl) pendingEl.textContent = sanitize(pendingOrdersCount);
 
-      // 2. إصلاح المنطق البرمجي للمواد المتوفرة فعلياً (.reduce لمجموع الكميات الفعلية) والمواد الحرجة (النشطة غير المحذوفة فقط)
+      // 2. حساب عدد المواد المتوفرة بوفرة (> حد الوفرة لكل مادة) وعدد المواد الحرجة (≤ حد الندرة لكل مادة)
       const activeItems = (Array.isArray(state.data.items) ? state.data.items : []).filter(item => item && !item.isDeleted);
       const totalStockQty = activeItems.reduce((sum, item) => {
         const itemQty = Math.max(0, sanitize(item.stock !== undefined ? item.stock : (item.quantity !== undefined ? item.quantity : item.qty)));
         return sum + itemQty;
       }, 0);
 
-      const critThresh = safeNum(state.profile?.invThresholds?.critical, 30, false);
-      const lowStockCount = totalStockQty === 0
-        ? 0
-        : activeItems.filter(item => {
-            const itemQty = Math.max(0, sanitize(item.stock !== undefined ? item.stock : (item.quantity !== undefined ? item.quantity : item.qty)));
-            return itemQty <= critThresh;
-          }).length;
+      let criticalItemsCount = 0;
+      let normalItemsCount = 0;
+      let abundantItemsCount = 0;
+
+      activeItems.forEach(item => {
+        const lvl = getItemAvailabilityLevel(item);
+        if (lvl === 'critical') criticalItemsCount++;
+        else if (lvl === 'good') abundantItemsCount++;
+        else normalItemsCount++;
+      });
 
       const stockEl = document.getElementById('kpi-total-stock');
-      if (stockEl) stockEl.textContent = sanitize(totalStockQty);
+      if (stockEl) stockEl.textContent = sanitize(abundantItemsCount);
+
+      const stockSubEl = document.getElementById('kpi-total-stock-sub');
+      if (stockSubEl) {
+        stockSubEl.textContent = `مادة بوفرة (العادي: ${normalItemsCount} | المجموع: ${totalStockQty})`;
+      }
 
       const lowStockEl = document.getElementById('kpi-low-stock');
-      if (lowStockEl) lowStockEl.textContent = sanitize(lowStockCount);
+      if (lowStockEl) lowStockEl.textContent = sanitize(criticalItemsCount);
+
+      const lowStockSubEl = document.getElementById('kpi-low-stock-sub');
+      if (lowStockSubEl) {
+        lowStockSubEl.textContent = `بلغت الحد الأدنى (≤ حد الندرة للمادة)`;
+      }
 
       // 3. الفلترة الديناميكية لمعدل الاستهلاك (4 حالات متتالية في نفس المكان دون تغيير الصفحة)
       let totalPieces = 0;
@@ -12490,12 +12807,9 @@ ${itemsText}
 
     function scanLowStockNotifications(showFeedback = false) {
       ensureTrashAndNotificationsArrays();
-      const critThresh = safeNum(state.profile?.invThresholds?.critical, 30, false);
+      const critThresh = safeNum(state.profile?.invThresholds?.critical, 10, false);
       const activeItems = (state.data.items || []).filter(it => it && !it.isDeleted);
-      const totalStockQty = activeItems.reduce((s, it) => s + Math.max(0, sanitize(it.stock !== undefined ? it.stock : (it.quantity !== undefined ? it.quantity : it.qty))), 0);
-      const lowItems = totalStockQty === 0
-        ? []
-        : activeItems.filter(it => Math.max(0, sanitize(it.stock !== undefined ? it.stock : (it.quantity !== undefined ? it.quantity : it.qty))) <= critThresh);
+      const lowItems = activeItems.filter(it => getItemAvailabilityLevel(it) === 'critical');
 
       // إزالة تنبيهات المخزون الحرج القديمة قبل توليد التنبيه المحدث لتجنب التكرار
       state.data.notifications = state.data.notifications.filter(n => n.category !== 'low_stock_auto');
