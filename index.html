@@ -3861,6 +3861,123 @@
       flex-shrink: 0 !important;
     }
     /* === END PHASE 8 === */
+
+    /* =========================================================================
+       المرحلة التاسعة (Phase 9 Surgical UI & Admin Audit Refinements):
+       1. إزالة الأيقونات الصغيرة العلوية (.kpi-matte-icon) في حاويات المؤشرات الستة.
+       2. تكبير الأيقونات الكبيرة في الخلفية (.kpi-watermark-icon) بنسبة 20% فقط (34px -> 41px).
+       3. رفع الرقم الكبير في وسط المؤشرات (.kpi-matte-number) بمقدار 3px إضافية عن الشريط الملون أسفله.
+       4. زيادة سمك إطار حاويات المؤشرات الستة بمقدار 1px إضافي (1.5px -> 2.5px).
+       5. إظهار نقطة حالة الاتصال بجانب أيقونة المستخدم العلوية وتحول الأيقونة بكاملها للأحمر عند عدم الاتصال.
+       6. تأطير الحاويات الخمس السفلية في لوحة القيادة بنفس سمك المؤشرات (2.5px) بلون رمادي فاتح قليلاً وخلفية أغمق قليلاً.
+       ========================================================================= */
+
+    /* 1. إزالة الأيقونات الصغيرة في أعلى اليسار داخل حاويات المؤشرات الستة */
+    #dashboard-view .kpi-matte-icon {
+      display: none !important;
+    }
+
+    /* 2. تكبير الأيقونات الكبيرة (العلامة المائية) بنسبة 20% فقط (34px * 1.20 = 41px) */
+    #dashboard-view .kpi-watermark-icon {
+      width: 41px !important;
+      height: 41px !important;
+      opacity: 0.25 !important;
+    }
+
+    /* 3. رفع الرقم الكبير في وسط المؤشرات بـ 3 بكسل إضافية عن الشريط الملون أسفله */
+    #dashboard-view .kpi-matte-number {
+      transform: translateY(-3px) !important;
+      padding: 0px 14px 6px 14px !important;
+    }
+
+    /* 4. زيادة سمك الشريط المؤطر لحاويات المؤشرات الستة بـ 1 بكسل إضافي (2.5px) */
+    #dashboard-view .kpi-matte-card.kpi-theme-blue {
+      border: 2.5px solid var(--kpi-blue-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-amber {
+      border: 2.5px solid var(--kpi-amber-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-green {
+      border: 2.5px solid var(--kpi-green-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-red {
+      border: 2.5px solid var(--kpi-red-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-purple {
+      border: 2.5px solid var(--kpi-purple-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan {
+      border: 2.5px solid var(--kpi-cyan-border) !important;
+    }
+
+    /* 5. أيقونة المستخدم العلوية ونقطة الاتصال: أخضر عند الاتصال، وتتحول الأيقونة بكاملها مع النقطة للأحمر عند الانقطاع */
+    #header-user-avatar-btn {
+      position: relative !important;
+      overflow: visible !important;
+    }
+    #header-user-avatar-btn,
+    #header-user-avatar-btn.online {
+      border-radius: var(--radius-md) !important;
+      border: 1.5px solid #10b981 !important;
+      color: #10b981 !important;
+      background: rgba(16, 185, 129, 0.08) !important;
+    }
+    #header-user-avatar-btn.online svg {
+      color: #10b981 !important;
+      stroke: #10b981 !important;
+    }
+    #header-user-avatar-btn .header-avatar-status-dot,
+    #header-user-avatar-btn.online .header-avatar-status-dot {
+      display: block !important;
+      position: absolute !important;
+      bottom: -3px !important;
+      left: -3px !important;
+      width: 10px !important;
+      height: 10px !important;
+      border-radius: 50% !important;
+      background: #10b981 !important;
+      border: 2px solid var(--bg-card) !important;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.85) !important;
+      z-index: 5 !important;
+      pointer-events: none !important;
+    }
+
+    /* حالة عدم الاتصال (.offline): تتحول الأيقونة بكاملها (الإطار + رمز الشخص + الخلفية + النقطة) إلى اللون الأحمر */
+    #header-user-avatar-btn.offline {
+      border-radius: var(--radius-md) !important;
+      border: 1.5px solid #ef4444 !important;
+      color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.14) !important;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.25) !important;
+    }
+    #header-user-avatar-btn.offline svg {
+      color: #ef4444 !important;
+      stroke: #ef4444 !important;
+    }
+    #header-user-avatar-btn.offline .header-user-avatar-img {
+      border: 1.5px solid #ef4444 !important;
+    }
+    #header-user-avatar-btn.offline .header-avatar-status-dot {
+      display: block !important;
+      background: #ef4444 !important;
+      border: 2px solid var(--bg-card) !important;
+      box-shadow: 0 0 7px rgba(239, 68, 68, 0.95) !important;
+    }
+
+    /* 6. الحاويات الخمس السفلية في لوحة القيادة (الإحصائيات وآخر العمليات المسجلة):
+          إطار بنفس سمك حاويات المؤشرات (2.5px) بلون رمادي فاتح قليلاً، وخلفية قاتمة قليلاً تقترب من خلفية التطبيق */
+    #dashboard-view .card:not(.kpi-card) {
+      border: 2.5px solid #475569 !important;
+      border-radius: 11px !important;
+    }
+    [data-theme="dark"] #dashboard-view .card:not(.kpi-card) {
+      background: #131b2b !important;
+      border: 2.5px solid #475569 !important;
+    }
+    :root:not([data-theme="dark"]) #dashboard-view .card:not(.kpi-card) {
+      background: #f1f5f9 !important;
+      border: 2.5px solid #94a3b8 !important;
+    }
   </style>
 </head>
 <body>
@@ -5034,9 +5151,8 @@
                   <label class="form-label" style="font-size: 0.78rem; margin-bottom: 4px;">مستوى التوفر (حسب كل مادة)</label>
                   <select id="inventory-status-filter" class="form-control" onchange="renderInventoryTable()">
                     <option value="">كافة مستويات التوفر</option>
-                    <option value="critical">🔴 المواد الحرجة فقط (≤ حد الندرة، القياسي 10)</option>
-                    <option value="limited">🟡 المواد في المعدل العادي (بين الندرة والوفرة)</option>
-                    <option value="good">🟢 المواد المتوفرة بوفرة فقط (&gt; حد الوفرة، القياسي 60)</option>
+                    <option value="critical">🔴 حرج</option>
+                    <option value="good">🟢 متوفر</option>
                   </select>
                 </div>
                 <!-- 4. خيار عدد العناصر أو النتائج -->
@@ -5736,6 +5852,9 @@
                 </button>
               </div>
             </div>
+
+            <!-- لوحة الرقابة الإدارية الخاصة بمدير النظام فقط (الحفظ، النسخ الاحتياطي، والمتصلون بقاعدة البيانات) -->
+            <div id="admin-notifications-audit-hub" style="display: none; margin-bottom: 14px;"></div>
 
             <div id="notifications-list-container" style="display: flex; flex-direction: column; gap: 10px;">
               <!-- يملأ ديناميكياً بالتنبيهات -->
@@ -9747,13 +9866,13 @@ ${itemsText}
           bannerEl.style.background = 'rgba(239, 68, 68, 0.12)';
           bannerEl.style.border = '1px solid rgba(239, 68, 68, 0.65)';
           bannerEl.style.color = '#ef4444';
-          bannerEl.innerHTML = `<span>🔴 عرض المواد الحرجة أو النافدة فقط (التي بلغ رصيدها حد الندرة الخاص بالمادة أو أقل)</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
+          bannerEl.innerHTML = `<span>🔴 تصفية حسب مستوى التوفر: حرج</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
         } else if (statusFilter === 'good') {
           bannerEl.style.display = 'flex';
           bannerEl.style.background = 'rgba(16, 185, 129, 0.12)';
           bannerEl.style.border = '1px solid rgba(16, 185, 129, 0.65)';
           bannerEl.style.color = '#10b981';
-          bannerEl.innerHTML = `<span>🟢 عرض المواد المتوفرة بوفرة فقط (التي يتجاوز رصيدها حد الوفرة الخاص بالمادة)</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
+          bannerEl.innerHTML = `<span>🟢 تصفية حسب مستوى التوفر: متوفر</span><button type="button" class="btn btn-outline btn-sm" onclick="openInventoryFilteredByStatus('')" style="padding:2px 10px;font-size:0.76rem;">عرض كافة المواد ✕</button>`;
         } else if (statusFilter === 'limited') {
           bannerEl.style.display = 'flex';
           bannerEl.style.background = 'rgba(245, 158, 11, 0.12)';
@@ -9773,7 +9892,7 @@ ${itemsText}
         const level = getItemAvailabilityLevel(item);
         if (statusFilter === 'critical' && level !== 'critical') return false;
         if (statusFilter === 'limited' && level !== 'limited') return false;
-        if (statusFilter === 'good' && level !== 'good') return false;
+        if (statusFilter === 'good' && level === 'critical') return false;
         return true;
       });
 
@@ -9836,16 +9955,11 @@ ${itemsText}
           const aMin = getItemAbundantThreshold(item);
           const level = getItemAvailabilityLevel(item);
 
-          let rowStatusClass = 'inv-row-normal';
-          let statusBadge = `<span class="badge badge-warning" title="عادي: أكبر من ${cMin} وحتى ${aMin}">رصيد عادي (${cMin + 1}–${aMin})</span>`;
+          let rowStatusClass = 'inv-row-abundant';
+          let statusBadge = `<span class="badge badge-success">متوفر</span>`;
           if (level === 'critical') {
             rowStatusClass = 'inv-row-critical';
-            statusBadge = itemStock <= 0
-              ? `<span class="badge badge-danger" title="حد الندرة: ≤ ${cMin}">نفد / حرج (0 ≤ ${cMin})</span>`
-              : `<span class="badge badge-danger" title="حد الندرة: ≤ ${cMin}">رصيد حرج (≤ ${cMin})</span>`;
-          } else if (level === 'good') {
-            rowStatusClass = 'inv-row-abundant';
-            statusBadge = `<span class="badge badge-success" title="حد الوفرة: > ${aMin}">متوفر بوفرة (&gt; ${aMin})</span>`;
+            statusBadge = `<span class="badge badge-danger">حرج</span>`;
           }
 
           const fullNameEsc = escapeHtml(item.name);
@@ -11053,7 +11167,7 @@ ${itemsText}
         const aMin = getItemAbundantThreshold(it);
         const level = getItemAvailabilityLevel(it);
         const rowClass = level === 'critical' ? 'inv-row-critical' : (level === 'good' ? 'inv-row-abundant' : 'inv-row-normal');
-        const threshBadge = `<div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;">حرج ≤ ${cMin} | وفرة &gt; ${aMin}</div>`;
+        const threshBadge = '';
         return `
         <tr class="${rowClass}">
           <td style="text-align: center; font-size: 0.75rem;" class="tabular-nums">${idx + 1}</td>
@@ -13287,7 +13401,7 @@ ${itemsText}
         const namesPreview = lowItems.slice(0, 3).map(i => i.name).join(' ، ');
         state.data.notifications.unshift({
           id: 'NOTIF-LOWSTOCK-AUTO',
-          title: `⚠️ تنبيه الرصيد الحرج: ${lowItems.length} مادة بلغت الحد الأدنى (≤ ${critThresh})`,
+          title: `⚠️ تنبيه الرصيد الحرج: ${lowItems.length} مادة في مستوى التوفر (حرج)`,
           message: `المواد المعنية: ${namesPreview}${lowItems.length > 3 ? ` و${lowItems.length - 3} مواد أخرى` : ''}. يرجى مراجعة الجرد الدوري للتزويد.`,
           level: 'danger',
           category: 'low_stock_auto',
@@ -14481,6 +14595,499 @@ ${itemsText}
       }
     }
 
+
+    // =========================================================================
+    // المرحلة التاسعة (Phase 9):
+    // 1. تتبع آخر عملية حفظ للنظام وآخر نسخة احتياطية قام المستخدم بتحميلها أو نسخها
+    //    مع تنبيه ذكي إذا مرت مدة يومين إلى 3 أيام (أو تمت عمليات جديدة) دون نسخ احتياطي.
+    // 2. سجل المتصلين بقاعدة البيانات والمستخدمين الذين دخلوا للتطبيق مع إيميلاتهم (خاص بمدير النظام فقط).
+    // 3. عزل مركز التنبيهات: مدير النظام (mohamed105@gmail.com) يرى كل شيء، وغيره يرى فقط المواد الحرجة وعملياته.
+    // =========================================================================
+    const SYSTEM_BACKUP_AUDIT_KEY = 'E_STOCK_SYSTEM_BACKUP_AUDIT_V1';
+    const CONNECTED_USERS_REGISTRY_KEY = 'E_STOCK_CONNECTED_USERS_REGISTRY_V1';
+
+    function formatArabicDateTimeReadable(dateInput) {
+      try {
+        const d = dateInput ? new Date(dateInput) : new Date();
+        if (isNaN(d.getTime())) return '—';
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const hh = String(d.getHours()).padStart(2, '0');
+        const min = String(d.getMinutes()).padStart(2, '0');
+        const sec = String(d.getSeconds()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd} ${hh}:${min}:${sec}`;
+      } catch (e) {
+        return '—';
+      }
+    }
+
+    function getSystemBackupAuditMeta() {
+      const activeEmail = getActiveUserEmail();
+      const perUserKey = `${SYSTEM_BACKUP_AUDIT_KEY}_${activeEmail}`;
+      try {
+        const raw = localStorage.getItem(perUserKey) || localStorage.getItem(SYSTEM_BACKUP_AUDIT_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') return parsed;
+        }
+      } catch (e) {}
+      const nowIso = new Date().toISOString();
+      return {
+        lastSystemSaveIso: nowIso,
+        lastSystemSaveStr: formatArabicDateTimeReadable(nowIso),
+        lastSystemSaveSummary: 'حفظ تلقائي لكافة البيانات في الذاكرة المحلية والسحابية',
+        lastBackupIso: null,
+        lastBackupStr: 'لم يتم تحميل أو نسخ أي نسخة احتياطية بعد',
+        lastBackupType: '—',
+        opsSinceLastBackup: 0
+      };
+    }
+
+    function saveSystemBackupAuditMeta(metaObj) {
+      if (!metaObj) return;
+      const activeEmail = getActiveUserEmail();
+      const perUserKey = `${SYSTEM_BACKUP_AUDIT_KEY}_${activeEmail}`;
+      try {
+        const serialized = JSON.stringify(metaObj);
+        localStorage.setItem(perUserKey, serialized);
+        if (isPrincipalAdminEmail(activeEmail)) {
+          localStorage.setItem(SYSTEM_BACKUP_AUDIT_KEY, serialized);
+        }
+      } catch (e) {}
+    }
+
+    function recordSystemSaveAuditEvent(summaryNote) {
+      const meta = getSystemBackupAuditMeta();
+      const now = new Date();
+      meta.lastSystemSaveIso = now.toISOString();
+      meta.lastSystemSaveStr = formatArabicDateTimeReadable(now);
+      if (summaryNote) meta.lastSystemSaveSummary = summaryNote;
+      saveSystemBackupAuditMeta(meta);
+    }
+
+    function recordUserOperationForBackupAdvisory(opLabel) {
+      const meta = getSystemBackupAuditMeta();
+      const now = new Date();
+      meta.lastSystemSaveIso = now.toISOString();
+      meta.lastSystemSaveStr = formatArabicDateTimeReadable(now);
+      meta.opsSinceLastBackup = (parseInt(meta.opsSinceLastBackup, 10) || 0) + 1;
+      if (opLabel) meta.lastSystemSaveSummary = opLabel;
+      saveSystemBackupAuditMeta(meta);
+    }
+
+    function recordUserBackupCompleted(backupTypeLabel) {
+      const meta = getSystemBackupAuditMeta();
+      const now = new Date();
+      meta.lastBackupIso = now.toISOString();
+      meta.lastBackupStr = formatArabicDateTimeReadable(now);
+      meta.lastBackupType = backupTypeLabel || 'نسخة احتياطية شاملة';
+      meta.opsSinceLastBackup = 0;
+      saveSystemBackupAuditMeta(meta);
+
+      if (isPrincipalAdminEmail(getActiveUserEmail())) {
+        logSystemNotification(
+          `💾 تم حفظ وتحميل نسخة احتياطية (${meta.lastBackupType})`,
+          `قام المستخدم بنسخ/تحميل نسخة احتياطية بتاريخ ${meta.lastBackupStr}. تم تصفير عداد العمليات غير المنسوخة.`,
+          'success',
+          'backup'
+        );
+      }
+      if (state.currentTab === 'notifications-view') {
+        renderNotificationsView();
+      }
+    }
+
+    function getConnectedUsersRegistry() {
+      const list = [];
+      const byEmail = new Map();
+
+      function addOrMergeUser(entry) {
+        if (!entry || !entry.email) return;
+        const cleanEmail = String(entry.email).trim().toLowerCase();
+        if (!cleanEmail.includes('@')) return;
+        const existing = byEmail.get(cleanEmail) || {};
+        const isAdmin = isPrincipalAdminEmail(cleanEmail);
+        const merged = {
+          email: cleanEmail,
+          displayName: entry.displayName || existing.displayName || (isAdmin ? 'محمد أيت حمادي' : cleanEmail.split('@')[0]),
+          role: isAdmin ? 'مدير النظام (Admin)' : 'مستخدم منخرط',
+          isAdmin: isAdmin,
+          lastLoginIso: entry.lastLoginIso || existing.lastLoginIso || new Date().toISOString(),
+          lastLoginStr: entry.lastLoginStr || existing.lastLoginStr || formatArabicDateTimeReadable(entry.lastLoginIso || new Date()),
+          provider: entry.provider || existing.provider || 'Google / Gmail',
+          isOnline: entry.isOnline !== undefined ? Boolean(entry.isOnline) : Boolean(existing.isOnline),
+          loginCount: Math.max(1, parseInt(entry.loginCount || existing.loginCount || 1, 10))
+        };
+        byEmail.set(cleanEmail, merged);
+      }
+
+      try {
+        const raw = localStorage.getItem(CONNECTED_USERS_REGISTRY_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) parsed.forEach(addOrMergeUser);
+        }
+      } catch (e) {}
+
+      // فحص أي حسابات مسجلة في LocalStorage (جلسات أو كلمات مرور أو بيانات مستخدمين)
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i) || '';
+          if (k.startsWith('E_STOCK_USER_PASS_')) {
+            const em = k.replace('E_STOCK_USER_PASS_', '').trim().toLowerCase();
+            if (em && em.includes('@')) {
+              addOrMergeUser({ email: em, provider: 'البريد وكلمة المرور' });
+            }
+          } else if (k.startsWith('E_STOCK_USER_DATA_')) {
+            const em = k.replace('E_STOCK_USER_DATA_', '').trim().toLowerCase();
+            if (em && em.includes('@')) {
+              addOrMergeUser({ email: em });
+            }
+          }
+        }
+      } catch (e) {}
+
+      // التأكد من وجود المستخدم النشط حالياً في القائمة
+      const activeEmail = getActiveUserEmail();
+      if (activeEmail) {
+        addOrMergeUser({
+          email: activeEmail,
+          displayName: (state.profile?.userProfile?.fullName || '').trim() || (isPrincipalAdminEmail(activeEmail) ? 'محمد أيت حمادي' : activeEmail.split('@')[0]),
+          isOnline: (typeof navigator !== 'undefined' ? navigator.onLine !== false : true),
+          lastLoginIso: new Date().toISOString(),
+          lastLoginStr: formatArabicDateTimeReadable(new Date())
+        });
+      }
+
+      const finalArr = Array.from(byEmail.values()).sort((a, b) => {
+        if (a.isAdmin && !b.isAdmin) return -1;
+        if (!a.isAdmin && b.isAdmin) return 1;
+        return String(b.lastLoginIso || '').localeCompare(String(a.lastLoginIso || ''));
+      });
+
+      try {
+        localStorage.setItem(CONNECTED_USERS_REGISTRY_KEY, JSON.stringify(finalArr));
+      } catch (e) {}
+
+      return finalArr;
+    }
+
+    function registerUserDatabaseConnection(userObj) {
+      if (!userObj || !userObj.email) return;
+      const cleanEmail = String(userObj.email).trim().toLowerCase();
+      const isAdmin = isPrincipalAdminEmail(cleanEmail);
+      const now = new Date();
+      const nowIso = now.toISOString();
+      const nowStr = formatArabicDateTimeReadable(now);
+
+      let currentList = [];
+      try {
+        const raw = localStorage.getItem(CONNECTED_USERS_REGISTRY_KEY);
+        if (raw) currentList = JSON.parse(raw) || [];
+      } catch (e) {}
+
+      const idx = currentList.findIndex(u => u && String(u.email).toLowerCase() === cleanEmail);
+      const prevCount = idx !== -1 ? (parseInt(currentList[idx].loginCount, 10) || 0) : 0;
+
+      const updatedEntry = {
+        email: cleanEmail,
+        displayName: userObj.displayName || (idx !== -1 ? currentList[idx].displayName : '') || (isAdmin ? 'محمد أيت حمادي' : cleanEmail.split('@')[0]),
+        role: isAdmin ? 'مدير النظام (Admin)' : 'مستخدم منخرط',
+        isAdmin: isAdmin,
+        lastLoginIso: nowIso,
+        lastLoginStr: nowStr,
+        provider: userObj.provider || (idx !== -1 ? currentList[idx].provider : 'Google / Gmail'),
+        isOnline: true,
+        loginCount: prevCount + 1
+      };
+
+      if (idx !== -1) {
+        currentList[idx] = updatedEntry;
+      } else {
+        currentList.unshift(updatedEntry);
+      }
+
+      try {
+        localStorage.setItem(CONNECTED_USERS_REGISTRY_KEY, JSON.stringify(currentList));
+      } catch (e) {}
+
+      // إضافة تنبيه خاص بمدير النظام فقط حول دخول المستخدم بـ Email الخاص به
+      try {
+        const adminDataKey = STORAGE_KEYS.DATA;
+        const rawAdminData = localStorage.getItem(adminDataKey);
+        if (rawAdminData) {
+          const parsedAdmin = JSON.parse(rawAdminData);
+          if (parsedAdmin && Array.isArray(parsedAdmin.notifications)) {
+            const accessNotifId = `NOTIF-USER-LOGIN-${cleanEmail}`;
+            parsedAdmin.notifications = parsedAdmin.notifications.filter(n => n && n.id !== accessNotifId);
+            parsedAdmin.notifications.unshift({
+              id: accessNotifId,
+              title: `👤 دخول مستخدم ومتصل بقاعدة البيانات: ${cleanEmail}`,
+              message: `دخل المستخدم (${updatedEntry.displayName} — الإيميل: ${cleanEmail}) إلى التطبيق واتصل بقاعدة البيانات بتاريخ ${nowStr}.`,
+              level: 'info',
+              category: 'admin_user_access',
+              adminOnly: true,
+              createdAt: nowStr,
+              isoDate: nowIso,
+              read: false
+            });
+            localStorage.setItem(adminDataKey, JSON.stringify(parsedAdmin));
+          }
+        }
+      } catch (e) {}
+
+      if (isPrincipalAdminEmail(getActiveUserEmail()) && state.data && Array.isArray(state.data.notifications)) {
+        const accessNotifId = `NOTIF-USER-LOGIN-${cleanEmail}`;
+        state.data.notifications = state.data.notifications.filter(n => n && n.id !== accessNotifId);
+        state.data.notifications.unshift({
+          id: accessNotifId,
+          title: `👤 دخول مستخدم ومتصل بقاعدة البيانات: ${cleanEmail}`,
+          message: `دخل المستخدم (${updatedEntry.displayName} — الإيميل: ${cleanEmail}) إلى التطبيق واتصل بقاعدة البيانات بتاريخ ${nowStr}.`,
+          level: 'info',
+          category: 'admin_user_access',
+          adminOnly: true,
+          createdAt: nowStr,
+          isoDate: nowIso,
+          read: false
+        });
+      }
+    }
+
+    // ربط دوال الحفظ والعمليات والنسخ الاحتياطي بتحديث سجل الرقابة تلقائياً
+    const _origPersistAllPhase9 = persistAll;
+    persistAll = function(syncToCloud = true) {
+      recordSystemSaveAuditEvent('حفظ تلقائي لحالة المخزون والإشهادات والطلبيات');
+      return _origPersistAllPhase9.apply(this, arguments);
+    };
+
+    const _origExportDataJSONPhase9 = exportDataJSON;
+    exportDataJSON = function() {
+      const res = _origExportDataJSONPhase9.apply(this, arguments);
+      recordUserBackupCompleted('ملف نسخة احتياطية JSON');
+      return res;
+    };
+
+    const _origExportFullBackupExcelPhase9 = exportFullBackupExcel;
+    exportFullBackupExcel = function() {
+      const res = _origExportFullBackupExcelPhase9.apply(this, arguments);
+      recordUserBackupCompleted('مصنف النسخة الاحتياطية الشاملة Excel (.xls)');
+      return res;
+    };
+
+    const _origCreateCloudBackupSnapshotNowPhase9 = createCloudBackupSnapshotNow;
+    createCloudBackupSnapshotNow = async function() {
+      const res = await _origCreateCloudBackupSnapshotNowPhase9.apply(this, arguments);
+      recordUserBackupCompleted('نسخة احتياطية سحابية Firebase Snapshot');
+      return res;
+    };
+
+    const _origCompleteUserSessionLoginPhase9 = completeUserSessionLogin;
+    completeUserSessionLogin = async function(userObj) {
+      const res = await _origCompleteUserSessionLoginPhase9.apply(this, arguments);
+      registerUserDatabaseConnection(userObj);
+      if (state.currentTab === 'notifications-view') {
+        renderNotificationsView();
+      }
+      refreshAllBadges();
+      return res;
+    };
+
+    // التحقق من صلاحية رؤية التنبيه (مدير النظام يرى كل شيء، وغيره يرى فقط المواد الحرجة والعمليات الخاصة به)
+    function isNotificationVisibleForCurrentUser(notif) {
+      if (!notif) return false;
+      const isAdmin = isPrincipalAdminEmail(getActiveUserEmail());
+      if (isAdmin) return true;
+      const adminOnlyCategories = ['admin_user_access', 'admin_backup_advisory', 'backup', 'system_save'];
+      if (notif.adminOnly === true || adminOnlyCategories.includes(notif.category)) {
+        return false;
+      }
+      return true;
+    }
+
+    // تحديث عداد شارة التنبيهات الجانبية ليحترم عزل صلاحيات مدير النظام عن المستخدم العادي
+    const _origRefreshAllBadgesPhase9 = refreshAllBadges;
+    refreshAllBadges = function() {
+      _origRefreshAllBadgesPhase9.apply(this, arguments);
+      try {
+        const notifBadge = document.getElementById('nav-badge-notifications');
+        if (notifBadge && state.data && Array.isArray(state.data.notifications)) {
+          const visibleUnread = state.data.notifications.filter(n => n && !n.read && isNotificationVisibleForCurrentUser(n)).length;
+          notifBadge.textContent = visibleUnread;
+          notifBadge.style.display = visibleUnread > 0 ? 'inline-flex' : 'none';
+        }
+      } catch (e) {}
+    };
+
+    // ترقية عرض مركز التنبيهات (renderNotificationsView) ليشمل لوحة مدير النظام الحصرية
+    renderNotificationsView = function() {
+      ensureTrashAndNotificationsArrays();
+      const container = document.getElementById('notifications-list-container');
+      const adminHub = document.getElementById('admin-notifications-audit-hub');
+      const subtitleEl = document.querySelector('#notifications-view .card-subtitle');
+      if (!container) return;
+
+      const activeEmail = getActiveUserEmail();
+      const isAdmin = isPrincipalAdminEmail(activeEmail);
+
+      if (subtitleEl) {
+        subtitleEl.textContent = isAdmin
+          ? 'رصد آلي للمواد الحرجة، العمليات المسجلة، تفاصيل آخر حفظ ونسخة احتياطية، وسجل المتصلين بقاعدة البيانات (خاص بمدير النظام)'
+          : 'رصد آلي للمواد التي بلغت الحد الحرج والعمليات المسجلة في حسابك';
+      }
+
+      if (adminHub) {
+        if (!isAdmin) {
+          adminHub.style.display = 'none';
+          adminHub.innerHTML = '';
+        } else {
+          adminHub.style.display = 'block';
+          const auditMeta = getSystemBackupAuditMeta();
+          const connectedUsers = getConnectedUsersRegistry();
+
+          // حساب المدة منذ آخر نسخة احتياطية وتوليد النصيحة الاستباقية (يومين إلى 3 أيام)
+          let daysSinceBackup = null;
+          if (auditMeta.lastBackupIso) {
+            const diffMs = Date.now() - new Date(auditMeta.lastBackupIso).getTime();
+            daysSinceBackup = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+          }
+          const opsCount = (state.data.transactions || []).length + (state.data.orders || []).length + (parseInt(auditMeta.opsSinceLastBackup, 10) || 0);
+          const needsBackupWarning = (!auditMeta.lastBackupIso) || (daysSinceBackup !== null && daysSinceBackup >= 2) || (auditMeta.opsSinceLastBackup > 0);
+
+          const advisoryStatusBadge = needsBackupWarning
+            ? `<span class="badge badge-warning" style="font-size:0.76rem;">⚠️ يوصى بنسخة احتياطية الآن</span>`
+            : `<span class="badge badge-success" style="font-size:0.76rem;">✓ النسخة الاحتياطية محدّثة</span>`;
+
+          const backupAgeText = auditMeta.lastBackupIso
+            ? `منذ ${daysSinceBackup === 0 ? 'اليوم (أقل من 24 ساعة)' : (daysSinceBackup === 1 ? 'يوم واحد' : `${daysSinceBackup} أيام`)}`
+            : 'لم يتم أخذ نسخة احتياطية بعد العمليات الأخيرة';
+
+          const connectedRowsHtml = connectedUsers.map((u, idx) => {
+            const statusDot = u.isOnline
+              ? '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;margin-left:5px;"></span><span class="badge badge-success" style="font-size:0.72rem;">متصل بقاعدة البيانات</span>'
+              : '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-left:5px;"></span><span class="badge badge-subtle" style="font-size:0.72rem;">مسجل بالنظام</span>';
+            return `
+              <tr>
+                <td style="text-align:center;" class="tabular-nums">${idx + 1}</td>
+                <td>
+                  <strong style="color:var(--text-main);font-size:0.84rem;">${escapeHtml(u.displayName || 'مستخدم')}</strong>
+                  <div style="font-size:0.72rem;color:var(--text-muted);">${escapeHtml(u.role)}</div>
+                </td>
+                <td style="direction:ltr;text-align:left;font-family:monospace;font-weight:700;color:var(--primary);">${escapeHtml(u.email)}</td>
+                <td style="text-align:center;">${statusDot}</td>
+                <td style="text-align:center;" class="tabular-nums">${escapeHtml(u.lastLoginStr || '—')}</td>
+              </tr>
+            `;
+          }).join('');
+
+          adminHub.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 12px; margin-bottom: 12px;">
+              <!-- 1. بطاقة تفاصيل آخر عملية حفظ للنظام وآخر نسخة احتياطية + نصيحة عدم تجاوز يومين أو ثلاثة أيام -->
+              <div style="background: var(--bg-muted); border: 1.5px solid var(--border-subtle); border-right: 4px solid #f59e0b; border-radius: var(--radius-md); padding: 14px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+                  <strong style="font-size:0.92rem; color:var(--text-main);">🛡️ تقرير الحفظ الآلي والنسخ الاحتياطي (خاص بمدير النظام)</strong>
+                  ${advisoryStatusBadge}
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px; font-size:0.82rem; color:var(--text-secondary);">
+                  <div>🔹 <strong>آخر عملية حفظ قام بها النظام:</strong> <span class="tabular-nums" style="color:var(--text-main);font-weight:700;">${escapeHtml(auditMeta.lastSystemSaveStr)}</span> (${escapeHtml(auditMeta.lastSystemSaveSummary || 'حفظ تلقائي متزامن')})</div>
+                  <div>🔹 <strong>آخر نسخة احتياطية تم نسخها أو تحميلها:</strong> <span class="tabular-nums" style="color:var(--text-main);font-weight:700;">${escapeHtml(auditMeta.lastBackupStr)}</span> ${auditMeta.lastBackupIso ? `<span class="badge badge-subtle" style="font-size:0.7rem;">${escapeHtml(auditMeta.lastBackupType)} — ${backupAgeText}</span>` : ''}</div>
+                  <div style="margin-top:4px; padding:8px 10px; border-radius:8px; background:rgba(245, 158, 11, 0.12); border:1px solid rgba(245, 158, 11, 0.45); color:var(--text-main); line-height:1.55;">
+                    💡 <strong>تنبيه ونصيحة وقائية:</strong> من الأحسن أن لا تتجاوز مدة <strong>يومين أو ثلاثة أيام (2 - 3 أيام)</strong> بدون عمل نسخة احتياطية بعد العمليات الأخيرة (${opsCount} عملية مسجلة)، وذلك لحماية أرشيف الإشهادات والطلبيات وأرصدة المخزون.
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="exportDataJSON()" style="font-size:0.76rem; padding:4px 10px;">
+                    📥 تحميل نسخة احتياطية JSON
+                  </button>
+                  <button type="button" class="btn btn-success btn-sm" onclick="exportFullBackupExcel()" style="font-size:0.76rem; padding:4px 10px;">
+                    📊 تحميل نسخة Excel الشاملة
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="createCloudBackupSnapshotNow()" style="font-size:0.76rem; padding:4px 10px;">
+                    ☁️ حفظ نسخة سحابية Snapshot
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. بطاقة المتصلين بقاعدة البيانات وإيميلات المستخدمين الذين دخلوا للتطبيق -->
+              <div style="background: var(--bg-muted); border: 1.5px solid var(--border-subtle); border-right: 4px solid #10b981; border-radius: var(--radius-md); padding: 14px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+                  <strong style="font-size:0.92rem; color:var(--text-main);">👥 المتصلون بقاعدة البيانات وسجل دخول المستخدمين</strong>
+                  <span class="badge badge-subtle" style="font-size:0.74rem;">${connectedUsers.length} مستخدم مسجل</span>
+                </div>
+                <div style="font-size:0.78rem; color:var(--text-secondary); margin-bottom:8px;">
+                  قائمة المستخدمين المتصلين بقاعدة البيانات وكل مستخدم دخل للتطبيق مع بريده الإلكتروني (Email):
+                </div>
+                <div class="table-scroll-wrapper" style="max-height: 175px; overflow-y: auto;">
+                  <table class="data-table" style="font-size:0.76rem; width:100%; table-layout:auto;">
+                    <thead>
+                      <tr>
+                        <th style="width:32px; text-align:center;">#</th>
+                        <th>المستخدم والصفة</th>
+                        <th style="text-align:left; direction:ltr;">البريد الإلكتروني (Email)</th>
+                        <th style="text-align:center;">حالة الاتصال</th>
+                        <th style="text-align:center;">آخر دخول للنظام</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${connectedRowsHtml}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // فلترة قائمة التنبيهات حسب الصلاحية (مدير النظام يرى الكل، وغيره يرى فقط المواد الحرجة والعمليات التي قام بها)
+      const allNotifs = state.data.notifications || [];
+      const visibleList = allNotifs.filter(isNotificationVisibleForCurrentUser);
+
+      if (visibleList.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 32px; color: var(--text-muted); background: var(--bg-muted); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
+            لا توجد تنبيهات جديدة حالياً. جميع أنظمة المستودع تعمل بشكل طبيعي.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = visibleList.map(n => {
+        const borderCol = n.level === 'danger' ? '#ef4444' : (n.level === 'warning' ? '#f59e0b' : (n.level === 'success' ? '#10b981' : '#3b82f6'));
+        const unreadBg = n.read ? 'var(--bg-muted)' : 'var(--bg-card)';
+        return `
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px 16px; background: ${unreadBg}; border: 1px solid var(--border-subtle); border-right: 4px solid ${borderCol}; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+            <div style="flex: 1 1 auto;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <strong style="font-size: 0.9rem; color: var(--text-main);">${escapeHtml(n.title)}</strong>
+                ${!n.read ? '<span class="badge badge-danger" style="font-size: 0.68rem;">جديد</span>' : ''}
+              </div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.5;">${escapeHtml(n.message)}</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;" class="tabular-nums">${escapeHtml(n.createdAt || '')}</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+              ${!n.read ? `<button type="button" class="btn btn-outline btn-sm" onclick="markNotificationRead('${escapeHtml(n.id)}')" style="padding: 3px 8px; font-size: 0.74rem;">مقروء</button>` : ''}
+              <button type="button" class="btn-icon danger" onclick="deleteNotificationItem('${escapeHtml(n.id)}')" title="حذف التنبيه">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    // ربط مستمعات حالة الشبكة لتحديث زر المستخدم العلوي (أخضر عند الاتصال، أحمر بالكامل عند الانقطاع)
+    window.addEventListener('online', () => {
+      if (typeof setCloudStatusBadge === 'function') {
+        setCloudStatusBadge(true, 'متصل بقاعدة البيانات');
+      }
+    });
+    window.addEventListener('offline', () => {
+      if (typeof setCloudStatusBadge === 'function') {
+        setCloudStatusBadge(false, 'غير متصل بقاعدة البيانات (انقطاع الشبكة)');
+      }
+    });
+
     function bootApplication() {
       // التحقق مما إذا كانت هناك جلسة دخول نشطة محفوظة
       let savedSession = null;
@@ -14494,6 +15101,7 @@ ${itemsText}
         document.body.classList.remove('auth-locked');
         const overlay = document.getElementById('auth-gate-overlay');
         if (overlay) overlay.style.display = 'none';
+        registerUserDatabaseConnection(savedSession);
       } else {
         // لا يظهر أي شيء في التطبيق أولاً قبل تسجيل الدخول عبر بوابة الجيميل
         document.body.classList.add('auth-locked');
@@ -14558,7 +15166,8 @@ ${itemsText}
       const loaded = await loadFirebaseModulesWithFallback();
       if (!loaded) {
         if (typeof setCloudStatusBadge === 'function') {
-          setCloudStatusBadge(false, 'وضع محلي (بانتظار الشبكة)');
+          const isBrowserOnline = (typeof navigator !== 'undefined' && navigator.onLine !== false);
+          setCloudStatusBadge(isBrowserOnline, isBrowserOnline ? 'متصل بقاعدة البيانات' : 'غير متصل بقاعدة البيانات (انقطاع الشبكة)');
         }
         return;
       }
