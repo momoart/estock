@@ -3446,6 +3446,421 @@
       }
     }
 
+
+    /* === PHASE 8: KPI CARDS REDESIGN, 12PX UNIFIED DASHBOARD GAP & TOP BAR BUTTONS === */
+    :root {
+      --kpi-card-navy-bg: #ffffff;
+      --kpi-header-title-color: #1e293b;
+      --kpi-number-color: #0f172a;
+
+      --kpi-blue-border: rgba(37, 99, 235, 0.72);
+      --kpi-blue-accent: #2563eb;
+      --kpi-blue-footer-bg: rgba(37, 99, 235, 0.10);
+      --kpi-blue-footer-line: rgba(37, 99, 235, 0.28);
+
+      --kpi-amber-border: rgba(217, 119, 6, 0.72);
+      --kpi-amber-accent: #d97706;
+      --kpi-amber-footer-bg: rgba(217, 119, 6, 0.10);
+      --kpi-amber-footer-line: rgba(217, 119, 6, 0.28);
+
+      --kpi-green-border: rgba(16, 185, 129, 0.72);
+      --kpi-green-accent: #059669;
+      --kpi-green-footer-bg: rgba(16, 185, 129, 0.10);
+      --kpi-green-footer-line: rgba(16, 185, 129, 0.28);
+
+      --kpi-red-border: rgba(239, 68, 68, 0.72);
+      --kpi-red-accent: #dc2626;
+      --kpi-red-footer-bg: rgba(239, 68, 68, 0.10);
+      --kpi-red-footer-line: rgba(239, 68, 68, 0.28);
+
+      --kpi-purple-border: rgba(139, 92, 246, 0.72);
+      --kpi-purple-accent: #7c3aed;
+      --kpi-purple-footer-bg: rgba(139, 92, 246, 0.10);
+      --kpi-purple-footer-line: rgba(139, 92, 246, 0.28);
+
+      --kpi-cyan-border: rgba(6, 182, 212, 0.72);
+      --kpi-cyan-accent: #0891b2;
+      --kpi-cyan-footer-bg: rgba(6, 182, 212, 0.10);
+      --kpi-cyan-footer-line: rgba(6, 182, 212, 0.28);
+    }
+
+    [data-theme="dark"], body.dark-mode {
+      --kpi-card-navy-bg: #0c1425;
+      --kpi-header-title-color: #f1f5f9;
+      --kpi-number-color: #ffffff;
+
+      --kpi-blue-border: rgba(59, 130, 246, 0.75);
+      --kpi-blue-accent: #60a5fa;
+      --kpi-blue-footer-bg: rgba(37, 99, 235, 0.24);
+      --kpi-blue-footer-line: rgba(59, 130, 246, 0.35);
+
+      --kpi-amber-border: rgba(245, 158, 11, 0.75);
+      --kpi-amber-accent: #fbbf24;
+      --kpi-amber-footer-bg: rgba(217, 119, 6, 0.24);
+      --kpi-amber-footer-line: rgba(245, 158, 11, 0.35);
+
+      --kpi-green-border: rgba(16, 185, 129, 0.75);
+      --kpi-green-accent: #34d399;
+      --kpi-green-footer-bg: rgba(16, 185, 129, 0.22);
+      --kpi-green-footer-line: rgba(16, 185, 129, 0.35);
+
+      --kpi-red-border: rgba(239, 68, 68, 0.75);
+      --kpi-red-accent: #f87171;
+      --kpi-red-footer-bg: rgba(220, 38, 38, 0.24);
+      --kpi-red-footer-line: rgba(239, 68, 68, 0.35);
+
+      --kpi-purple-border: rgba(168, 85, 247, 0.75);
+      --kpi-purple-accent: #c084fc;
+      --kpi-purple-footer-bg: rgba(147, 51, 234, 0.24);
+      --kpi-purple-footer-line: rgba(168, 85, 247, 0.35);
+
+      --kpi-cyan-border: rgba(6, 182, 212, 0.75);
+      --kpi-cyan-accent: #22d3ee;
+      --kpi-cyan-footer-bg: rgba(8, 145, 178, 0.24);
+      --kpi-cyan-footer-line: rgba(6, 182, 212, 0.35);
+    }
+
+    /* 1. الأزرار الأربعة في الشريط العلوي (.header-end-box): توحيد الشكل لشبه مربع مقوس الحواف وتخصيص ألوان الإطارات */
+    #header-timeframe-icon-btn,
+    #header-search-icon-btn,
+    #header-user-avatar-btn,
+    #theme-toggle-btn {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      min-height: 38px !important;
+      border-radius: var(--radius-md) !important;
+      box-sizing: border-box !important;
+    }
+
+    /* زر تخصيص النطاق الزمني للإحصائيات (ساعة الحائط الدائرية): إطار برتقالي */
+    #header-timeframe-icon-btn {
+      border: 1.5px solid #f59e0b !important;
+      color: #f59e0b !important;
+    }
+    #header-timeframe-icon-btn:hover {
+      background: rgba(245, 158, 11, 0.12) !important;
+      border-color: #fbbf24 !important;
+    }
+
+    /* زر البحث السريع: إطار أزرق */
+    #header-search-icon-btn {
+      border: 1.5px solid #3b82f6 !important;
+      color: #60a5fa !important;
+    }
+    :root:not([data-theme="dark"]) #header-search-icon-btn {
+      color: #2563eb !important;
+    }
+    #header-search-icon-btn:hover {
+      background: rgba(59, 130, 246, 0.12) !important;
+      border-color: #60a5fa !important;
+    }
+
+    /* زر البروفايل (المستخدم): شبه مربع ومقوس في الحواف مثله مثل باقي الأزرار وبإطار أخضر دائماً */
+    #header-user-avatar-btn,
+    #header-user-avatar-btn.online,
+    #header-user-avatar-btn.offline {
+      border-radius: var(--radius-md) !important;
+      border: 1.5px solid #10b981 !important;
+      box-shadow: none !important;
+      color: #10b981 !important;
+    }
+    #header-user-avatar-btn:hover {
+      background: rgba(16, 185, 129, 0.12) !important;
+    }
+    .header-user-avatar-img {
+      border-radius: calc(var(--radius-md) - 2px) !important;
+    }
+    .header-avatar-status-dot {
+      display: none !important;
+    }
+
+    /* زر الوضع النهاري والمظلم: إطار أبيض */
+    #theme-toggle-btn {
+      border: 1.5px solid rgba(255, 255, 255, 0.90) !important;
+      color: #ffffff !important;
+    }
+    :root:not([data-theme="dark"]) #theme-toggle-btn {
+      border: 1.5px solid #ffffff !important;
+      box-shadow: 0 0 0 1px #cbd5e1, var(--shadow-sm) !important;
+      color: var(--text-main) !important;
+    }
+
+    /* 2. توحيد المسافات في صفحة لوحة القيادة كاملة بقيمة ثابتة ومنسقة 12px */
+    .app-container:has(#dashboard-view:not([style*="display: none"])),
+    .app-container.dashboard-view-active {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px !important;
+      box-sizing: border-box !important;
+    }
+
+    #app-main:has(#dashboard-view:not([style*="display: none"])) {
+      padding-bottom: 12px !important;
+    }
+
+    #dashboard-view {
+      --dash-gap: 12px !important;
+    }
+
+    #dashboard-view:not([style*="display: none"]) {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #dashboard-view .kpi-grid-6.kpi-matte-grid-6 {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+      row-gap: 12px !important;
+      column-gap: 12px !important;
+      margin: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: stretch !important;
+    }
+
+    @media (max-width: 768px) {
+      #dashboard-view .kpi-grid-6.kpi-matte-grid-6 {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 12px !important;
+        row-gap: 12px !important;
+        column-gap: 12px !important;
+      }
+    }
+
+    #dashboard-view .grid-2 {
+      gap: 12px !important;
+      row-gap: 12px !important;
+      column-gap: 12px !important;
+      margin: 0 !important;
+    }
+
+    #dashboard-view .card,
+    #dashboard-view .kpi-card {
+      margin: 0 !important;
+    }
+
+    /* 3. إعادة تصميم حاويات المؤشرات الستة (KPI Cards Redesign) مع تقليص الارتفاع ~30% والعلامة المائية بشفافية 25% */
+    #dashboard-view .kpi-matte-card {
+      background: var(--kpi-card-navy-bg) !important;
+      background-image: none !important;
+      border-radius: 11px !important;
+      padding: 0 !important;
+      min-height: 82px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      align-items: stretch !important;
+      position: relative !important;
+      overflow: hidden !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18) !important;
+      transition: transform 0.16s ease, box-shadow 0.16s ease !important;
+    }
+
+    #dashboard-view .kpi-matte-card:hover {
+      transform: translateY(-1px) !important;
+    }
+
+    /* الإطار الملون المميز لكل بطاقة + لون الشريط السفلي المتصل */
+    #dashboard-view .kpi-matte-card.kpi-theme-blue {
+      border: 1.5px solid var(--kpi-blue-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-blue .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-blue .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-blue .kpi-matte-sub {
+      color: var(--kpi-blue-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-blue .kpi-matte-footer {
+      background: var(--kpi-blue-footer-bg) !important;
+      border-top: 1px solid var(--kpi-blue-footer-line) !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-amber {
+      border: 1.5px solid var(--kpi-amber-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-amber .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-amber .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-amber .kpi-matte-sub {
+      color: var(--kpi-amber-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-amber .kpi-matte-footer {
+      background: var(--kpi-amber-footer-bg) !important;
+      border-top: 1px solid var(--kpi-amber-footer-line) !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-green {
+      border: 1.5px solid var(--kpi-green-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-green .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-green .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-green .kpi-matte-sub {
+      color: var(--kpi-green-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-green .kpi-matte-footer {
+      background: var(--kpi-green-footer-bg) !important;
+      border-top: 1px solid var(--kpi-green-footer-line) !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-red {
+      border: 1.5px solid var(--kpi-red-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-red .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-red .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-red .kpi-matte-sub {
+      color: var(--kpi-red-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-red .kpi-matte-footer {
+      background: var(--kpi-red-footer-bg) !important;
+      border-top: 1px solid var(--kpi-red-footer-line) !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-purple {
+      border: 1.5px solid var(--kpi-purple-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-purple .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-purple .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-purple .kpi-matte-sub {
+      color: var(--kpi-purple-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-purple .kpi-matte-footer {
+      background: var(--kpi-purple-footer-bg) !important;
+      border-top: 1px solid var(--kpi-purple-footer-line) !important;
+    }
+
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan {
+      border: 1.5px solid var(--kpi-cyan-border) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan .kpi-matte-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan .kpi-watermark-icon,
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan .kpi-matte-sub {
+      color: var(--kpi-cyan-accent) !important;
+    }
+    #dashboard-view .kpi-matte-card.kpi-theme-cyan .kpi-matte-footer {
+      background: var(--kpi-cyan-footer-bg) !important;
+      border-top: 1px solid var(--kpi-cyan-footer-line) !important;
+    }
+
+    /* أ. رأس البطاقة (Header): العنوان العربي الواضح في اليمين والأيقونة الصغيرة الملونة في اليسار */
+    #dashboard-view .kpi-matte-top {
+      padding: 5px 12px 0px 10px !important;
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 8px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    #dashboard-view .kpi-matte-title {
+      font-size: 0.83rem !important;
+      font-weight: 700 !important;
+      color: var(--kpi-header-title-color) !important;
+      line-height: 1.15 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    #dashboard-view .kpi-matte-icon {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      opacity: 1 !important;
+    }
+
+    #dashboard-view .kpi-matte-icon svg {
+      width: 14px !important;
+      height: 14px !important;
+      stroke-width: 2 !important;
+    }
+
+    /* ب. الأيقونة الكبيرة الزخرفية في خلفية البطاقة (Watermark Icon — Opacity: 0.25 فقط على الأيقونة الكبيرة) */
+    #dashboard-view .kpi-watermark-icon {
+      position: absolute !important;
+      left: 28px !important;
+      top: 45% !important;
+      transform: translateY(-50%) !important;
+      width: 34px !important;
+      height: 34px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      opacity: 0.25 !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+    }
+
+    #dashboard-view .kpi-watermark-icon svg {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* ج. الرقم الرئيسي (Hero Number): أبيض ناصع وواضح ومهيمن دون فراغات رأسية زائدة */
+    #dashboard-view .kpi-matte-number {
+      background: transparent !important;
+      border-top: none !important;
+      padding: 0px 14px 3px 14px !important;
+      margin: 0 !important;
+      font-size: 2.08rem !important;
+      font-weight: 900 !important;
+      line-height: 1.0 !important;
+      text-align: center !important;
+      color: var(--kpi-number-color) !important;
+      flex: 1 1 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      z-index: 2 !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    /* د. الشريط السفلي (Footer): شريط ملون نحيف ومتصل بحافتي البطاقة السفلية دون فجوة */
+    #dashboard-view .kpi-matte-footer {
+      padding: 3px 10px !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    #dashboard-view .kpi-matte-sub {
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      line-height: 1.15 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 5px !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 100% !important;
+    }
+
+    #dashboard-view .kpi-matte-sub svg {
+      width: 12px !important;
+      height: 12px !important;
+      stroke-width: 2.2 !important;
+      flex-shrink: 0 !important;
+    }
+    /* === END PHASE 8 === */
   </style>
 </head>
 <body>
@@ -3618,9 +4033,16 @@
         </div>
 
         <div class="header-end-box">
-          <!-- زر تخصيص النطاق الزمني للإحصائيات في الشريط العلوي -->
+          <!-- زر تخصيص النطاق الزمني للإحصائيات في الشريط العلوي (أيقونة ساعة حائط دائرية) -->
           <button type="button" class="theme-toggle-btn header-icon-only-btn" id="header-timeframe-icon-btn" onclick="openTimeframeModal()" title="تخصيص النطاق الزمني للإحصائيات (كامل البيانات)" aria-label="تخصيص النطاق الزمني للإحصائيات">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <line x1="12" y1="4.8" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="19.2"></line>
+              <line x1="4.8" y1="12" x2="6" y2="12"></line>
+              <line x1="18" y1="12" x2="19.2" y2="12"></line>
+              <polyline points="12 7.5 12 12 15.2 13.8"></polyline>
+            </svg>
           </button>
 
           <!-- الأيقونة 2: زر البحث كأيقونة فقط (Icon-only) بنفس حجم وستايل أيقونة الوضع الليلي -->
@@ -3682,15 +4104,14 @@
             </div>
           </div>
 
-          <!-- البطاقات الست المستقلة (6 Minimalist Matte Cards — 3x2 Desktop / 1x6 Mobile — 5px Gap — 1px Colored Border — Linear SVG Icons) -->
+          <!-- البطاقات الست المستقلة (6 Redesigned Compact KPI Cards — 3x2 Desktop / 1x6 Mobile — 12px Gap — 25% Watermark Icons) -->
           <div class="kpi-grid-6 kpi-matte-grid-6">
 
-            <!-- البطاقة 1: التسليمات المكتملة | أزرق (Blue) | أيقونة مستند/إشهاد خطية -->
+            <!-- البطاقة 1: التسليمات المكتملة | أزرق (Blue) | أيقونة مستند/إشهاد خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-blue" id="kpi-subcard-vouchers" onclick="switchTab('history-view')" title="النقر للانتقال إلى سجل العمليات والأرشيف">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">التسليمات المكتملة</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة مستند / إشهاد خطية -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
@@ -3699,6 +4120,15 @@
                     <line x1="10" y1="9" x2="8" y2="9"></line>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-total-vouchers">17</div>
               <div class="kpi-matte-footer">
@@ -3710,12 +4140,11 @@
               </div>
             </div>
 
-            <!-- البطاقة 2: الطلبات قيد المعالجة | برتقالي/ذهبي (Orange/Amber) | أيقونة ساعة رملية خطية -->
+            <!-- البطاقة 2: الطلبات قيد المعالجة | برتقالي/ذهبي (Orange/Amber) | أيقونة ساعة رملية خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-amber" id="kpi-subcard-orders" onclick="switchTab('orders-view')" title="النقر للانتقال إلى صفحة الطلبات">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">الطلبات قيد المعالجة</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة ساعة رملية خطية (Hourglass) -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 22h14"></path>
                     <path d="M5 2h14"></path>
@@ -3723,6 +4152,14 @@
                     <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 22h14"></path>
+                  <path d="M5 2h14"></path>
+                  <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path>
+                  <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-pending-orders-dash">2</div>
               <div class="kpi-matte-footer">
@@ -3733,17 +4170,22 @@
               </div>
             </div>
 
-            <!-- البطاقة 3: معدل الاستهلاك | أخضر (Green) | أيقونة رسم بياني صاعد خطية -->
+            <!-- البطاقة 3: معدل الاستهلاك | أخضر (Green) | أيقونة رسم بياني صاعد خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-green" id="kpi-subcard-consumption" onclick="rotateConsumptionMetric(event)" title="انقر للتبديل بين: متوسط سنوي | متوسط شهري | مقارنة سنوية | مقارنة شهرية">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title" id="kpi-consumption-title">معدل الاستهلاك</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة رسم بياني صاعد خطية (Trending Up) -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
                     <polyline points="17 6 23 6 23 12"></polyline>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-consumption-rate">101</div>
               <div class="kpi-matte-footer">
@@ -3755,18 +4197,24 @@
               </div>
             </div>
 
-            <!-- البطاقة 4: المواد الحرجة أو النافدة | أحمر (Red) | أيقونة مثلث تحذير خطية -->
+            <!-- البطاقة 4: المواد الحرجة أو النافدة | أحمر (Red) | أيقونة مثلث تحذير خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-red" id="kpi-subcard-lowstock" onclick="openInventoryFilteredByStatus('critical')" title="انقر لعرض لائحة المواد الحرجة فقط (المؤطرة بالأحمر) في الجرد">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">المواد الحرجة أو النافدة</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة مثلث تحذير خطية (Warning Triangle) -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                     <line x1="12" y1="9" x2="12" y2="13"></line>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-low-stock">0</div>
               <div class="kpi-matte-footer">
@@ -3777,12 +4225,11 @@
               </div>
             </div>
 
-            <!-- البطاقة 5: المواد المتوفرة فعلياً (بوفرة) | بنفسجي (Purple) | أيقونة صندوق مخزن خطية -->
+            <!-- البطاقة 5: المواد المتوفرة فعلياً (بوفرة) | بنفسجي (Purple) | أيقونة صندوق مخزن خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-purple" id="kpi-subcard-stock" onclick="openInventoryFilteredByStatus('good')" title="انقر لعرض لائحة المواد المتوفرة بوفرة فقط (المؤطرة بالأخضر) في الجرد">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title">المواد المتوفرة فعلياً</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة صندوق مخزن خطية (Package Box) -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
                     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -3790,6 +4237,14 @@
                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-total-stock">0</div>
               <div class="kpi-matte-footer">
@@ -3800,12 +4255,11 @@
               </div>
             </div>
 
-            <!-- البطاقة 6: عدد الجهات المستفيدة | سماوي (Cyan) | أيقونة مبنى/مؤسسة خطية -->
+            <!-- البطاقة 6: عدد الجهات المستفيدة | سماوي (Cyan) | أيقونة مبنى/مؤسسة خطية + علامة مائية 25% -->
             <div class="kpi-card kpi-matte-card kpi-theme-cyan" id="kpi-subcard-entities" onclick="rotateEntitiesMetric(event)" title="انقر للتبديل بين: عدد الجهات المستفيدة | عدد الأصناف المعتمدة | العدد الإجمالي للمواد المعتمدة">
               <div class="kpi-matte-top">
                 <span class="kpi-matte-title" id="kpi-entities-title">عدد الجهات المستفيدة</span>
                 <span class="kpi-matte-icon" aria-hidden="true">
-                  <!-- أيقونة مبنى / مؤسسة خطية (Building / Institution) -->
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
                     <path d="M9 22v-4h6v4"></path>
@@ -3820,6 +4274,21 @@
                     <line x1="8" y1="14" x2="8.01" y2="14"></line>
                   </svg>
                 </span>
+              </div>
+              <div class="kpi-watermark-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                  <path d="M9 22v-4h6v4"></path>
+                  <line x1="8" y1="6" x2="8.01" y2="6"></line>
+                  <line x1="16" y1="6" x2="16.01" y2="6"></line>
+                  <line x1="12" y1="6" x2="12.01" y2="6"></line>
+                  <line x1="12" y1="10" x2="12.01" y2="10"></line>
+                  <line x1="12" y1="14" x2="12.01" y2="14"></line>
+                  <line x1="16" y1="10" x2="16.01" y2="10"></line>
+                  <line x1="16" y1="14" x2="16.01" y2="14"></line>
+                  <line x1="8" y1="10" x2="8.01" y2="10"></line>
+                  <line x1="8" y1="14" x2="8.01" y2="14"></line>
+                </svg>
               </div>
               <div class="kpi-matte-number tabular-nums" id="kpi-total-destinations">6</div>
               <div class="kpi-matte-footer">
