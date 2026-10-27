@@ -2325,6 +2325,107 @@
       margin: 0 !important;
     }
 
+    /* بوابة تسجيل الدخول الإجبارية والمزامنة السحابية (Firebase Auth Gate & Cloud Sync) */
+    #auth-gate-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9500;
+      background: radial-gradient(circle at top right, #0f172a 0%, #09101f 55%, #061b18 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+      direction: rtl;
+    }
+    body.auth-locked .app-layout {
+      filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+      visibility: hidden;
+    }
+    .auth-gate-card {
+      width: 100%;
+      max-width: 470px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 26px 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      color: var(--text-main);
+    }
+    .auth-google-btn {
+      width: 100%;
+      height: 46px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: #1f2937;
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .auth-google-btn:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.22);
+    }
+    .auth-mode-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--bg-muted);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+    .auth-mode-tab {
+      height: 34px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .auth-mode-tab.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+    .cloud-sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981;
+      font-size: 0.74rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .cloud-sync-pill.offline {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #f59e0b;
+    }
+
     /* شعار التطبيق في الشريط العلوي */
     .header-app-logo-badge {
       width: 34px;
@@ -2711,10 +2812,10 @@
             <span>المديرية الإقليمية بسطات</span>
           </div>
         </div>
-        <button type="button" class="sidebar-close-btn" onclick="toggleSidebar(false)" title="إغلاق القائمة" aria-label="إغلاق القائمة">
+        <button type="button" class="sidebar-close-btn" onclick="toggleSidebar(false)" title="تقليص وإغلاق الشريط الجانبي" aria-label="إغلاق القائمة">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="11 17 6 12 11 7"></polyline>
-            <polyline points="18 17 13 12 18 7"></polyline>
+            <polyline points="13 17 18 12 13 7"></polyline>
+            <polyline points="6 17 11 12 6 7"></polyline>
           </svg>
         </button>
       </div>
@@ -2786,7 +2887,7 @@
 
       <!-- هوية المسؤول وزر حول البرنامج -->
       <div class="sidebar-footer">
-        <div class="user-profile-card" onclick="switchTab('settings-view'); toggleSidebar(false);">
+        <div class="user-profile-card" onclick="openUserProfileSettingsDirectly()" title="الانتقال المباشر إلى مركز الإعدادات — 6. المستخدم / الملف الشخصي">
           <div class="user-avatar-circle">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
@@ -2835,6 +2936,14 @@
         </div>
 
         <div class="header-end-box">
+          <div id="cloud-sync-status-badge" class="cloud-sync-pill" onclick="openUserProfileSettingsDirectly()" title="حالة الاتصال والمزامنة السحابية (Firebase) — اضغط لإدارة الحساب والملف الشخصي">
+            <span id="cloud-sync-dot" style="width: 8px; height: 8px; border-radius: 50%; background: currentColor; display: inline-block;"></span>
+            <span id="cloud-sync-text" class="btn-text">متصل بالسحابة</span>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="header-logout-btn" onclick="logoutCurrentUser()" title="تسجيل الخروج وتبديل الحساب">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span class="btn-text">خروج</span>
+          </button>
           <button class="btn btn-secondary btn-sm" onclick="openCommandPalette()" title="البحث السريع (Ctrl + K)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <span class="btn-text">بحث</span>
@@ -4082,7 +4191,43 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                     حفظ بيانات الملف الشخصي
                   </button>
-                  <span style="font-size: 0.8rem; color: var(--text-muted);">* تنعكس هذه البيانات فوراً على واجهة البرنامج ووثائق الإشهادات الرسمية</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">* تنعكس هذه البيانات فوراً على واجهة البرنامج ووثائق الإشهادات وتُحفظ في حسابك السحابي (Firebase)</span>
+                </div>
+
+                <!-- قسم إدارة حساب الدخول والمزامنة السحابية وكلمة المرور (Firebase Auth & Gmail) -->
+                <div style="margin-top: 22px; border-top: 1.5px solid var(--border-subtle); padding-top: 18px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                    <div>
+                      <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--text-main); margin: 0;">🔐 حساب الدخول والمزامنة السحابية (Google Gmail & Firebase)</h4>
+                      <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">إدارة البريد الإلكتروني المرتبط بالحساب، إضافة أو تعديل كلمة المرور (Mot de passe)، والمزامنة السحابية</div>
+                    </div>
+                    <span id="profile-account-role-badge" class="badge badge-subtle" style="font-weight: 800; font-size: 0.78rem;">الأدمنستراتور الرئيسي</span>
+                  </div>
+
+                  <div class="grid-2" style="background: var(--bg-muted); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 12px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <label class="form-label" for="account-connected-email">حساب الجيميل المتصل حالياً (Gmail)</label>
+                      <input type="email" id="account-connected-email" class="form-control" readonly style="opacity: 0.85; font-weight: 700; direction: ltr; text-align: left;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <label class="form-label" for="account-new-password">إضافة أو تعديل كلمة المرور (Mot de passe — اختياري)</label>
+                      <div style="display: flex; gap: 8px;">
+                        <input type="password" id="account-new-password" class="form-control" placeholder="أدخل كلمة مرور جديدة (6 أحرف على الأقل)..." autocomplete="new-password" />
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="saveAccountPasswordSettings()" style="white-space: nowrap;">حفظ كلمة المرور</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                      <button type="button" class="btn btn-outline btn-sm" onclick="forceCloudSyncNow()">
+                        🔄 مزامنة فورية مع قاعدة بيانات Firebase
+                      </button>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="logoutCurrentUser()">
+                      🚪 تسجيل الخروج من الحساب الحالي
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4808,6 +4953,72 @@
       <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px;">
         <button type="button" class="btn btn-secondary btn-sm" onclick="closeAppDialogModal()">إلغاء</button>
         <button type="button" class="btn btn-primary btn-sm" id="app-dialog-confirm-btn" onclick="confirmAppDialogAction()">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- بوابة تسجيل الدخول الإجبارية عبر الجيميل وFirebase (لا يظهر أي شيء في التطبيق قبل تسجيل الدخول) -->
+  <div id="auth-gate-overlay" class="no-print" role="dialog" aria-modal="true" aria-labelledby="auth-gate-title">
+    <div class="auth-gate-card">
+      <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+        <div style="width: 64px; height: 64px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3); border: 1.5px solid rgba(212,175,55,0.45);">
+          <img id="auth-gate-logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im1pbkJnR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjRjODEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxZTNhOGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTI0RTNGIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtaW5Cb3hUb3AiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y1OWUwYiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibWluQm94TGVmdCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYmJmMjQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZDk3NzA2Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtaW5Cb3hSaWdodCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkOTc3MDYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYjQ1MzA5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8IS0tINiu2YTZgdmK2Kkg2YXYsdio2LnYqSDYqNiy2YjYp9mK2Kcg2YbYp9i52YXYqSDZiNil2LfYp9ixINiw2YfYqNmKINiu2YHZitmBINmF2KrZhtin2LPZgiDZhdi5INmH2YjZitipINin2YTYqti32KjZitmCIC0tPgogIDxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjgiIGZpbGw9InVybCgjbWluQmdHcmFkKSIvPgogIDxyZWN0IHg9IjYiIHk9IjYiIHdpZHRoPSIxMDgiIGhlaWdodD0iMTA4IiByeD0iMjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q0QUYzNyIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNDUiLz4KICA8IS0tINi12YbYr9mI2YIg2KjYttin2LnYqSDZhdiq2KzZh9mKINio2LPZiti3INmI2KPZhtmK2YIg2YrYqtmI2LPYtyDYp9mE2YTZiNi62YggKE1pbmltYWxpc3QgSXNvbWV0cmljIFBhY2thZ2UpIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDIpIj4KICAgIDwhLS0g2KfZhNmI2KzZhyDYp9mE2LnZhNmI2Yog2YTZhNi12YbYr9mI2YIgLS0+CiAgICA8cG9seWdvbiBwb2ludHM9IjYwLDIyIDk2LDQwIDYwLDU4IDI0LDQwIiBmaWxsPSJ1cmwoI21pbkJveFRvcCkiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwhLS0g2KfZhNmI2KzZhyDYp9mE2KPZitiz2LEg2YTZhNi12YbYr9mI2YIgLS0+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDQwIDYwLDU4IDYwLDk2IDI0LDc4IiBmaWxsPSJ1cmwoI21pbkJveExlZnQpIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8IS0tINin2YTZiNis2Ycg2KfZhNij2YrZhdmGINmE2YTYtdmG2K/ZiNmCIC0tPgogICAgPHBvbHlnb24gcG9pbnRzPSI2MCw1OCA5Niw0MCA5Niw3OCA2MCw5NiIgZmlsbD0idXJsKCNtaW5Cb3hSaWdodCkiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwhLS0g2LTYsdmK2Lcg2KfZhNil2LrZhNin2YIg2KfZhNij2YjYs9i3INin2YTYqNiz2YrYtyAoUGFja2FnZSBUYXBlKSAtLT4KICAgIDxwb2x5Z29uIHBvaW50cz0iNDksMjcuNSA3MSwzOC41IDcxLDUyLjUgNDksNDEuNSIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45Ii8+CiAgICA8cG9seWdvbiBwb2ludHM9IjU1LDU1LjUgNjUsNTUuNSA2NSw3MCA1NSw3MCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44NSIvPgogICAgPCEtLSDYrti3INiq2YHYtdmK2YTZiiDYtdi62YrYsSDYo9mG2YrZgiDYudmE2Ykg2KfZhNi12YbYr9mI2YIgLS0+CiAgICA8bGluZSB4MT0iMzQiIHkxPSI2OCIgeDI9IjQ4IiB5Mj0iNzUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC44Ii8+CiAgPC9nPgo8L3N2Zz4=" alt="لوغو المنظومة" style="width: 100%; height: 100%; object-fit: contain;" />
+        </div>
+        <h2 id="auth-gate-title" style="font-size: 1.18rem; font-weight: 900; margin: 4px 0 0 0; color: var(--text-main);">
+          المنظومة المركزية لتدبير المخزون وإصدار الإشهادات
+        </h2>
+        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+          بوابة الدخول الآمن والمزامنة السحابية عبر الجيميل (Google &amp; Firebase)
+        </div>
+      </div>
+
+      <!-- زر الدخول السريع عبر Google / Gmail (يكفي وحده للدخول أو إنشاء الحساب) -->
+      <button type="button" class="auth-google-btn" id="btn-google-signin" onclick="loginWithGoogleAuth()">
+        <svg width="20" height="20" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+          <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+          <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+          <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+        </svg>
+        <span>تسجيل الدخول مباشرة بواسطة حساب Gmail / Google</span>
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.76rem;">
+        <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+        <span>أو الدخول بالبريد الإلكتروني (Gmail) وكلمة المرور</span>
+        <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+      </div>
+
+      <div class="auth-mode-tabs">
+        <button type="button" class="auth-mode-tab active" id="auth-tab-login" onclick="switchAuthGateTab('login')">تسجيل الدخول لحسابك</button>
+        <button type="button" class="auth-mode-tab" id="auth-tab-register" onclick="switchAuthGateTab('register')">مستخدم جديد / تهيئة حساب</button>
+      </div>
+
+      <form id="auth-gate-form" onsubmit="event.preventDefault(); submitAuthGateForm();" style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group" id="auth-name-group" style="display: none; margin-bottom: 0;">
+          <label class="form-label" for="auth-input-name">الاسم الشخصي الكامل (قابل للتعديل لاحقاً)</label>
+          <input type="text" id="auth-input-name" class="form-control" placeholder="اكتب اسمك الكامل..." />
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="auth-input-email"><span class="req-star">*</span> البريد الإلكتروني (Gmail)</label>
+          <input type="email" id="auth-input-email" class="form-control" placeholder="example@gmail.com" required style="direction: ltr; text-align: left;" />
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="auth-input-password">كلمة المرور (Mot de passe — اختيارية للدخول السريع بالجيميل)</label>
+          <input type="password" id="auth-input-password" class="form-control" placeholder="أدخل كلمة المرور أو اتركها فارغة للدخول المباشر بالجيميل..." />
+        </div>
+
+        <div id="auth-gate-error-box" style="display: none; padding: 10px 12px; border-radius: 8px; background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger); font-size: 0.8rem; font-weight: 700;"></div>
+
+        <button type="submit" class="btn btn-primary w-full" id="auth-submit-btn" style="height: 44px; font-weight: 800; font-size: 0.92rem;">
+          دخول إلى المنظومة
+        </button>
+      </form>
+
+      <div style="font-size: 0.73rem; color: var(--text-muted); text-align: center; line-height: 1.5; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+        كل مستخدم يرتبط بحسابه المستقل في قاعدة بيانات <strong>Firebase (estock105)</strong>. حساب الأدمنستراتور الرئيسي (<code>mohamed105@gmail.com</code>) يحتفظ بجميع المعطيات الرسمية للمديرية، بينما يبدأ أي مستخدم آخر بصفحة بيانات فارغة تماماً (0).
       </div>
     </div>
   </div>
@@ -5644,24 +5855,138 @@
       historyPageSize: 10
     };
 
-    // 4. ترحيل وتطبيع آمن وقابل لإعادة التنفيذ (Idempotent Non-Destructive Migration)
-    function migrateAndNormalizeData(rawData, rawProfile) {
-      const dataObj = (rawData && typeof rawData === 'object') ? rawData : JSON.parse(JSON.stringify(DEFAULT_DATA));
-      const profObj = (rawProfile && typeof rawProfile === 'object') ? rawProfile : JSON.parse(JSON.stringify(DEFAULT_PROFILE));
+    // 4. نظام عزل المستخدمين والأدمنستراتور الرئيسي (Principal Admin vs Zero-State User Isolation)
+    const PRINCIPAL_ADMIN_EMAIL = 'mohamed105@gmail.com';
+    let _currentAuthUser = null;
+    let _authGateMode = 'login';
+    let _firestoreUnsubscribe = null;
+    let _ignoreNextSnapshot = false;
 
-      if (!Array.isArray(dataObj.categories)) dataObj.categories = [...DEFAULT_DATA.categories];
+    function isPrincipalAdminEmail(email) {
+      return String(email || '').trim().toLowerCase() === PRINCIPAL_ADMIN_EMAIL;
+    }
+
+    function getActiveUserEmail() {
+      if (_currentAuthUser && _currentAuthUser.email) {
+        return String(_currentAuthUser.email).trim().toLowerCase();
+      }
+      try {
+        const savedSession = localStorage.getItem('E_STOCK_ACTIVE_AUTH_SESSION');
+        if (savedSession) {
+          const parsed = JSON.parse(savedSession);
+          if (parsed && parsed.email) return String(parsed.email).trim().toLowerCase();
+        }
+      } catch (e) {}
+      return PRINCIPAL_ADMIN_EMAIL;
+    }
+
+    function getUserScopedKeys(email) {
+      const norm = String(email || PRINCIPAL_ADMIN_EMAIL).trim().toLowerCase();
+      if (isPrincipalAdminEmail(norm)) {
+        return {
+          PROFILE: STORAGE_KEYS.PROFILE,
+          DATA: STORAGE_KEYS.DATA,
+          BRAND_APP_LOGO: STORAGE_KEYS.BRAND_APP_LOGO,
+          BRAND_LOGO: STORAGE_KEYS.BRAND_LOGO,
+          BRAND_HEADER: STORAGE_KEYS.BRAND_HEADER,
+          BRAND_FOOTER: STORAGE_KEYS.BRAND_FOOTER
+        };
+      }
+      const safeKey = norm.replace(/[^a-z0-9@._-]/gi, '_');
+      return {
+        PROFILE: `E_STOCK_USER_PROFILE_${safeKey}`,
+        DATA: `E_STOCK_USER_DATA_${safeKey}`,
+        BRAND_APP_LOGO: `E_STOCK_BRAND_APPLOGO_${safeKey}`,
+        BRAND_LOGO: `E_STOCK_BRAND_LOGO_${safeKey}`,
+        BRAND_HEADER: `E_STOCK_BRAND_HEADER_${safeKey}`,
+        BRAND_FOOTER: `E_STOCK_BRAND_FOOTER_${safeKey}`
+      };
+    }
+
+    function createZeroStateForNewUser(email, customName = '') {
+      const cleanEmail = String(email || '').trim().toLowerCase();
+      const cleanName = String(customName || '').trim();
+      return {
+        data: {
+          _isNonAdminZeroState: true,
+          _customDestinationsEdited: true,
+          _intentionallyClearedArchive: true,
+          _intentionallyClearedInventory: true,
+          categories: [],
+          destinations: {},
+          destinationAliases: {},
+          itemShortcuts: JSON.parse(JSON.stringify(DEFAULT_ITEM_SHORTCUTS)),
+          items: [],
+          transactions: [],
+          orders: [],
+          auditHistory: [],
+          quickNotes: [],
+          templates: []
+        },
+        profile: {
+          useItemShortcuts: true,
+          invThresholds: { critical: 30, limited: 100 },
+          projectMeta: {
+            ownerName: cleanName,
+            creatorEntity: ''
+          },
+          aboutApp: {
+            appName: 'المنظومة الرقمية لتدبير المخزون وإصدار الإشهادات',
+            entity: '',
+            owner: cleanName,
+            goal: 'تدبير المخزون وتتبع حركية المواد وإصدار إشهادات التسليم إلكترونياً.',
+            desc: 'نظام معلوماتي سحابي لتدبير المخزون وإصدار إشهادات التسليم.'
+          },
+          userProfile: {
+            fullName: cleanName,
+            jobTitle: '',
+            duties: '',
+            workplace: '',
+            department: '',
+            phone: '',
+            email: cleanEmail,
+            notes: ''
+          },
+          branding: {
+            appLogo: '',
+            logo: '',
+            header: '',
+            footer: ''
+          }
+        }
+      };
+    }
+
+    // 4.1 ترحيل وتطبيع آمن وقابل لإعادة التنفيذ (Idempotent Non-Destructive Migration)
+    function migrateAndNormalizeData(rawData, rawProfile, forceNonAdmin = false) {
+      const isNonAdmin = Boolean(forceNonAdmin || (rawData && rawData._isNonAdminZeroState));
+      const zeroFallback = createZeroStateForNewUser(getActiveUserEmail());
+      const dataObj = (rawData && typeof rawData === 'object')
+        ? rawData
+        : JSON.parse(JSON.stringify(isNonAdmin ? zeroFallback.data : DEFAULT_DATA));
+      const profObj = (rawProfile && typeof rawProfile === 'object')
+        ? rawProfile
+        : JSON.parse(JSON.stringify(isNonAdmin ? zeroFallback.profile : DEFAULT_PROFILE));
+
+      if (isNonAdmin) dataObj._isNonAdminZeroState = true;
+
+      if (!Array.isArray(dataObj.categories)) {
+        dataObj.categories = isNonAdmin ? [] : [...DEFAULT_DATA.categories];
+      }
       dataObj.categories = dataObj.categories.map(c => safeText(c, '')).filter(Boolean);
-      DEFAULT_DATA.categories.forEach(c => {
-        if (!dataObj.categories.includes(c)) dataObj.categories.push(c);
-      });
+      if (!isNonAdmin && !dataObj._intentionallyClearedInventory) {
+        DEFAULT_DATA.categories.forEach(c => {
+          if (!dataObj.categories.includes(c)) dataObj.categories.push(c);
+        });
+      }
 
       if (!dataObj.destinations || typeof dataObj.destinations !== 'object') {
-        dataObj.destinations = JSON.parse(JSON.stringify(DEFAULT_DATA.destinations));
+        dataObj.destinations = isNonAdmin ? {} : JSON.parse(JSON.stringify(DEFAULT_DATA.destinations));
       }
       if (!dataObj.destinationAliases || typeof dataObj.destinationAliases !== 'object') {
         dataObj.destinationAliases = {};
       }
-      if (!dataObj._customDestinationsEdited) {
+      if (!isNonAdmin && !dataObj._customDestinationsEdited) {
         for (const d in DEFAULT_DATA.destinations) {
           if (!Array.isArray(dataObj.destinations[d])) {
             dataObj.destinations[d] = [...DEFAULT_DATA.destinations[d]];
@@ -5673,7 +5998,9 @@
         dataObj.itemShortcuts = JSON.parse(JSON.stringify(DEFAULT_ITEM_SHORTCUTS));
       }
 
-      if (!Array.isArray(dataObj.items)) dataObj.items = JSON.parse(JSON.stringify(DEFAULT_DATA.items));
+      if (!Array.isArray(dataObj.items)) {
+        dataObj.items = isNonAdmin ? [] : JSON.parse(JSON.stringify(DEFAULT_DATA.items));
+      }
       dataObj.items = dataObj.items.map(it => {
         if (!it || typeof it !== 'object') return null;
         const cat = safeText(it.category || it.cat, dataObj.categories[0] || 'أدوات معلوماتية');
@@ -5688,7 +6015,9 @@
       }).filter(Boolean);
 
       // الحفاظ التام على الأسماء التاريخية للجهات والمستفيدين في المعاملات السابقة (Historical Immutability)
-      if (!Array.isArray(dataObj.transactions)) dataObj.transactions = JSON.parse(JSON.stringify(DEFAULT_DATA.transactions));
+      if (!Array.isArray(dataObj.transactions)) {
+        dataObj.transactions = isNonAdmin ? [] : JSON.parse(JSON.stringify(DEFAULT_DATA.transactions));
+      }
       dataObj.transactions = dataObj.transactions.map(tx => {
         if (!tx || typeof tx !== 'object') return null;
         const rawDest = safeText(tx.destination || tx.court || '', 'غير محدد');
@@ -5715,7 +6044,9 @@
         return normalizedTx;
       }).filter(Boolean);
 
-      if (!Array.isArray(dataObj.orders)) dataObj.orders = JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
+      if (!Array.isArray(dataObj.orders)) {
+        dataObj.orders = isNonAdmin ? [] : JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
+      }
       dataObj.orders = dataObj.orders.map(ord => {
         if (!ord || typeof ord !== 'object') return null;
         const rawDest = safeText(ord.destination || '', 'غير محدد');
@@ -5737,8 +6068,12 @@
         };
       }).filter(Boolean);
 
-      if (!Array.isArray(dataObj.auditHistory)) dataObj.auditHistory = JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
-      if (!Array.isArray(dataObj.quickNotes)) dataObj.quickNotes = JSON.parse(JSON.stringify(DEFAULT_DATA.quickNotes || []));
+      if (!Array.isArray(dataObj.auditHistory)) {
+        dataObj.auditHistory = isNonAdmin ? [] : JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
+      }
+      if (!Array.isArray(dataObj.quickNotes)) {
+        dataObj.quickNotes = isNonAdmin ? [] : JSON.parse(JSON.stringify(DEFAULT_DATA.quickNotes || []));
+      }
       dataObj.quickNotes = dataObj.quickNotes.map(n => {
         if (typeof n === 'string') return { text: n.trim(), count: 1, lastUsed: new Date().toISOString().split('T')[0] };
         if (!n || typeof n !== 'object') return null;
@@ -5752,20 +6087,26 @@
         };
       }).filter(Boolean);
 
-      if (!profObj.aboutApp) profObj.aboutApp = JSON.parse(JSON.stringify(DEFAULT_PROFILE.aboutApp));
+      if (!profObj.aboutApp) {
+        profObj.aboutApp = isNonAdmin
+          ? JSON.parse(JSON.stringify(zeroFallback.profile.aboutApp))
+          : JSON.parse(JSON.stringify(DEFAULT_PROFILE.aboutApp));
+      }
       if (!profObj.invThresholds) profObj.invThresholds = JSON.parse(JSON.stringify(DEFAULT_PROFILE.invThresholds));
       if (profObj.useItemShortcuts === undefined) profObj.useItemShortcuts = true;
       if (!profObj.userProfile) {
-        profObj.userProfile = {
-          fullName: profObj.projectMeta?.ownerName || 'محمد أيت حمادي',
-          jobTitle: 'المسؤول عن المستودع وتدبير المخزون',
-          duties: 'تدبير مستودع المواد والمستهلكات، تسليم التجهيزات، إعداد الإشهادات، ومتابعة الجرد الدوري',
-          workplace: profObj.projectMeta?.creatorEntity || 'المديرية الإقليمية للعدل بسطات',
-          department: 'مصلحة التجهيز وتدبير الممتلكات ونظم المعلومات',
-          phone: '05 23 40 31 21',
-          email: 'Sdrsettat@gmail.com',
-          notes: 'المسؤول المعتمد لتأشير وصولات استلام المواد بالمديرية الإقليمية بسطات'
-        };
+        profObj.userProfile = isNonAdmin
+          ? JSON.parse(JSON.stringify(zeroFallback.profile.userProfile))
+          : {
+              fullName: profObj.projectMeta?.ownerName || 'محمد أيت حمادي',
+              jobTitle: 'المسؤول عن المستودع وتدبير المخزون',
+              duties: 'تدبير مستودع المواد والمستهلكات، تسليم التجهيزات، إعداد الإشهادات، ومتابعة الجرد الدوري',
+              workplace: profObj.projectMeta?.creatorEntity || 'المديرية الإقليمية للعدل بسطات',
+              department: 'مصلحة التجهيز وتدبير الممتلكات ونظم المعلومات',
+              phone: '05 23 40 31 21',
+              email: PRINCIPAL_ADMIN_EMAIL,
+              notes: 'المسؤول المعتمد لتأشير وصولات استلام المواد بالمديرية الإقليمية بسطات'
+            };
       }
       if (!profObj.branding) {
         profObj.branding = {
@@ -5779,109 +6120,162 @@
       return { data: dataObj, profile: profObj };
     }
 
-    function loadState() {
+    function updateSidebarUserHeaderUI() {
+      const sbName = document.getElementById('sidebar-user-name');
+      const sbRole = document.getElementById('sidebar-user-role');
+      const activeEmail = getActiveUserEmail();
+      const isAdmin = isPrincipalAdminEmail(activeEmail);
+      const uProf = state.profile?.userProfile || {};
+      const displayName = (uProf.fullName || '').trim() || (isAdmin ? 'محمد أيت حمادي' : 'مستخدم جديد (اضغط لتعديل الاسم)');
+      const displayRole = (uProf.jobTitle || uProf.workplace || '').trim() || (isAdmin ? 'المديرية الإقليمية للعدل بسطات' : activeEmail);
+      if (sbName) sbName.textContent = displayName;
+      if (sbRole) sbRole.textContent = displayRole;
+
+      const emailBox = document.getElementById('account-connected-email');
+      if (emailBox) emailBox.value = activeEmail;
+
+      const roleBadge = document.getElementById('profile-account-role-badge');
+      if (roleBadge) {
+        roleBadge.textContent = isAdmin
+          ? '👑 الأدمنستراتور الرئيسي (mohamed105@gmail.com)'
+          : `👤 حساب مستخدم مستقل (${activeEmail})`;
+      }
+    }
+
+    function loadState(targetEmailOverride = null) {
       try {
-        const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE);
-        const storedData = localStorage.getItem(STORAGE_KEYS.DATA);
+        const activeEmail = String(targetEmailOverride || getActiveUserEmail()).trim().toLowerCase();
+        const isAdmin = isPrincipalAdminEmail(activeEmail);
+        const scopedKeys = getUserScopedKeys(activeEmail);
 
-        // حفظ نسخة احتياطية وقائية قبل أي ترحيل لأول مرة
-        if (storedData && !localStorage.getItem(STORAGE_KEYS.BACKUP_PRE_MIGRATION)) {
-          try {
-            localStorage.setItem(STORAGE_KEYS.BACKUP_PRE_MIGRATION, JSON.stringify({
-              savedAt: new Date().toISOString(),
-              profile: storedProfile ? JSON.parse(storedProfile) : DEFAULT_PROFILE,
-              data: JSON.parse(storedData)
-            }));
-          } catch (e) {}
-        }
+        const storedProfile = localStorage.getItem(scopedKeys.PROFILE);
+        const storedData = localStorage.getItem(scopedKeys.DATA);
 
-        const rawProfile = storedProfile ? JSON.parse(storedProfile) : JSON.parse(JSON.stringify(DEFAULT_PROFILE));
-        let rawData;
-
-        if (storedData) {
-          rawData = JSON.parse(storedData);
-
-          if (!rawData._intentionallyClearedArchive) {
-            const existingTxIds = new Set((rawData.transactions || []).map(t => t.id));
-            (DEFAULT_DATA.transactions || []).forEach(dt => {
-              if (!existingTxIds.has(dt.id)) {
-                if (!Array.isArray(rawData.transactions)) rawData.transactions = [];
-                rawData.transactions.push(dt);
-              }
-            });
-            if (!rawData.orders || !Array.isArray(rawData.orders) || rawData.orders.length === 0) {
-              rawData.orders = JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
-            }
+        if (isAdmin) {
+          // الأدمنستراتور الرئيسي (mohamed105@gmail.com): يحتفظ بجميع المعطيات الحالية للمديرية الإقليمية بسطات
+          if (storedData && !localStorage.getItem(STORAGE_KEYS.BACKUP_PRE_MIGRATION)) {
+            try {
+              localStorage.setItem(STORAGE_KEYS.BACKUP_PRE_MIGRATION, JSON.stringify({
+                savedAt: new Date().toISOString(),
+                profile: storedProfile ? JSON.parse(storedProfile) : DEFAULT_PROFILE,
+                data: JSON.parse(storedData)
+              }));
+            } catch (e) {}
           }
 
-          if (!rawData._intentionallyClearedInventory) {
-            const existingItemIds = new Set((rawData.items || []).map(i => i.id));
-            (DEFAULT_DATA.items || []).forEach(di => {
-              if (!existingItemIds.has(di.id)) {
-                if (!Array.isArray(rawData.items)) rawData.items = [];
-                rawData.items.push(di);
+          const rawProfile = storedProfile ? JSON.parse(storedProfile) : JSON.parse(JSON.stringify(DEFAULT_PROFILE));
+          let rawData;
+
+          if (storedData) {
+            rawData = JSON.parse(storedData);
+
+            if (!rawData._intentionallyClearedArchive) {
+              const existingTxIds = new Set((rawData.transactions || []).map(t => t.id));
+              (DEFAULT_DATA.transactions || []).forEach(dt => {
+                if (!existingTxIds.has(dt.id)) {
+                  if (!Array.isArray(rawData.transactions)) rawData.transactions = [];
+                  rawData.transactions.push(dt);
+                }
+              });
+              if (!rawData.orders || !Array.isArray(rawData.orders) || rawData.orders.length === 0) {
+                rawData.orders = JSON.parse(JSON.stringify(DEFAULT_DATA.orders));
               }
-            });
-            if (!rawData.auditHistory || !Array.isArray(rawData.auditHistory) || rawData.auditHistory.length === 0) {
-              rawData.auditHistory = JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
             }
+
+            if (!rawData._intentionallyClearedInventory) {
+              const existingItemIds = new Set((rawData.items || []).map(i => i.id));
+              (DEFAULT_DATA.items || []).forEach(di => {
+                if (!existingItemIds.has(di.id)) {
+                  if (!Array.isArray(rawData.items)) rawData.items = [];
+                  rawData.items.push(di);
+                }
+              });
+              if (!rawData.auditHistory || !Array.isArray(rawData.auditHistory) || rawData.auditHistory.length === 0) {
+                rawData.auditHistory = JSON.parse(JSON.stringify(DEFAULT_DATA.auditHistory || []));
+              }
+            }
+
+            if (!rawData.quickNotes || !Array.isArray(rawData.quickNotes)) {
+              rawData.quickNotes = JSON.parse(JSON.stringify(DEFAULT_DATA.quickNotes || []));
+            }
+          } else {
+            rawData = JSON.parse(JSON.stringify(DEFAULT_DATA));
           }
 
-          if (!rawData.quickNotes || !Array.isArray(rawData.quickNotes)) {
-            rawData.quickNotes = JSON.parse(JSON.stringify(DEFAULT_DATA.quickNotes || []));
+          const migrated = migrateAndNormalizeData(rawData, rawProfile, false);
+          state.data = migrated.data;
+          state.profile = migrated.profile;
+          if (state.profile.userProfile) {
+            state.profile.userProfile.email = PRINCIPAL_ADMIN_EMAIL;
+          }
+          if (Array.isArray(state.data.templates) && state.data.templates.length > 0) {
+            state.templates = state.data.templates;
           }
         } else {
-          rawData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+          // أي مستخدم آخر غير mohamed105@gmail.com: يبدأ من الصفر تماماً بدون أي اسم مسبق أو معطيات قبلية
+          const zeroState = createZeroStateForNewUser(activeEmail, _currentAuthUser?.displayName || '');
+          const rawProfile = storedProfile ? JSON.parse(storedProfile) : zeroState.profile;
+          const rawData = storedData ? JSON.parse(storedData) : zeroState.data;
+          rawData._isNonAdminZeroState = true;
+          const migrated = migrateAndNormalizeData(rawData, rawProfile, true);
+          state.data = migrated.data;
+          state.profile = migrated.profile;
+          state.templates = Array.isArray(state.data.templates) ? state.data.templates : [];
         }
 
-        const migrated = migrateAndNormalizeData(rawData, rawProfile);
-        state.data = migrated.data;
-        state.profile = migrated.profile;
-
-        if (Array.isArray(state.data.templates) && state.data.templates.length > 0) {
-          state.templates = state.data.templates;
-        }
-
-        // مزامنة الهوية البصرية من LocalStorage
-        const lsAppLogo = localStorage.getItem(STORAGE_KEYS.BRAND_APP_LOGO);
-        const lsLogo = localStorage.getItem(STORAGE_KEYS.BRAND_LOGO);
-        const lsHeader = localStorage.getItem(STORAGE_KEYS.BRAND_HEADER);
-        const lsFooter = localStorage.getItem(STORAGE_KEYS.BRAND_FOOTER);
+        // مزامنة الهوية البصرية من LocalStorage الخاص بالمستخدم
+        const lsAppLogo = localStorage.getItem(scopedKeys.BRAND_APP_LOGO);
+        const lsLogo = localStorage.getItem(scopedKeys.BRAND_LOGO);
+        const lsHeader = localStorage.getItem(scopedKeys.BRAND_HEADER);
+        const lsFooter = localStorage.getItem(scopedKeys.BRAND_FOOTER);
         if (lsAppLogo) state.profile.branding.appLogo = lsAppLogo;
         if (lsLogo) state.profile.branding.logo = lsLogo;
         if (lsHeader) state.profile.branding.header = lsHeader;
         if (lsFooter) state.profile.branding.footer = lsFooter;
 
-        const sbName = document.getElementById('sidebar-user-name');
-        const sbRole = document.getElementById('sidebar-user-role');
-        if (sbName && state.profile.userProfile?.fullName) sbName.textContent = state.profile.userProfile.fullName;
-        if (sbRole && state.profile.userProfile?.jobTitle) sbRole.textContent = state.profile.userProfile.jobTitle;
-
-        persistAll();
+        updateSidebarUserHeaderUI();
+        persistAll(false);
       } catch (err) {
-        console.error('فشل قراءة الذاكرة المحلية، استرجاع البيانات الأولية:', err);
-        const migrated = migrateAndNormalizeData(DEFAULT_DATA, DEFAULT_PROFILE);
-        state.profile = migrated.profile;
-        state.data = migrated.data;
+        console.error('فشل قراءة الذاكرة المحلية، استرجاع البيانات المناسبة للمستخدم:', err);
+        const isAdmin = isPrincipalAdminEmail(getActiveUserEmail());
+        if (isAdmin) {
+          const migrated = migrateAndNormalizeData(DEFAULT_DATA, DEFAULT_PROFILE, false);
+          state.profile = migrated.profile;
+          state.data = migrated.data;
+        } else {
+          const zeroState = createZeroStateForNewUser(getActiveUserEmail());
+          state.profile = zeroState.profile;
+          state.data = zeroState.data;
+        }
       }
     }
 
-    function persistAll() {
+    function persistAll(syncCloud = true) {
       try {
+        const activeEmail = getActiveUserEmail();
+        const scopedKeys = getUserScopedKeys(activeEmail);
         state.data.templates = state.templates;
-        localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(state.profile));
-        localStorage.setItem(STORAGE_KEYS.DATA, JSON.stringify(state.data));
+        localStorage.setItem(scopedKeys.PROFILE, JSON.stringify(state.profile));
+        localStorage.setItem(scopedKeys.DATA, JSON.stringify(state.data));
+        // إذا كان الأدمن الرئيسي، نحفظ أيضاً في المفاتيح القياسية لضمان التوافق التام مع كل فحوصات النظام
+        if (isPrincipalAdminEmail(activeEmail)) {
+          localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(state.profile));
+          localStorage.setItem(STORAGE_KEYS.DATA, JSON.stringify(state.data));
+        }
         if (state.profile?.branding?.appLogo) {
-          localStorage.setItem(STORAGE_KEYS.BRAND_APP_LOGO, state.profile.branding.appLogo);
+          localStorage.setItem(scopedKeys.BRAND_APP_LOGO, state.profile.branding.appLogo);
         }
         if (state.profile?.branding?.logo) {
-          localStorage.setItem(STORAGE_KEYS.BRAND_LOGO, state.profile.branding.logo);
+          localStorage.setItem(scopedKeys.BRAND_LOGO, state.profile.branding.logo);
         }
         if (state.profile?.branding?.header) {
-          localStorage.setItem(STORAGE_KEYS.BRAND_HEADER, state.profile.branding.header);
+          localStorage.setItem(scopedKeys.BRAND_HEADER, state.profile.branding.header);
         }
         if (state.profile?.branding?.footer) {
-          localStorage.setItem(STORAGE_KEYS.BRAND_FOOTER, state.profile.branding.footer);
+          localStorage.setItem(scopedKeys.BRAND_FOOTER, state.profile.branding.footer);
+        }
+        if (syncCloud && _currentAuthUser && window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.pushUserCloudData) {
+          window.__FIREBASE_BRIDGE__.pushUserCloudData(activeEmail, state.data, state.profile);
         }
       } catch (err) {
         console.error('فشل الحفظ في الذاكرة المحلية:', err);
@@ -10852,6 +11246,388 @@ ${itemsText}
       }
     });
 
+    // =========================================================================
+    // 19. الانتقال المباشر للملف الشخصي + بوابة الدخول السحابية (Firebase & Gmail)
+    // =========================================================================
+    function openUserProfileSettingsDirectly() {
+      switchTab('settings-view');
+      switchSettingsSubTab('profile');
+      populateUserProfileSettings();
+      updateSidebarUserHeaderUI();
+      toggleSidebar(false);
+    }
+
+    // تحديث populateUserProfileSettings لاحترام عزل المستخدمين وعدم إظهار اسم مسبق لأي مستخدم غير الأدمن
+    const _origPopulateUserProfileSettings = populateUserProfileSettings;
+    populateUserProfileSettings = function() {
+      const activeEmail = getActiveUserEmail();
+      const isAdmin = isPrincipalAdminEmail(activeEmail);
+      if (!state.profile.userProfile) {
+        state.profile.userProfile = isAdmin ? {
+          fullName: state.profile.projectMeta?.ownerName || 'محمد أيت حمادي',
+          jobTitle: 'المسؤول عن المستودع وتدبير المخزون',
+          workplace: state.profile.projectMeta?.creatorEntity || 'المديرية الإقليمية للعدل بسطات',
+          department: 'مصلحة التجهيز وتدبير الممتلكات ونظم المعلومات',
+          phone: '05 23 40 31 21',
+          email: PRINCIPAL_ADMIN_EMAIL,
+          notes: 'المسؤول المعتمد لتأشير وصولات استلام المواد بالمديرية الإقليمية بسطات'
+        } : {
+          fullName: '',
+          jobTitle: '',
+          duties: '',
+          workplace: '',
+          department: '',
+          phone: '',
+          email: activeEmail,
+          notes: ''
+        };
+      }
+      const u = state.profile.userProfile;
+      const fnInput = document.getElementById('profile-full-name');
+      const jtInput = document.getElementById('profile-job-title');
+      const dtInput = document.getElementById('profile-duties');
+      const wpInput = document.getElementById('profile-workplace');
+      const dpInput = document.getElementById('profile-department');
+      const phInput = document.getElementById('profile-phone');
+      const emInput = document.getElementById('profile-email');
+      const ntInput = document.getElementById('profile-notes');
+
+      if (fnInput) {
+        fnInput.value = u.fullName || '';
+        fnInput.placeholder = isAdmin ? 'محمد أيت حمادي' : 'أدخل اسمك الكامل...';
+      }
+      if (jtInput) {
+        jtInput.value = u.jobTitle || '';
+        jtInput.placeholder = isAdmin ? 'المسؤول عن المستودع وتدبير المخزون' : 'أدخل الصفة أو الدور الوظيفي...';
+      }
+      if (dtInput) dtInput.value = u.duties || '';
+      if (wpInput) {
+        wpInput.value = u.workplace || '';
+        wpInput.placeholder = isAdmin ? 'المديرية الإقليمية للعدل بسطات' : 'أدخل مقر العمل أو المؤسسة...';
+      }
+      if (dpInput) dpInput.value = u.department || '';
+      if (phInput) phInput.value = u.phone || '';
+      if (emInput) emInput.value = u.email || activeEmail || '';
+      if (ntInput) ntInput.value = u.notes || '';
+
+      updateSidebarUserHeaderUI();
+    };
+
+    const _origSaveUserProfileSettings = saveUserProfileSettings;
+    saveUserProfileSettings = function() {
+      _origSaveUserProfileSettings();
+      updateSidebarUserHeaderUI();
+      if (_currentAuthUser && window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.updateUserDisplayName) {
+        const fn = (document.getElementById('profile-full-name')?.value || '').trim();
+        if (fn) window.__FIREBASE_BRIDGE__.updateUserDisplayName(fn);
+      }
+    };
+
+    function showAuthGateError(msg) {
+      const box = document.getElementById('auth-gate-error-box');
+      if (!box) return;
+      if (!msg) {
+        box.style.display = 'none';
+        box.textContent = '';
+      } else {
+        box.style.display = 'block';
+        box.textContent = msg;
+      }
+    }
+
+    function switchAuthGateTab(mode) {
+      _authGateMode = mode === 'register' ? 'register' : 'login';
+      const tabLogin = document.getElementById('auth-tab-login');
+      const tabReg = document.getElementById('auth-tab-register');
+      const nameGroup = document.getElementById('auth-name-group');
+      const submitBtn = document.getElementById('auth-submit-btn');
+      showAuthGateError('');
+
+      if (_authGateMode === 'register') {
+        if (tabLogin) tabLogin.classList.remove('active');
+        if (tabReg) tabReg.classList.add('active');
+        if (nameGroup) nameGroup.style.display = 'block';
+        if (submitBtn) submitBtn.textContent = 'إنشاء وتفعيل الحساب والدخول';
+      } else {
+        if (tabReg) tabReg.classList.remove('active');
+        if (tabLogin) tabLogin.classList.add('active');
+        if (nameGroup) nameGroup.style.display = 'none';
+        if (submitBtn) submitBtn.textContent = 'دخول إلى المنظومة';
+      }
+    }
+
+    function setCloudStatusBadge(isOnlineCloud, textLabel) {
+      const badge = document.getElementById('cloud-sync-status-badge');
+      const txt = document.getElementById('cloud-sync-text');
+      if (!badge || !txt) return;
+      if (isOnlineCloud) {
+        badge.classList.remove('offline');
+        txt.textContent = textLabel || 'متصل بـ Firebase';
+      } else {
+        badge.classList.add('offline');
+        txt.textContent = textLabel || 'محلي + جاهز للمزامنة';
+      }
+    }
+
+    function refreshAllViewsAfterAuth() {
+      populateUserProfileSettings();
+      populateAboutAppSettings();
+      renderSettingsQuickNotesTable();
+      renderQuickNoteChips();
+      renderBrandingSettings();
+      renderItemShortcutsSettings();
+      renderOrdersView();
+      renderInventoryTable();
+      renderHistoryTable();
+      renderSettings();
+      switchTab(state.currentTab || 'dashboard-view');
+      refreshAllBadges();
+      updateSidebarUserHeaderUI();
+    }
+
+    async function completeUserSessionLogin(userObj) {
+      if (!userObj || !userObj.email) return;
+      const cleanEmail = String(userObj.email).trim().toLowerCase();
+      const isAdmin = isPrincipalAdminEmail(cleanEmail);
+      _currentAuthUser = {
+        email: cleanEmail,
+        uid: userObj.uid || ('local-' + cleanEmail),
+        displayName: isAdmin
+          ? (userObj.displayName || 'محمد أيت حمادي')
+          : (userObj.displayName || ''),
+        provider: userObj.provider || 'google'
+      };
+
+      try {
+        localStorage.setItem('E_STOCK_ACTIVE_AUTH_SESSION', JSON.stringify(_currentAuthUser));
+      } catch (e) {}
+
+      // تحميل البيانات المحلية الخاصة بهذا المستخدم أولاً (الأدمن = معطيات سطات الكاملة، غيره = صفر)
+      loadState(cleanEmail);
+
+      // إذا أدخل المستخدم اسماً شخصياً أثناء التسجيل، نحدّث ملفه الشخصي به
+      if (!isAdmin && _currentAuthUser.displayName && (!state.profile.userProfile || !state.profile.userProfile.fullName)) {
+        if (!state.profile.userProfile) state.profile.userProfile = {};
+        state.profile.userProfile.fullName = _currentAuthUser.displayName;
+        state.profile.userProfile.email = cleanEmail;
+        persistAll(false);
+      }
+
+      // فتح بوابة التطبيق وإخفاء شاشة القفل
+      document.body.classList.remove('auth-locked');
+      const overlay = document.getElementById('auth-gate-overlay');
+      if (overlay) overlay.style.display = 'none';
+
+      refreshAllViewsAfterAuth();
+
+      // المزامنة مع Cloud Firestore إذا كان الجسر السحابي متصلاً
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.syncUserFromFirestore) {
+        try {
+          await window.__FIREBASE_BRIDGE__.syncUserFromFirestore(cleanEmail);
+        } catch (err) {
+          console.warn('Firestore initial sync fallback:', err);
+        }
+      }
+
+      showToast(
+        isAdmin
+          ? `مرحباً بك أستاذ ${state.profile.userProfile?.fullName || 'محمد أيت حمادي'} (الأدمنستراتور الرئيسي)`
+          : `تم تسجيل الدخول بنجاح (${cleanEmail})`,
+        'success'
+      );
+    }
+
+    async function loginWithGoogleAuth() {
+      showAuthGateError('');
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.signInWithGoogle) {
+        try {
+          const fbUser = await window.__FIREBASE_BRIDGE__.signInWithGoogle();
+          if (fbUser && fbUser.email) {
+            await completeUserSessionLogin(fbUser);
+            return;
+          }
+        } catch (err) {
+          const code = (err && err.code) ? String(err.code) : '';
+          console.warn('Google Auth Popup note:', code, err);
+          if (code === 'auth/unauthorized-domain' || code === 'auth/operation-not-supported-in-this-environment' || code === 'auth/popup-blocked' || code === 'auth/network-request-failed') {
+            // في حالة فتح التطبيق محلياً قبل تفعيل الدومين في Firebase، نوفر نافذة اختيار حساب الجيميل السريعة أو حقل الإيميل
+            const emailInput = document.getElementById('auth-input-email');
+            if (emailInput && emailInput.value && emailInput.value.includes('@')) {
+              await submitAuthGateForm();
+              return;
+            }
+            openAppPromptModal(
+              'الدخول المباشر بحساب Google / Gmail',
+              'أدخل بريدك الإلكتروني (Gmail) للمتابعة فوراً (مثال: mohamed105@gmail.com للأدمن الرئيسي أو أي بريد آخر لحساب جديد فارغ):',
+              PRINCIPAL_ADMIN_EMAIL,
+              async (enteredEmail) => {
+                const clean = (enteredEmail || '').trim().toLowerCase();
+                if (!clean || !clean.includes('@')) {
+                  showToast('يرجى إدخال بريد Gmail صحيح', 'warning');
+                  return;
+                }
+                await completeUserSessionLogin({
+                  email: clean,
+                  displayName: isPrincipalAdminEmail(clean) ? 'محمد أيت حمادي' : '',
+                  provider: 'google-direct'
+                });
+              }
+            );
+            return;
+          }
+          showAuthGateError('تعذر إتمام الدخول عبر نافذة Google: ' + (err.message || code));
+          return;
+        }
+      }
+
+      // احتياطي فوري إذا لم يكن الإنترنت متاحاً في بيئة الاختبار
+      openAppPromptModal(
+        'الدخول بواسطة حساب Gmail',
+        'أدخل بريدك الإلكتروني (Gmail) لتسجيل الدخول (mohamed105@gmail.com للأدمنستراتور الرئيسي، أو أي بريد آخر لحساب جديد يبدأ من الصفر):',
+        PRINCIPAL_ADMIN_EMAIL,
+        async (enteredEmail) => {
+          const clean = (enteredEmail || '').trim().toLowerCase();
+          if (!clean || !clean.includes('@')) {
+            showToast('يرجى إدخال بريد إلكتروني صالح', 'warning');
+            return;
+          }
+          await completeUserSessionLogin({
+            email: clean,
+            displayName: isPrincipalAdminEmail(clean) ? 'محمد أيت حمادي' : '',
+            provider: 'gmail'
+          });
+        }
+      );
+    }
+
+    async function submitAuthGateForm() {
+      showAuthGateError('');
+      const emailEl = document.getElementById('auth-input-email');
+      const passEl = document.getElementById('auth-input-password');
+      const nameEl = document.getElementById('auth-input-name');
+
+      const email = (emailEl?.value || '').trim().toLowerCase();
+      const password = (passEl?.value || '').trim();
+      const customName = (nameEl?.value || '').trim();
+
+      if (!email || !email.includes('@')) {
+        showAuthGateError('يرجى إدخال بريد إلكتروني (Gmail) صحيح.');
+        return;
+      }
+
+      // التحقق من كلمة المرور المحفوظة محلياً إن وُجدت
+      const savedPassKey = `E_STOCK_USER_PASS_${email}`;
+      const savedLocalPass = localStorage.getItem(savedPassKey);
+
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.isReady && password.length >= 6) {
+        try {
+          let fbUser = null;
+          if (_authGateMode === 'register') {
+            fbUser = await window.__FIREBASE_BRIDGE__.registerWithEmailPassword(email, password, customName);
+          } else {
+            fbUser = await window.__FIREBASE_BRIDGE__.signInWithEmailPassword(email, password);
+          }
+          if (fbUser && fbUser.email) {
+            localStorage.setItem(savedPassKey, password);
+            await completeUserSessionLogin({
+              email: fbUser.email,
+              uid: fbUser.uid,
+              displayName: customName || fbUser.displayName || (isPrincipalAdminEmail(email) ? 'محمد أيت حمادي' : ''),
+              provider: 'password'
+            });
+            return;
+          }
+        } catch (err) {
+          console.warn('Firebase Email/Pass fallback check:', err);
+        }
+      }
+
+      if (savedLocalPass && _authGateMode === 'login' && password && password !== savedLocalPass) {
+        showAuthGateError('كلمة المرور غير صحيحة لهذا الحساب.');
+        return;
+      }
+
+      if (password && password.length > 0 && password.length < 6) {
+        showAuthGateError('يجب أن تتكون كلمة المرور من 6 أحرف أو أرقام على الأقل، أو اتركها فارغة للدخول المباشر بالجيميل.');
+        return;
+      }
+
+      if (password.length >= 6) {
+        localStorage.setItem(savedPassKey, password);
+      }
+
+      await completeUserSessionLogin({
+        email: email,
+        displayName: customName || (isPrincipalAdminEmail(email) ? 'محمد أيت حمادي' : ''),
+        provider: password ? 'email-password' : 'gmail-direct'
+      });
+    }
+
+    async function saveAccountPasswordSettings() {
+      const passInput = document.getElementById('account-new-password');
+      const newPass = (passInput?.value || '').trim();
+      if (!newPass || newPass.length < 6) {
+        showToast('يرجى إدخال كلمة مرور لا تقل عن 6 أحرف أو أرقام', 'warning');
+        return;
+      }
+      const activeEmail = getActiveUserEmail();
+      localStorage.setItem(`E_STOCK_USER_PASS_${activeEmail}`, newPass);
+
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.updateUserPasswordInCloud) {
+        try {
+          await window.__FIREBASE_BRIDGE__.updateUserPasswordInCloud(activeEmail, newPass);
+        } catch (e) {
+          console.warn('Cloud password update note:', e);
+        }
+      }
+      if (passInput) passInput.value = '';
+      persistAll(true);
+      showToast('تم حفظ وتحديث كلمة المرور (Mot de passe) لحسابك بنجاح', 'success');
+    }
+
+    async function forceCloudSyncNow() {
+      const activeEmail = getActiveUserEmail();
+      persistAll(true);
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.pushUserCloudData) {
+        try {
+          await window.__FIREBASE_BRIDGE__.pushUserCloudData(activeEmail, state.data, state.profile, true);
+          showToast('تمت المزامنة الفورية مع قاعدة بيانات Firebase بنجاح', 'success');
+          return;
+        } catch (e) {
+          console.warn('Manual sync note:', e);
+        }
+      }
+      showToast('تم حفظ كافة البيانات ومزامنتها محلياً وجاهزة للرفع التلقائي لـ Firebase', 'info');
+    }
+
+    async function logoutCurrentUser() {
+      if (_firestoreUnsubscribe) {
+        try { _firestoreUnsubscribe(); } catch (e) {}
+        _firestoreUnsubscribe = null;
+      }
+      if (window.__FIREBASE_BRIDGE__ && window.__FIREBASE_BRIDGE__.signOutCloud) {
+        try { await window.__FIREBASE_BRIDGE__.signOutCloud(); } catch (e) {}
+      }
+      _currentAuthUser = null;
+      try {
+        localStorage.removeItem('E_STOCK_ACTIVE_AUTH_SESSION');
+      } catch (e) {}
+
+      // إخفاء بيانات التطبيق فوراً وإظهار بوابة تسجيل الدخول الإجبارية
+      document.body.classList.add('auth-locked');
+      const overlay = document.getElementById('auth-gate-overlay');
+      if (overlay) overlay.style.display = 'flex';
+      const emailIn = document.getElementById('auth-input-email');
+      const passIn = document.getElementById('auth-input-password');
+      const nameIn = document.getElementById('auth-input-name');
+      if (emailIn) emailIn.value = '';
+      if (passIn) passIn.value = '';
+      if (nameIn) nameIn.value = '';
+      showAuthGateError('');
+      toggleSidebar(false);
+      showToast('تم تسجيل الخروج بنجاح. يرجى تسجيل الدخول بحساب Gmail للمتابعة.', 'info');
+    }
+
     // ربط مستمعات الأحداث الديناميكية وتهيئة كافة الأقسام عند الإقلاع
     function bindDynamicEventListeners() {
       const orderDestSelect = document.getElementById('order-form-dest');
@@ -10867,10 +11643,28 @@ ${itemsText}
     }
 
     function bootApplication() {
+      // التحقق مما إذا كانت هناك جلسة دخول نشطة محفوظة
+      let savedSession = null;
+      try {
+        const rawSess = localStorage.getItem('E_STOCK_ACTIVE_AUTH_SESSION');
+        if (rawSess) savedSession = JSON.parse(rawSess);
+      } catch (e) {}
+
+      if (savedSession && savedSession.email) {
+        _currentAuthUser = savedSession;
+        document.body.classList.remove('auth-locked');
+        const overlay = document.getElementById('auth-gate-overlay');
+        if (overlay) overlay.style.display = 'none';
+      } else {
+        // لا يظهر أي شيء في التطبيق أولاً قبل تسجيل الدخول عبر بوابة الجيميل
+        document.body.classList.add('auth-locked');
+        const overlay = document.getElementById('auth-gate-overlay');
+        if (overlay) overlay.style.display = 'flex';
+      }
+
       loadState();
       initSidebarState();
       bindDynamicEventListeners();
-      // تحميل فوري لبيانات الملف الشخصي والملاحظات السريعة وإعدادات البرنامج والهوية البصرية ومختصرات المواد
       populateUserProfileSettings();
       populateAboutAppSettings();
       renderSettingsQuickNotesTable();
@@ -10890,6 +11684,184 @@ ${itemsText}
       renderBrandingSettings();
       renderItemShortcutsSettings();
     });
+  </script>
+
+  <!-- الربط السحابي الكامل بقاعدة بيانات Firebase (Authentication + Cloud Firestore) -->
+  <script type="module">
+    const firebaseConfig = {
+      apiKey: "AIzaSyBAc3BVlmBfDg8RAX3CgcN1cUxhB9lvgpI",
+      authDomain: "estock105.firebaseapp.com",
+      projectId: "estock105",
+      storageBucket: "estock105.firebasestorage.app",
+      messagingSenderId: "823192526512",
+      appId: "1:823192526512:web:e1527a227432b1a78e6575"
+    };
+
+    async function loadFirebaseModulesWithFallback() {
+      const sdkVersions = ["11.1.0", "10.14.1", "13.1.0"];
+      for (const ver of sdkVersions) {
+        try {
+          const base = `https://www.gstatic.com/firebasejs/${ver}`;
+          const [appMod, authMod, fsMod] = await Promise.all([
+            import(`${base}/firebase-app.js`),
+            import(`${base}/firebase-auth.js`),
+            import(`${base}/firebase-firestore.js`)
+          ]);
+          return { appMod, authMod, fsMod, version: ver };
+        } catch (err) {
+          // الانتقال للإصدار الاحتياطي التالي عند الحاجة
+        }
+      }
+      return null;
+    }
+
+    (async function initFirebaseCloudEngine() {
+      const loaded = await loadFirebaseModulesWithFallback();
+      if (!loaded) {
+        if (typeof setCloudStatusBadge === 'function') {
+          setCloudStatusBadge(false, 'وضع محلي (بانتظار الشبكة)');
+        }
+        return;
+      }
+
+      const { appMod, authMod, fsMod } = loaded;
+      const app = appMod.initializeApp(firebaseConfig);
+      const auth = authMod.getAuth(app);
+      const db = fsMod.getFirestore(app);
+      const googleProvider = new authMod.GoogleAuthProvider();
+      googleProvider.setCustomParameters({ prompt: 'select_account' });
+
+      if (typeof setCloudStatusBadge === 'function') {
+        setCloudStatusBadge(true, 'متصل بـ Firebase (estock105)');
+      }
+
+      window.__FIREBASE_BRIDGE__ = {
+        isReady: true,
+        app,
+        auth,
+        db,
+        async signInWithGoogle() {
+          const res = await authMod.signInWithPopup(auth, googleProvider);
+          return res.user;
+        },
+        async signInWithEmailPassword(email, password) {
+          try {
+            const res = await authMod.signInWithEmailAndPassword(auth, email, password);
+            return res.user;
+          } catch (err) {
+            if (err && (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential')) {
+              const created = await authMod.createUserWithEmailAndPassword(auth, email, password);
+              return created.user;
+            }
+            throw err;
+          }
+        },
+        async registerWithEmailPassword(email, password, displayName) {
+          const res = await authMod.createUserWithEmailAndPassword(auth, email, password);
+          if (displayName && res.user) {
+            try {
+              await authMod.updateProfile(res.user, { displayName });
+            } catch (e) {}
+          }
+          return res.user;
+        },
+        async updateUserDisplayName(newName) {
+          if (auth.currentUser && newName) {
+            try {
+              await authMod.updateProfile(auth.currentUser, { displayName: newName });
+            } catch (e) {}
+          }
+        },
+        async updateUserPasswordInCloud(email, newPass) {
+          if (auth.currentUser && newPass) {
+            try {
+              await authMod.updatePassword(auth.currentUser, newPass);
+            } catch (e) {}
+          }
+        },
+        async signOutCloud() {
+          await authMod.signOut(auth);
+        },
+        async pushUserCloudData(email, dataObj, profileObj, isManual = false) {
+          if (!email) return;
+          const docKey = String(email).trim().toLowerCase();
+          const userDocRef = fsMod.doc(db, 'estock_users', docKey);
+          _ignoreNextSnapshot = true;
+          await fsMod.setDoc(userDocRef, {
+            email: docKey,
+            role: isPrincipalAdminEmail(docKey) ? 'principal_admin' : 'standard_user',
+            updatedAt: new Date().toISOString(),
+            profileJson: JSON.stringify(profileObj || {}),
+            dataJson: JSON.stringify(dataObj || {})
+          }, { merge: true });
+          if (typeof setCloudStatusBadge === 'function') {
+            setCloudStatusBadge(true, isManual ? 'تم الحفظ في Firebase ✓' : 'متصل بـ Firebase');
+          }
+        },
+        async syncUserFromFirestore(email) {
+          if (!email) return;
+          const docKey = String(email).trim().toLowerCase();
+          const userDocRef = fsMod.doc(db, 'estock_users', docKey);
+          const snap = await fsMod.getDoc(userDocRef);
+
+          if (snap.exists()) {
+            const cloudDoc = snap.data();
+            if (cloudDoc && cloudDoc.dataJson && cloudDoc.profileJson) {
+              const parsedData = JSON.parse(cloudDoc.dataJson);
+              const parsedProfile = JSON.parse(cloudDoc.profileJson);
+              const isNonAdmin = !isPrincipalAdminEmail(docKey);
+              if (isNonAdmin) parsedData._isNonAdminZeroState = true;
+              const migrated = migrateAndNormalizeData(parsedData, parsedProfile, isNonAdmin);
+              state.data = migrated.data;
+              state.profile = migrated.profile;
+              persistAll(false);
+              refreshAllViewsAfterAuth();
+            }
+          } else {
+            // إذا لم يكن للمستخدم وثيقة سحابية بعد:
+            // الأدمن الرئيسي يرفع بيانات سطات الكاملة، وأي مستخدم آخر يرفع حالته الصفرية الفارغة
+            await this.pushUserCloudData(docKey, state.data, state.profile, false);
+          }
+
+          if (_firestoreUnsubscribe) {
+            try { _firestoreUnsubscribe(); } catch (e) {}
+          }
+          _firestoreUnsubscribe = fsMod.onSnapshot(userDocRef, (docSnap) => {
+            if (_ignoreNextSnapshot) {
+              _ignoreNextSnapshot = false;
+              return;
+            }
+            if (docSnap.exists()) {
+              const d = docSnap.data();
+              if (d && d.dataJson && d.profileJson) {
+                try {
+                  const pData = JSON.parse(d.dataJson);
+                  const pProf = JSON.parse(d.profileJson);
+                  const isNonAdmin = !isPrincipalAdminEmail(docKey);
+                  if (isNonAdmin) pData._isNonAdminZeroState = true;
+                  const mig = migrateAndNormalizeData(pData, pProf, isNonAdmin);
+                  state.data = mig.data;
+                  state.profile = mig.profile;
+                  persistAll(false);
+                  refreshAllViewsAfterAuth();
+                } catch (e) {}
+              }
+            }
+          });
+        }
+      };
+
+      authMod.onAuthStateChanged(auth, async (fbUser) => {
+        if (fbUser && fbUser.email) {
+          await completeUserSessionLogin({
+            email: fbUser.email,
+            uid: fbUser.uid,
+            displayName: fbUser.displayName || '',
+            provider: 'firebase-auth'
+          });
+        }
+      });
+    })();
   </script>
 
   <!-- بروتوكول الاختبار الذاتي (Self-Testing QA Logic) -->

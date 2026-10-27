@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="minBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f4c81"/>
+      <stop offset="60%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#124E3F"/>
+    </linearGradient>
+    <linearGradient id="minBoxTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="minBoxLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="minBoxRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <!-- خلفية مربعة بزوايا ناعمة وإطار ذهبي خفيف متناسق مع هوية التطبيق -->
+  <rect width="120" height="120" rx="28" fill="url(#minBgGrad)"/>
+  <rect x="6" y="6" width="108" height="108" rx="23" fill="none" stroke="#D4AF37" stroke-width="1.5" opacity="0.45"/>
+  <!-- صندوق بضاعة متجهي بسيط وأنيق يتوسط اللوغو (Minimalist Isometric Package) -->
+  <g transform="translate(0, 2)">
+    <!-- الوجه العلوي للصندوق -->
+    <polygon points="60,22 96,40 60,58 24,40" fill="url(#minBoxTop)" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- الوجه الأيسر للصندوق -->
+    <polygon points="24,40 60,58 60,96 24,78" fill="url(#minBoxLeft)" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- الوجه الأيمن للصندوق -->
+    <polygon points="60,58 96,40 96,78 60,96" fill="url(#minBoxRight)" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- شريط الإغلاق الأوسط البسيط (Package Tape) -->
+    <polygon points="49,27.5 71,38.5 71,52.5 49,41.5" fill="#ffffff" opacity="0.9"/>
+    <polygon points="55,55.5 65,55.5 65,70 55,70" fill="#ffffff" opacity="0.85"/>
+    <!-- خط تفصيلي صغير أنيق على الصندوق -->
+    <line x1="34" y1="68" x2="48" y2="75" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+  </g>
+</svg>
