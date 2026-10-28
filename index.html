@@ -3067,10 +3067,10 @@
       object-fit: contain;
     }
 
-    /* تنسيق الطباعة الرسمية لإشهاد التسليم (A4 Portrait Precision) */
+    /* تنسيق الطباعة الرسمية لإشهاد التسليم (A4 Portrait Compact & Multi-Page Precision — تصغير الخطوط ~20% ودعم تعدد الصفحات) */
     @page {
       size: A4 portrait;
-      margin: 10mm 14mm;
+      margin: 8mm 12mm;
     }
 
     .official-cert-page {
@@ -3079,8 +3079,10 @@
       width: 100%;
       max-width: 210mm;
       min-height: 268mm;
+      height: auto !important;
+      overflow: visible !important;
       margin: 0 auto;
-      padding: 6mm 10mm;
+      padding: 4mm 8mm;
       font-family: "Tajawal", Arial, sans-serif;
       box-sizing: border-box;
       direction: rtl;
@@ -3096,13 +3098,13 @@
 
     .cert-header-wrap {
       width: 100%;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       text-align: center;
     }
 
     .cert-header-wrap img {
       width: 100%;
-      max-height: 120px;
+      max-height: 110px;
       object-fit: contain;
       display: block;
       margin: 0 auto;
@@ -3110,94 +3112,104 @@
 
     .cert-title-container {
       text-align: center;
-      margin-top: 4px;
-      margin-bottom: 14px;
+      margin-top: 2px;
+      margin-bottom: 6px;
     }
 
     .cert-title-box {
       display: inline-block;
-      border: 1.8px solid #000000;
+      border: 1.5px solid #000000;
       border-radius: 999px;
-      padding: 4px 52px;
-      font-size: 16pt;
+      padding: 2px 38px;
+      font-size: 12.8pt;
       font-weight: 800;
       color: #000000;
       background: #ffffff;
-      line-height: 1.3;
+      line-height: 1.25;
     }
 
     .cert-intro-paragraph {
-      font-size: 11.5pt;
-      line-height: 1.8;
+      font-size: 9.2pt;
+      line-height: 1.48;
       color: #000000;
       text-align: right;
       direction: rtl;
-      margin: 0 0 14px 0;
+      margin: 0 0 6px 0;
     }
 
     .cert-official-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 6px;
-      margin-bottom: 18px;
-      font-size: 10.5pt;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      font-size: 8.5pt;
       direction: rtl;
       color: #000000;
       background: #ffffff;
+      page-break-inside: auto;
     }
 
     .cert-official-table thead {
-      display: table-header-group;
+      display: table-header-group !important;
+    }
+
+    .cert-official-table tfoot {
+      display: table-footer-group !important;
     }
 
     .cert-official-table tr {
-      page-break-inside: avoid;
-      break-inside: avoid;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cert-official-table th,
     .cert-official-table td {
-      border: 1.2px solid #000000;
-      padding: 8px 10px;
+      border: 1px solid #000000;
+      padding: 4px 6px;
+      font-size: 8.5pt;
+      line-height: 1.32;
       vertical-align: middle;
       word-break: break-word;
       overflow-wrap: anywhere;
       white-space: normal;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cert-official-table th {
       background-color: #efefef !important;
       color: #000000 !important;
       font-weight: 800;
+      font-size: 8.6pt;
       text-align: center;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
     .cert-signature-block {
-      margin-top: 22px;
-      margin-bottom: 36px;
+      margin-top: 8px;
+      margin-bottom: 12px;
       padding-left: 16%;
       text-align: left;
-      font-size: 12pt;
+      font-size: 9.6pt;
       font-weight: 800;
       color: #000000;
-      min-height: 60px;
-      page-break-inside: avoid;
-      break-inside: avoid;
+      min-height: 38px;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cert-bottom-section {
       width: 100%;
       margin-top: auto;
-      padding-top: 8px;
-      page-break-inside: avoid;
-      break-inside: avoid;
+      padding-top: 4px;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cert-secret-code {
-      font-size: 8px;
-      opacity: 0.4;
+      font-size: 8px !important;
+      opacity: 0.4 !important;
       color: #000000;
       text-align: left;
       direction: ltr;
@@ -3214,7 +3226,7 @@
 
     .cert-footer-wrap img {
       width: 100%;
-      max-height: 80px;
+      max-height: 70px;
       object-fit: contain;
       display: block;
       margin: 0 auto;
@@ -3226,6 +3238,7 @@
         color: #000000 !important;
         margin: 0 !important;
         padding: 0 !important;
+        height: auto !important;
         overflow: visible !important;
       }
       .app-layout,
@@ -3242,6 +3255,8 @@
         visibility: visible !important;
         position: static !important;
         width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
         margin: 0 !important;
         padding: 0 !important;
         background: #ffffff !important;
@@ -3251,11 +3266,74 @@
         visibility: visible !important;
       }
       .official-cert-page {
-        min-height: 265mm;
+        min-height: 268mm;
+        height: auto !important;
+        overflow: visible !important;
         max-width: 100%;
-        padding: 2mm 4mm;
+        padding: 1mm 3mm;
         margin: 0;
         box-shadow: none !important;
+      }
+      .cert-header-wrap {
+        margin-bottom: 2px !important;
+      }
+      .cert-header-wrap img {
+        width: 100% !important;
+        max-height: 110px !important;
+        object-fit: contain !important;
+      }
+      .cert-title-container {
+        margin-top: 2px !important;
+        margin-bottom: 6px !important;
+      }
+      .cert-title-box {
+        font-size: 12.8pt !important;
+        padding: 2px 38px !important;
+      }
+      .cert-intro-paragraph {
+        font-size: 9.2pt !important;
+        line-height: 1.48 !important;
+        margin: 0 0 6px 0 !important;
+      }
+      .cert-official-table {
+        font-size: 8.5pt !important;
+        margin-top: 4px !important;
+        margin-bottom: 8px !important;
+        page-break-inside: auto !important;
+      }
+      .cert-official-table thead {
+        display: table-header-group !important;
+      }
+      .cert-official-table tr,
+      .cert-official-table td,
+      .cert-official-table th {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        padding: 4px 6px !important;
+        font-size: 8.5pt !important;
+        line-height: 1.32 !important;
+      }
+      .cert-signature-block {
+        font-size: 9.6pt !important;
+        margin-top: 8px !important;
+        margin-bottom: 12px !important;
+        min-height: 38px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .cert-bottom-section {
+        padding-top: 4px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .cert-secret-code {
+        font-size: 8px !important;
+        opacity: 0.4 !important;
+      }
+      .cert-footer-wrap img {
+        width: 100% !important;
+        max-height: 70px !important;
+        object-fit: contain !important;
       }
     }
 
@@ -12653,14 +12731,13 @@ ${itemsText}
     }
 
     function generateVoucherA4Html(voucher) {
-      const headerSrc = escapeHtml(getBrandingAssetSrc('header'));
-      const footerSrc = escapeHtml(getBrandingAssetSrc('footer'));
+      const headerSrc = escapeHtml(getBrandingAssetSrc('header') || './en_tete.png');
+      const footerSrc = escapeHtml(getBrandingAssetSrc('footer') || './en_pied.png');
       const secretCode = escapeHtml(generateCertSecretCode(voucher));
       const introHtml = buildOfficialIntroLine(voucher);
 
-      // جدول إداري رسمي بثلاثة أعمدة من اليمين إلى اليسار في RTL (يستخدم دائماً الاسم الكامل الأصلي للمادة دون أي اختصار):
-      // 1. بيان المادة (المادة والمواصفات والصنف) | 2. الكمية | 3. الملاحظات
-      const itemsRows = (voucher.items || []).map((item) => {
+      // جدول إداري رسمي مضغوط ومتعدد الصفحات من اليمين إلى اليسار (RTL) مع تكرار الترويسة (#, المادة, الكمية, الملاحظات):
+      const itemsRows = (voucher.items || []).map((item, idx) => {
         const catStr = safeText(item?.category, '');
         const nameStr = safeText(item?.name, '—');
         const itemLabelHtml = catStr && catStr !== 'لم يُسجّل بعد'
@@ -12674,9 +12751,10 @@ ${itemsText}
 
         return `
           <tr>
-            <td style="width: 56%; text-align: right; font-size: 10.5pt; line-height: 1.45;">${itemLabelHtml}</td>
-            <td style="width: 14%; text-align: center; font-weight: 800; font-size: 11pt;" class="tabular-nums">${qtyVal}</td>
-            <td style="width: 30%; text-align: center; font-size: 10pt; line-height: 1.4;">${notesHtml}</td>
+            <td style="width: 6%; text-align: center; font-weight: 700; font-size: 8.4pt;" class="tabular-nums">${idx + 1}</td>
+            <td style="width: 52%; text-align: right; font-size: 8.5pt; line-height: 1.32;">${itemLabelHtml}</td>
+            <td style="width: 14%; text-align: center; font-weight: 800; font-size: 8.8pt;" class="tabular-nums">${qtyVal}</td>
+            <td style="width: 28%; text-align: center; font-size: 8.2pt; line-height: 1.3;">${notesHtml}</td>
           </tr>
         `;
       }).join('');
@@ -12684,31 +12762,32 @@ ${itemsText}
       return `
         <div class="official-cert-page" data-voucher-id="${escapeHtml(voucher.id || '')}" data-secret-code="${secretCode}">
           <div class="cert-top-section">
-            <!-- 1. الترويسة الرسمية بعرض كامل (100%) مع تقليص الهامش السفلي -->
+            <!-- 1. الترويسة الرسمية المحلية بعرض كامل (100%) وارتفاع أقصى 110px -->
             <div class="cert-header-wrap">
               <img src="${headerSrc}"
                    onerror="if(this.src!==window.FALLBACK_EN_TETE_B64)this.src=window.FALLBACK_EN_TETE_B64;"
-                   style="width: 100%; max-height: 120px; object-fit: contain;"
+                   style="width: 100%; max-height: 110px; object-fit: contain;"
                    alt="En-tête" />
             </div>
 
-            <!-- 2. عنوان الإشهاد داخل مستطيل بحدود سوداء وزوايا دائرية -->
+            <!-- 2. عنوان الإشهاد بحجم مضغوط (أصغر بـ ~20%) وهامش عمودي مقلص -->
             <div class="cert-title-container">
               <div class="cert-title-box">إشهاد</div>
             </div>
 
-            <!-- 3. النص التمهيدي الرسمي المرتبط ببيانات العملية الفعلية -->
+            <!-- 3. النص التمهيدي الرسمي بحجم مضغوط (9.2pt) -->
             <p class="cert-intro-paragraph">
               ${introHtml}
             </p>
 
-            <!-- 4. جدول المواد الرسمي (3 أعمدة: بيان المادة والمواصفات والصنف | الكمية | الملاحظات) -->
+            <!-- 4. جدول المواد الرسمي المدمج الداعم لتعدد الصفحات (#, المادة, الكمية, الملاحظات) -->
             <table class="cert-official-table">
               <thead>
                 <tr>
-                  <th style="width: 56%;">المادة</th>
+                  <th style="width: 6%;">#</th>
+                  <th style="width: 52%;">المادة</th>
                   <th style="width: 14%;">الكمية</th>
-                  <th style="width: 30%;">الملاحظات</th>
+                  <th style="width: 28%;">الملاحظات</th>
                 </tr>
               </thead>
               <tbody>
@@ -12716,19 +12795,19 @@ ${itemsText}
               </tbody>
             </table>
 
-            <!-- 5. توقيع المستلم بمسافة تسمح بالتوقيع اليدوي -->
+            <!-- 5. توقيع المستلم بمسافة عمودية مدمجة تسمح بالتوقيع اليدوي دون هدر المساحة -->
             <div class="cert-signature-block">
               توقيع المستلم
             </div>
           </div>
 
-          <!-- 6. الرقم السري للإشهاد في الزاوية السفلية اليسرى فوق التذييل مباشرة + التذييل الرسمي بعرض 100% -->
+          <!-- 6. المعرف الفريد للإشهاد (8px, opacity: 0.4) في الزاوية السفلية اليسرى فوق التذييل المحلي مباشرة -->
           <div class="cert-bottom-section">
-            <div class="cert-secret-code">${secretCode}</div>
+            <div class="cert-secret-code" style="font-size: 8px; opacity: 0.4;">${secretCode}</div>
             <div class="cert-footer-wrap">
               <img src="${footerSrc}"
                    onerror="if(this.src!==window.FALLBACK_EN_PIED_B64)this.src=window.FALLBACK_EN_PIED_B64;"
-                   style="width: 100%; max-height: 80px; object-fit: contain;"
+                   style="width: 100%; max-height: 70px; object-fit: contain;"
                    alt="Pied de page" />
             </div>
           </div>
