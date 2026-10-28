@@ -4056,6 +4056,269 @@
       background: #f1f5f9 !important;
       border: 2.5px solid #94a3b8 !important;
     }
+
+    /* =========================================================================
+       PHASE 11: BULK DISTRIBUTION RUN (عملية التوزيع المركزي)
+       ========================================================================= */
+    .bulk-dist-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0f2942 100%);
+      border-radius: 16px;
+      padding: 18px 22px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bulk-dist-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .bulk-batch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      color: #fde68a;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-family: 'Inter', monospace;
+      font-weight: 800;
+      font-size: 0.84rem;
+      letter-spacing: 0.5px;
+    }
+    .bulk-live-bar {
+      position: sticky;
+      top: 8px;
+      z-index: 45;
+      background: var(--bg-card, #ffffff);
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 14px;
+      border: 2px solid var(--border-subtle, #cbd5e1);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+      transition: all 0.25s ease;
+    }
+    .bulk-live-bar.status-ready {
+      border-color: #10b981;
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.09), var(--bg-card, #ffffff));
+      box-shadow: 0 8px 26px rgba(16, 185, 129, 0.18);
+    }
+    .bulk-live-bar.status-pending {
+      border-color: #f59e0b;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.09), var(--bg-card, #ffffff));
+    }
+    .bulk-live-bar.status-over {
+      border-color: #ef4444;
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.09), var(--bg-card, #ffffff));
+    }
+    .bulk-live-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(140px, 1fr));
+      gap: 10px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .bulk-live-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .bulk-metric-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--bg-muted, #f8fafc);
+      border: 1px solid var(--border-subtle, #e2e8f0);
+    }
+    .bulk-metric-box .lbl {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted, #475569);
+    }
+    .bulk-metric-box .val {
+      font-size: 1.22rem;
+      font-weight: 900;
+    }
+    .bulk-progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--bg-muted, #e2e8f0);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .bulk-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f59e0b, #3b82f6);
+      transition: width 0.3s ease, background 0.3s ease;
+      border-radius: 999px;
+    }
+    .bulk-progress-fill.zero-reached {
+      background: linear-gradient(90deg, #059669, #10b981);
+    }
+    .bulk-stepper-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .bulk-step-tab {
+      flex: 1;
+      min-width: 210px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: var(--bg-card, #ffffff);
+      border: 1.5px solid var(--border-subtle, #e2e8f0);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: right;
+      color: var(--text-main, #0f172a);
+    }
+    .bulk-step-tab.active {
+      border-color: #2563eb;
+      background: rgba(37, 99, 235, 0.07);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+    .bulk-step-tab .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-muted, #e2e8f0);
+      color: var(--text-main, #1e293b);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .bulk-step-tab.active .step-num {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .bulk-matrix-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle, #cbd5e1);
+      background: var(--bg-card, #ffffff);
+    }
+    .bulk-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+    .bulk-matrix-table th,
+    .bulk-matrix-table td {
+      padding: 9px 10px;
+      border: 1px solid var(--border-subtle, #e2e8f0);
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.84rem;
+    }
+    .bulk-matrix-table thead th {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .bulk-matrix-table tbody tr:nth-child(even) {
+      background: rgba(241, 245, 249, 0.55);
+    }
+    [data-theme="dark"] .bulk-matrix-table tbody tr:nth-child(even) {
+      background: rgba(30, 41, 59, 0.55);
+    }
+    .bulk-matrix-input {
+      width: 76px;
+      padding: 5px 7px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: var(--bg-card, #ffffff);
+      color: var(--text-main, #0f172a);
+      transition: all 0.15s ease;
+    }
+    .bulk-matrix-input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .bulk-matrix-input.has-val {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.10);
+      color: #065f46;
+    }
+    [data-theme="dark"] .bulk-matrix-input.has-val {
+      color: #6ee7b7;
+    }
+    .bulk-item-rem-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    .bulk-item-rem-pill.rem-zero {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #10b981;
+    }
+    .bulk-item-rem-pill.rem-pos {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+    }
+    .bulk-item-rem-pill.rem-neg {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #ef4444;
+    }
+    .sidebar-bulk-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.92));
+      color: #fde68a;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sidebar-bulk-btn:hover,
+    .sidebar-bulk-btn.active {
+      border-color: #fbbf24;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.22);
+      transform: translateY(-1px);
+    }
+
   </style>
 </head>
 <body>
@@ -4109,6 +4372,14 @@
           </div>
           <span class="order-badge" id="badge-total-orders">0</span>
         </button>
+
+        <button type="button" class="sidebar-bulk-btn" id="sidebar-btn-bulk-distribution" onclick="switchTab('bulk-distribution-view'); toggleSidebar(false);" title="عملية التوزيع المركزي المجمع على المحاكم والمراكز القضائية">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span>التوزيع المركزي</span>
+          </div>
+          <span class="order-badge" id="badge-total-bulk-batches" style="background:rgba(245,158,11,0.25);color:#fde68a;">جديد</span>
+        </button>
       </div>
 
       <!-- القوائم والتنقل (دون تكرار زر التسليم) -->
@@ -4128,6 +4399,14 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </span>
             <span class="nav-label">التقويم الإداري</span>
+          </div>
+
+          <div class="nav-item" id="tab-btn-bulk-distribution" onclick="switchTab('bulk-distribution-view'); toggleSidebar(false);">
+            <span class="nav-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="6" height="6" rx="1"/><rect x="16" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M5 9v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><line x1="12" y1="13" x2="12" y2="15"/></svg>
+            </span>
+            <span class="nav-label">عملية التوزيع المركزي</span>
+            <span class="nav-badge" id="nav-badge-bulk-runs">0</span>
           </div>
 
           <div class="nav-item" id="tab-btn-history" onclick="switchTab('history-view'); toggleSidebar(false);">
@@ -5971,6 +6250,344 @@
                 <tbody id="trash-table-body">
                   <!-- يملأ ديناميكياً بالعناصر المحذوفة مؤقتاً -->
                 </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 9: عملية التوزيع المركزي (Bulk Distribution Run)
+             ==================================================================== -->
+        <section id="bulk-distribution-view" class="view-panel" style="display: none;">
+          <!-- Hero Header -->
+          <div class="bulk-dist-hero">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+                <span class="bulk-batch-pill" id="bulk-batch-id-badge" title="المعرف الفريد لدفعة التوزيع المركزي">
+                  <span>📦 رقم الدفعة:</span>
+                  <span id="bulk-current-batch-code">DIST-2026-1028-01</span>
+                </span>
+                <span style="background:rgba(16,185,129,0.18);border:1px solid rgba(16,185,129,0.45);color:#6ee7b7;padding:4px 12px;border-radius:999px;font-size:0.76rem;font-weight:800;">
+                  🛡️ قاعدة الباقي صفر مفعّلة (Zero-Balance Rule)
+                </span>
+              </div>
+              <h2 style="margin:0;font-size:1.3rem;font-weight:900;color:#ffffff;">
+                عملية التوزيع المركزي للمواد (Bulk Distribution Run)
+              </h2>
+              <p style="margin:4px 0 0;font-size:0.83rem;color:#cbd5e1;">
+                تحديد سلة المواد الإجمالية (رصيد العملية المجمع) وتوزيعها على المحاكم والمراكز القضائية مع توليد الإشهادات الرسمية المتعددة بضغطة واحدة
+              </p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <input type="date" id="bulk-run-date" class="form-control" style="width:150px;background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);font-weight:700;" title="تاريخ عملية التوزيع المركزي">
+              <button type="button" class="btn btn-outline btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="generateNewBulkBatchCode(true)">
+                🔄 توليد رقم دفعة جديد
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" style="background:rgba(239,68,68,0.18);color:#fecaca;border-color:rgba(239,68,68,0.4);" onclick="resetBulkDistributionRun()">
+                🗑️ تفريغ السلة وتصفير التوزيع
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3 Sticky Live Monitor Bar (عداد المراقبة الحية وقاعدة الباقي صفر) -->
+          <div id="bulk-live-monitor-bar" class="bulk-live-bar">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:1.1rem;">📊</span>
+                <strong style="font-size:0.9rem;">عداد المراقبة الحية لرصيد العملية المجمع (Live Distribution Monitor)</strong>
+              </div>
+              <div id="bulk-zero-rule-badge" style="font-size:0.8rem;font-weight:800;padding:4px 12px;border-radius:999px;background:#f1f5f9;color:#475569;">
+                أضف مواد إلى سلة التوزيع للبدء
+              </div>
+            </div>
+            <div class="bulk-live-metrics">
+              <div class="bulk-metric-box">
+                <div>
+                  <div class="lbl">عدد المواد بالسلة</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">مواد مختارة للتوزيع</div>
+                </div>
+                <div class="val tabular-nums" id="bulk-metric-items-count" style="color:#2563eb;">0</div>
+              </div>
+              <div class="bulk-metric-box">
+                <div>
+                  <div class="lbl">الكمية الإجمالية المسحوبة</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">إجمالي رصيد السلة</div>
+                </div>
+                <div class="val tabular-nums" id="bulk-metric-total-pool" style="color:var(--text-main);">0</div>
+              </div>
+              <div class="bulk-metric-box">
+                <div>
+                  <div class="lbl">ما تم توزيعه على المحاكم</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">مجموع الحصص الموزعة</div>
+                </div>
+                <div class="val tabular-nums" id="bulk-metric-total-allocated" style="color:#3b82f6;">0</div>
+              </div>
+              <div class="bulk-metric-box" id="bulk-metric-remainder-box">
+                <div>
+                  <div class="lbl">الباقي للتوزيع (Remainder)</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">الشرط الإلزامي: الباقي = 0</div>
+                </div>
+                <div class="val tabular-nums" id="bulk-metric-total-remainder" style="color:#f59e0b;">0</div>
+              </div>
+            </div>
+            <div class="bulk-progress-track">
+              <div id="bulk-live-progress-fill" class="bulk-progress-fill"></div>
+            </div>
+            <!-- Per-item live badges strip -->
+            <div id="bulk-per-item-counters-strip" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+          </div>
+
+          <!-- Stepper Navigation Tabs -->
+          <div class="bulk-stepper-tabs">
+            <button type="button" class="bulk-step-tab active" id="bulk-tab-btn-1" onclick="setBulkStep(1)">
+              <span class="step-num">1</span>
+              <div>
+                <div style="font-weight:900;font-size:0.88rem;">الخطوة 1: تحديد سلة المواد الإجمالية (The Pool)</div>
+                <div style="font-size:0.74rem;color:var(--text-muted);">اختيار الصنف والمواد وتحديد الكمية الإجمالية المسحوبة</div>
+              </div>
+            </button>
+            <button type="button" class="bulk-step-tab" id="bulk-tab-btn-2" onclick="setBulkStep(2)">
+              <span class="step-num">2</span>
+              <div>
+                <div style="font-weight:900;font-size:0.88rem;">الخطوة 2: مصفوفة التوزيع على الوجهات والمستفيدين</div>
+                <div style="font-size:0.74rem;color:var(--text-muted);">توزيع الحصص على المحاكم وتحديد المستفيدين واعتماد الدفعة</div>
+              </div>
+            </button>
+            <button type="button" class="bulk-step-tab" id="bulk-tab-btn-3" onclick="setBulkStep(3)">
+              <span class="step-num">3</span>
+              <div>
+                <div style="font-weight:900;font-size:0.88rem;">الخطوة 3: الإشهادات المتعددة المولدة وأرشيف الدفعات</div>
+                <div style="font-size:0.74rem;color:var(--text-muted);">معاينة وطباعة الإشهادات الرسمية المستقلة لكل محكمة</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- STEP 1 PANEL: THE POOL SELECTION -->
+          <div id="bulk-step-1-panel" class="card" style="margin-bottom:14px;padding:18px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;border-bottom:1px solid var(--border-subtle);padding-bottom:10px;">
+              <div>
+                <h3 style="margin:0;font-size:1.02rem;font-weight:900;">
+                  🛒 الخطوة الأولى: تحديد سلة المواد الإجمالية (The Pool Selection)
+                </h3>
+                <p style="margin:3px 0 0;font-size:0.8rem;color:var(--text-muted);">
+                  ابدأ باختيار "الصنف" لعرض المواد التابعة له في القائمة والجدول، ثم حدد الكمية الإجمالية المراد سحبها للتوزيع (رصيد العملية المجمع)
+                </p>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="setBulkStep(2)">
+                الانتقال إلى مصفوفة التوزيع على المحاكم ←
+              </button>
+            </div>
+
+            <!-- Selector Form Row -->
+            <div style="display:grid;grid-template-columns:1.2fr 1.8fr 0.9fr auto;gap:12px;align-items:end;margin-bottom:16px;">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;">1. اختر الصنف (الفئة)</label>
+                <select id="bulk-pool-cat-select" class="form-control" onchange="onBulkCategoryChange()">
+                  <option value="all">-- جميع الأصناف --</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;">2. اختر المادة التابعة للصنف</label>
+                <select id="bulk-pool-item-select" class="form-control" onchange="onBulkItemSelectChange()">
+                  <option value="">-- اختر المادة --</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;">
+                  3. الكمية الإجمالية للسحب
+                  <span id="bulk-selected-item-stock-hint" style="font-size:0.74rem;color:#10b981;font-weight:800;"></span>
+                </label>
+                <input type="number" id="bulk-pool-qty-input" class="form-control tabular-nums" min="1" value="10" placeholder="الكمية...">
+              </div>
+              <div>
+                <button type="button" id="btn-add-item-to-bulk-pool" class="btn btn-primary" style="height:40px;padding:0 18px;font-weight:800;" onclick="addItemToBulkPoolFromForm()">
+                  ➕ إضافة إلى سلة التوزيع
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Category Items Table Picker -->
+            <details open style="margin-bottom:16px;background:var(--bg-muted,#f8fafc);border:1px solid var(--border-subtle,#e2e8f0);border-radius:10px;padding:10px 14px;">
+              <summary style="cursor:pointer;font-weight:800;font-size:0.85rem;color:var(--primary,#1e40af);">
+                📋 جدول مواد الصنف المختار (تحديد سريع للكميات المراد سحبها للتوزيع)
+              </summary>
+              <div class="table-scroll-wrapper" style="max-height:220px;overflow-y:auto;margin-top:10px;">
+                <table class="data-table" style="font-size:0.82rem;">
+                  <thead>
+                    <tr>
+                      <th style="width:45px;text-align:center;">#</th>
+                      <th>اسم المادة والمواصفات</th>
+                      <th>الصنف</th>
+                      <th style="text-align:center;">الرصيد المتوفر بالمخزن</th>
+                      <th style="width:150px;text-align:center;">كمية السحب للتوزيع</th>
+                      <th style="width:130px;text-align:center;">إجراء</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bulk-cat-quick-picker-tbody"></tbody>
+                </table>
+              </div>
+            </details>
+
+            <!-- Current Pool Basket Table -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <h4 style="margin:0;font-size:0.94rem;font-weight:800;">
+                  📦 سلة المواد الإجمالية المختارة (رصيد العملية المجمع)
+                </h4>
+                <span id="bulk-basket-summary-label" class="badge badge-subtle" style="font-size:0.8rem;font-weight:800;">0 مادة في السلة</span>
+              </div>
+              <div class="table-scroll-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width:45px;text-align:center;">#</th>
+                      <th>بيان المادة</th>
+                      <th>الصنف</th>
+                      <th style="text-align:center;">المتوفر بالمخزن</th>
+                      <th style="width:165px;text-align:center;">الكمية المسحوبة للتوزيع</th>
+                      <th style="text-align:center;">ما تم توزيعه</th>
+                      <th style="text-align:center;">الباقي للتوزيع</th>
+                      <th style="width:85px;text-align:center;">حذف</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bulk-pool-basket-tbody">
+                    <tr>
+                      <td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted);">
+                        السلة فارغة حالياً — اختر الصنف والمادة أعلاه وأضف الكميات المراد توزيعها
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 PANEL: DESTINATION ALLOCATION MATRIX -->
+          <div id="bulk-step-2-panel" class="card" style="margin-bottom:14px;padding:18px;display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;border-bottom:1px solid var(--border-subtle);padding-bottom:10px;">
+              <div>
+                <h3 style="margin:0;font-size:1.02rem;font-weight:900;">
+                  🏛️ الخطوة الثانية: مصفوفة التوزيع على الوجهات والمستفيدين (Destination Allocation Matrix)
+                </h3>
+                <p style="margin:3px 0 0;font-size:0.8rem;color:var(--text-muted);">
+                  تظهر أدناه المحاكم والمراكز القضائية والمصالح المسجلة، وتحت كل وجهة قائمة المسؤولين التابعين لها لتحديد حصة كل جهة بدقة
+                </p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="setBulkStep(1)">
+                  → العودة لتعديل سلة المواد
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="autoDistributeBulkEqually()" title="توزيع الكميات المسحوبة بالتساوي على الوجهات المفعلة">
+                  ⚖️ توزيع متساوٍ تلقائي
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="clearAllBulkAllocations()" title="تصفير جميع الحصص في الجدول">
+                  🧹 تصفير الحصص
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="addExtraBulkDestinationRow()" title="إضافة سطر وجهة/مستفيد إضافي (مثلاً مستفيد ثانٍ في نفس المحكمة)">
+                  ➕ إضافة مستفيد إضافي بالجدول
+                </button>
+              </div>
+            </div>
+
+            <!-- Metadata & Notes for all certificates in this batch -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:12px;margin-bottom:14px;">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;font-size:0.8rem;">سبب التسليم الموحد للدفعة</label>
+                <select id="bulk-run-reason" class="form-control">
+                  <option value="حصة التوزيع المركزي الدوري">حصة التوزيع المركزي الدوري</option>
+                  <option value="بناءً على طلب">بناءً على طلب</option>
+                  <option value="تجهيز مكاتب ومصالح قضائية">تجهيز مكاتب ومصالح قضائية</option>
+                  <option value="تعويض مخزون مستهلك">تعويض مخزون مستهلك</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;font-size:0.8rem;">قناة التسليم</label>
+                <select id="bulk-run-channel" class="form-control">
+                  <option value="تسليم مباشر">تسليم مباشر</option>
+                  <option value="كتاب">كتاب</option>
+                  <option value="بريد إلكتروني">بريد إلكتروني</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" style="font-weight:800;font-size:0.8rem;">ملاحظة تدرج في خانة الملاحظات بالإشهادات المولدة (اختياري)</label>
+                <input type="text" id="bulk-run-notes" class="form-control" placeholder="مثال: حصة التوزيع المركزي — سليم ومعتمد">
+              </div>
+            </div>
+
+            <!-- Matrix Table Container -->
+            <div class="bulk-matrix-wrap">
+              <table class="bulk-matrix-table" id="bulk-allocation-matrix-table">
+                <thead id="bulk-matrix-thead"></thead>
+                <tbody id="bulk-matrix-tbody"></tbody>
+                <tfoot id="bulk-matrix-tfoot"></tfoot>
+              </table>
+            </div>
+
+            <!-- Step 4 Commit Bar -->
+            <div style="margin-top:16px;padding:16px;border-radius:12px;background:var(--bg-muted,#f8fafc);border:1.5px solid var(--border-subtle,#cbd5e1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div style="font-weight:900;font-size:0.95rem;color:var(--text-main);">
+                  ✅ الخطوة الرابعة: الاعتماد، الخصم الفوري من المخزون، وتوليد الإشهادات المتعددة
+                </div>
+                <div id="bulk-commit-helper-text" style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;">
+                  يجب أن يكون "الباقي للتوزيع = 0" في جميع المواد لتفعيل زر الاعتماد النهائي (قاعدة الباقي صفر).
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button" id="btn-commit-bulk-distribution" class="btn btn-primary" style="padding:10px 20px;font-weight:900;font-size:0.92rem;" disabled onclick="commitBulkDistributionRun(false)">
+                  ✓ اعتماد التوزيع وتوليد الإشهادات
+                </button>
+                <button type="button" id="btn-commit-and-print-bulk" class="btn btn-secondary" style="padding:10px 20px;font-weight:900;font-size:0.92rem;background:#059669;color:#fff;border:none;" disabled onclick="commitBulkDistributionRun(true)">
+                  🖨️ اعتماد ومعاينة طباعة كافة الإشهادات فوراً
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 PANEL: GENERATED BATCH CERTIFICATES & ARCHIVE -->
+          <div id="bulk-step-3-panel" class="card" style="padding:18px;display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;border-bottom:1px solid var(--border-subtle);padding-bottom:10px;">
+              <div>
+                <h3 style="margin:0;font-size:1.02rem;font-weight:900;">
+                  🖨️ الإشهادات الرسمية المولدة وسجل دفعات التوزيع المركزي
+                </h3>
+                <p style="margin:3px 0 0;font-size:0.8rem;color:var(--text-muted);">
+                  جميع الإشهادات المولدة مسجلة تلقائياً في "سجل العمليات والأرشيف" بالتصميم الرسمي المعتمد (ترويسة وتذييل المديرية الإقليمية للعدل بسطات)
+                </p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" id="btn-print-last-batch-all" onclick="printBulkBatchCertificates()" style="display:none;">
+                  🖨️ معاينة وطباعة جميع إشهادات الدفعة دفعة واحدة
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="switchTab('history-view')">
+                  📂 فتح سجل العمليات والأرشيف
+                </button>
+              </div>
+            </div>
+
+            <div id="bulk-generated-certificates-container">
+              <div style="text-align:center;padding:24px;color:var(--text-muted);">
+                لم يتم اعتماد دفعة جديدة في هذه الجلسة بعد — يمكنك استعراض الدفعات المعتمدة أسفله أو البدء بتوزيع جديد.
+              </div>
+            </div>
+
+            <h4 style="margin:18px 0 10px;font-size:0.94rem;font-weight:800;">
+              🗂️ أرشيف دفعات التوزيع المركزي المعتمدة (Bulk Distribution Batches)
+            </h4>
+            <div class="table-scroll-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>رقم الدفعة (Batch ID)</th>
+                    <th>التاريخ</th>
+                    <th style="text-align:center;">عدد المواد</th>
+                    <th style="text-align:center;">إجمالي القطع الموزعة</th>
+                    <th style="text-align:center;">عدد الإشهادات المولدة</th>
+                    <th>المسؤول</th>
+                    <th style="text-align:center;">إجراءات الطباعة والمعاينة</th>
+                  </tr>
+                </thead>
+                <tbody id="bulk-batches-history-tbody"></tbody>
               </table>
             </div>
           </div>
@@ -8009,6 +8626,7 @@
         'inventory-view': { btn: 'tab-btn-inventory', title: 'الجرد الدوري للمخزون' },
         'notifications-view': { btn: 'tab-btn-notifications', title: 'مركز التنبيهات' },
         'trash-view': { btn: 'tab-btn-trash', title: 'مركز الحذف المؤقت' },
+        'bulk-distribution-view': { btn: 'tab-btn-bulk-distribution', title: 'عملية التوزيع المركزي' },
         'settings-view': { btn: 'tab-btn-settings', title: 'مركز الإعدادات والتهيئة' }
       };
 
@@ -8029,6 +8647,11 @@
         ordersActionBtn.classList.toggle('active', viewId === 'orders-view');
       }
 
+      const bulkActionBtn = document.getElementById('sidebar-btn-bulk-distribution');
+      if (bulkActionBtn) {
+        bulkActionBtn.classList.toggle('active', viewId === 'bulk-distribution-view');
+      }
+
       state.currentTab = viewId;
       const appCont = document.querySelector('.app-container');
       if (appCont) {
@@ -8047,6 +8670,7 @@
       else if (viewId === 'inventory-view') renderInventoryTable();
       else if (viewId === 'notifications-view') renderNotificationsView();
       else if (viewId === 'trash-view') renderTrashView();
+      else if (viewId === 'bulk-distribution-view') initBulkDistributionView();
       else if (viewId === 'settings-view') {
         renderSettings();
         refreshCloudBackupsList();
@@ -12943,6 +13567,7 @@ ${itemsText}
     const COMMANDS = [
       { title: 'لوحة القيادة', action: () => switchTab('dashboard-view') },
       { title: 'تسليم جديد (إصدار إشهاد)', action: () => switchTab('issuance-view') },
+      { title: 'عملية التوزيع المركزي (Bulk Distribution Run)', action: () => switchTab('bulk-distribution-view') },
       { title: 'التقويم الإداري لعمليات التسليم', action: () => switchTab('calendar-view') },
       { title: 'سجل العمليات والأرشيف', action: () => switchTab('history-view') },
       { title: 'الجرد الدوري للمخزون', action: () => switchTab('inventory-view') },
@@ -15201,6 +15826,1007 @@ ${itemsText}
       switchTab('dashboard-view');
       refreshAllBadges();
       console.log('✓ تم إقلاع المنظومة الرقمية لتدبير المخزون بسطات بنجاح - لوحة القيادة الافتراضية نشطة');
+    }
+
+
+    // =========================================================================
+    // PHASE 11: BULK DISTRIBUTION RUN ENGINE (عملية التوزيع المركزي المجمع)
+    // =========================================================================
+    const bulkDistState = {
+      batchId: '',
+      step: 1,
+      pool: [], // [{ itemId, qty }]
+      rows: [], // [{ rowId, destName, recipientName, enabled, isExtra, allocations: { [itemId]: number } }]
+      lastCommittedBatchId: null
+    };
+
+    function generateNewBulkBatchCode(forceToast = false) {
+      if (!state.data.bulkBatches) state.data.bulkBatches = [];
+      const dateInput = document.getElementById('bulk-run-date');
+      const rawDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toISOString().split('T')[0];
+      const parts = rawDate.split('-');
+      const yyyy = parts[0] || new Date().getFullYear();
+      const mmdd = (parts[1] || '01') + (parts[2] || '01');
+      const prefix = `DIST-${yyyy}-${mmdd}-`;
+
+      let maxSeq = 0;
+      (state.data.bulkBatches || []).forEach(b => {
+        if (b && b.batchId && String(b.batchId).startsWith(prefix)) {
+          const n = parseInt(String(b.batchId).slice(prefix.length), 10);
+          if (!isNaN(n) && n > maxSeq) maxSeq = n;
+        }
+      });
+      (state.data.transactions || []).forEach(tx => {
+        if (tx && tx.batchId && String(tx.batchId).startsWith(prefix)) {
+          const n = parseInt(String(tx.batchId).slice(prefix.length), 10);
+          if (!isNaN(n) && n > maxSeq) maxSeq = n;
+        }
+      });
+
+      const nextSeq = String(maxSeq + 1).padStart(2, '0');
+      bulkDistState.batchId = `${prefix}${nextSeq}`;
+      const badgeEl = document.getElementById('bulk-current-batch-code');
+      if (badgeEl) badgeEl.textContent = bulkDistState.batchId;
+      if (forceToast) showToast(`تم توليد رقم دفعة توزيع مركزي جديد: ${bulkDistState.batchId}`, 'info');
+      return bulkDistState.batchId;
+    }
+
+    function syncBulkDestinationRows() {
+      const destObj = state.data.destinations || {};
+      const destNames = Object.keys(destObj);
+      const existingByDest = {};
+      bulkDistState.rows.forEach(r => {
+        if (!r.isExtra) existingByDest[r.destName] = r;
+      });
+
+      const newRows = [];
+      destNames.forEach((dName, idx) => {
+        const recs = typeof getRecipientsForDestination === 'function'
+          ? getRecipientsForDestination(dName)
+          : (Array.isArray(destObj[dName]) ? destObj[dName] : []);
+        const defaultRec = recs.length > 0 ? recs[0] : 'رئيس كتابة الضبط';
+        if (existingByDest[dName]) {
+          const ex = existingByDest[dName];
+          if (!ex.recipientName || !recs.includes(ex.recipientName)) {
+            ex.recipientName = defaultRec;
+          }
+          newRows.push(ex);
+        } else {
+          newRows.push({
+            rowId: 'brow_' + idx,
+            destName: dName,
+            recipientName: defaultRec,
+            enabled: true,
+            isExtra: false,
+            allocations: {}
+          });
+        }
+      });
+
+      // Keep extra rows added manually by user
+      bulkDistState.rows.filter(r => r.isExtra).forEach(r => newRows.push(r));
+      bulkDistState.rows = newRows;
+    }
+
+    function refreshBulkBadgesCount() {
+      const count = Array.isArray(state.data?.bulkBatches) ? state.data.bulkBatches.length : 0;
+      const b1 = document.getElementById('badge-total-bulk-batches');
+      const b2 = document.getElementById('nav-badge-bulk-runs');
+      if (b1) b1.textContent = count > 0 ? count : 'جديد';
+      if (b2) b2.textContent = count;
+    }
+
+    function initBulkDistributionView() {
+      if (!state.data.bulkBatches) state.data.bulkBatches = [];
+      const dateInput = document.getElementById('bulk-run-date');
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+        dateInput.addEventListener('change', () => generateNewBulkBatchCode(false));
+      }
+
+      if (!bulkDistState.batchId) generateNewBulkBatchCode(false);
+      syncBulkDestinationRows();
+      populateBulkCategorySelect();
+      onBulkCategoryChange();
+      renderBulkPoolBasket();
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+      renderBulkBatchesHistory();
+      refreshBulkBadgesCount();
+    }
+
+    function setBulkStep(stepNum) {
+      bulkDistState.step = stepNum;
+      [1, 2, 3].forEach(n => {
+        const panel = document.getElementById(`bulk-step-${n}-panel`);
+        const btn = document.getElementById(`bulk-tab-btn-${n}`);
+        if (panel) panel.style.display = (n === stepNum) ? 'block' : 'none';
+        if (btn) btn.classList.toggle('active', n === stepNum);
+      });
+      if (stepNum === 2) {
+        syncBulkDestinationRows();
+        renderBulkAllocationMatrix();
+      } else if (stepNum === 3) {
+        renderBulkBatchesHistory();
+      }
+      updateBulkLiveMonitor();
+    }
+
+    function populateBulkCategorySelect() {
+      const sel = document.getElementById('bulk-pool-cat-select');
+      if (!sel) return;
+      const prevVal = sel.value || 'all';
+      const cats = Array.isArray(state.data.categories) ? state.data.categories : [];
+      sel.innerHTML = `<option value="all">-- جميع الأصناف (${cats.length}) --</option>` +
+        cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+      if ([...sel.options].some(o => o.value === prevVal)) sel.value = prevVal;
+    }
+
+    function onBulkCategoryChange() {
+      const catSel = document.getElementById('bulk-pool-cat-select');
+      const itemSel = document.getElementById('bulk-pool-item-select');
+      const selectedCat = catSel ? catSel.value : 'all';
+
+      const items = (state.data.items || []).filter(i => {
+        if (!i || i.isDeleted) return false;
+        if (sanitize(i.stock) <= 0) return false;
+        return selectedCat === 'all' || i.category === selectedCat;
+      });
+
+      if (itemSel) {
+        itemSel.innerHTML = `<option value="">-- اختر المادة (${items.length} مادة متوفرة) --</option>` +
+          items.map(it => `<option value="${escapeHtml(it.id)}">${escapeHtml(it.name)} — [الرصيد المتاح: ${sanitize(it.stock)}]</option>`).join('');
+      }
+      onBulkItemSelectChange();
+      renderBulkCategoryQuickPicker(items);
+    }
+
+    function onBulkItemSelectChange() {
+      const itemSel = document.getElementById('bulk-pool-item-select');
+      const qtyInput = document.getElementById('bulk-pool-qty-input');
+      const hint = document.getElementById('bulk-selected-item-stock-hint');
+      if (!itemSel || !itemSel.value) {
+        if (hint) hint.textContent = '';
+        return;
+      }
+      const item = (state.data.items || []).find(i => i.id === itemSel.value);
+      if (item) {
+        const maxStock = sanitize(item.stock);
+        if (hint) hint.textContent = `(الحد الأقصى: ${maxStock})`;
+        if (qtyInput) {
+          qtyInput.max = maxStock;
+          const cur = parseInt(qtyInput.value, 10);
+          if (isNaN(cur) || cur <= 0 || cur > maxStock) {
+            qtyInput.value = Math.min(10, maxStock);
+          }
+        }
+      }
+    }
+
+    function renderBulkCategoryQuickPicker(items) {
+      const tbody = document.getElementById('bulk-cat-quick-picker-tbody');
+      if (!tbody) return;
+      if (!items || !items.length) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--text-muted);">لا توجد مواد متوفرة بمخزون موجب ضمن هذا الصنف</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = items.map((it, idx) => {
+        const inPool = bulkDistState.pool.find(p => p.itemId === it.id);
+        const maxStock = sanitize(it.stock);
+        const defQty = inPool ? inPool.qty : Math.min(10, maxStock);
+        return `
+          <tr>
+            <td style="text-align:center;" class="tabular-nums">${idx + 1}</td>
+            <td><strong>${formatItemDisplayHtml(it.name)}</strong></td>
+            <td><span class="badge badge-subtle">${escapeHtml(it.category)}</span></td>
+            <td style="text-align:center;"><span class="badge badge-success tabular-nums">${maxStock}</span></td>
+            <td style="text-align:center;">
+              <input type="number" id="quick-pool-qty-${it.id}" class="form-control tabular-nums" style="height:32px;width:110px;margin:0 auto;text-align:center;font-weight:800;" min="1" max="${maxStock}" value="${defQty}">
+            </td>
+            <td style="text-align:center;">
+              <button type="button" class="btn btn-sm ${inPool ? 'btn-outline' : 'btn-primary'}" onclick="addItemToBulkPool('${it.id}', document.getElementById('quick-pool-qty-${it.id}').value)">
+                ${inPool ? '🔄 تحديث الكمية' : '➕ إضافة للسلة'}
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function addItemToBulkPoolFromForm() {
+      const itemSel = document.getElementById('bulk-pool-item-select');
+      const qtyInput = document.getElementById('bulk-pool-qty-input');
+      if (!itemSel || !itemSel.value) {
+        showToast('يرجى اختيار مادة من القائمة أولاً', 'warning');
+        return;
+      }
+      addItemToBulkPool(itemSel.value, qtyInput ? qtyInput.value : 1);
+    }
+
+    function addItemToBulkPool(itemId, rawQty) {
+      const item = (state.data.items || []).find(i => i.id === itemId);
+      if (!item) return;
+      const qty = parseInt(rawQty, 10);
+      if (isNaN(qty) || qty <= 0) {
+        showToast('يرجى إدخال كمية صحيحة أكبر من صفر', 'warning');
+        return;
+      }
+      const maxStock = sanitize(item.stock);
+      if (qty > maxStock) {
+        showToast(`الكمية المطلوبة (${qty}) تتجاوز الرصيد المتوفر بالمخزن (${maxStock}) للمادة "${item.name}"`, 'error');
+        return;
+      }
+      const existing = bulkDistState.pool.find(p => p.itemId === itemId);
+      if (existing) {
+        existing.qty = qty;
+        showToast(`تم تحديث الكمية المسحوبة للمادة "${item.name}" إلى ${qty}`, 'info');
+      } else {
+        bulkDistState.pool.push({ itemId, qty });
+        showToast(`✓ تمت إضافة "${item.name}" (الكمية: ${qty}) إلى سلة التوزيع المركزي`, 'success');
+      }
+      renderBulkPoolBasket();
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+      onBulkCategoryChange();
+    }
+
+    function updateBulkPoolItemQty(itemId, rawQty) {
+      const item = (state.data.items || []).find(i => i.id === itemId);
+      const entry = bulkDistState.pool.find(p => p.itemId === itemId);
+      if (!item || !entry) return;
+      const maxStock = sanitize(item.stock);
+      let qty = parseInt(rawQty, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      if (qty > maxStock) {
+        qty = maxStock;
+        showToast(`تم ضبط الكمية على الحد الأقصى المتوفر بالمخزن (${maxStock})`, 'warning');
+      }
+      entry.qty = qty;
+      renderBulkPoolBasket();
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+    }
+
+    function removeItemFromBulkPool(itemId) {
+      bulkDistState.pool = bulkDistState.pool.filter(p => p.itemId !== itemId);
+      bulkDistState.rows.forEach(r => {
+        if (r.allocations && r.allocations[itemId] !== undefined) {
+          delete r.allocations[itemId];
+        }
+      });
+      renderBulkPoolBasket();
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+      onBulkCategoryChange();
+    }
+
+    function resetBulkDistributionRun() {
+      bulkDistState.pool = [];
+      bulkDistState.rows.forEach(r => { r.allocations = {}; });
+      generateNewBulkBatchCode(false);
+      renderBulkPoolBasket();
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+      onBulkCategoryChange();
+      setBulkStep(1);
+      showToast('تم تفريغ سلة التوزيع المركزي وتصفير جميع الحصص', 'info');
+    }
+
+    function getBulkItemAllocatedSum(itemId) {
+      return bulkDistState.rows.reduce((acc, r) => {
+        if (!r.enabled) return acc;
+        return acc + (parseInt(r.allocations[itemId], 10) || 0);
+      }, 0);
+    }
+
+    function renderBulkPoolBasket() {
+      const tbody = document.getElementById('bulk-pool-basket-tbody');
+      const summaryLbl = document.getElementById('bulk-basket-summary-label');
+      if (!tbody) return;
+
+      if (!bulkDistState.pool.length) {
+        if (summaryLbl) summaryLbl.textContent = '0 مادة في السلة';
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted);">
+              السلة فارغة حالياً — اختر الصنف والمادة أعلاه وأضف الكميات المراد سحبها للتوزيع
+            </td>
+          </tr>`;
+        return;
+      }
+
+      const totalUnits = bulkDistState.pool.reduce((s, p) => s + (Number(p.qty) || 0), 0);
+      if (summaryLbl) summaryLbl.textContent = `${bulkDistState.pool.length} مواد في السلة | إجمالي الرصيد المسحوب: ${totalUnits} قطعة`;
+
+      tbody.innerHTML = bulkDistState.pool.map((p, idx) => {
+        const item = (state.data.items || []).find(i => i.id === p.itemId);
+        if (!item) return '';
+        const maxStock = sanitize(item.stock);
+        const allocated = getBulkItemAllocatedSum(p.itemId);
+        const rem = p.qty - allocated;
+        const remClass = rem === 0 ? 'rem-zero' : (rem > 0 ? 'rem-pos' : 'rem-neg');
+        const remText = rem === 0 ? '0 (مكتمل ✓)' : (rem > 0 ? `${rem} متبقي` : `${Math.abs(rem)} تجاوز!`);
+        return `
+          <tr>
+            <td style="text-align:center;font-weight:800;" class="tabular-nums">${idx + 1}</td>
+            <td><strong>${formatItemDisplayHtml(item.name)}</strong></td>
+            <td><span class="badge badge-subtle">${escapeHtml(item.category)}</span></td>
+            <td style="text-align:center;"><span class="badge badge-success tabular-nums">${maxStock}</span></td>
+            <td style="text-align:center;">
+              <input type="number" class="form-control tabular-nums" style="width:115px;margin:0 auto;text-align:center;font-weight:900;" min="1" max="${maxStock}" value="${p.qty}" onchange="updateBulkPoolItemQty('${p.itemId}', this.value)">
+            </td>
+            <td style="text-align:center;font-weight:800;color:#2563eb;" class="tabular-nums">${allocated}</td>
+            <td style="text-align:center;"><span class="bulk-item-rem-pill ${remClass} tabular-nums">${remText}</span></td>
+            <td style="text-align:center;">
+              <button type="button" class="btn-icon danger" onclick="removeItemFromBulkPool('${p.itemId}')" title="إزالة من السلة">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderBulkAllocationMatrix() {
+      const thead = document.getElementById('bulk-matrix-thead');
+      const tbody = document.getElementById('bulk-matrix-tbody');
+      const tfoot = document.getElementById('bulk-matrix-tfoot');
+      if (!thead || !tbody || !tfoot) return;
+
+      syncBulkDestinationRows();
+
+      if (!bulkDistState.pool.length) {
+        thead.innerHTML = `<tr><th>الوجهة القضائية / المصلحة</th><th>المسؤول المستفيد</th><th>حالة السلة</th></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="padding:28px;color:var(--text-muted);">يرجى إضافة مادة واحدة على الأقل في "الخطوة 1: سلة المواد الإجمالية" لبناء مصفوفة التوزيع على المحاكم.</td></tr>`;
+        tfoot.innerHTML = '';
+        return;
+      }
+
+      const poolItems = bulkDistState.pool.map(p => {
+        const it = (state.data.items || []).find(i => i.id === p.itemId);
+        return { ...p, item: it };
+      }).filter(x => x.item);
+
+      const allDestNames = Object.keys(state.data.destinations || {});
+
+      thead.innerHTML = `
+        <tr>
+          <th style="width:46px;">تفعيل</th>
+          <th style="min-width:210px;text-align:right;">الوجهة المستفيدة (المحكمة / المركز / المصلحة)</th>
+          <th style="min-width:225px;text-align:right;">المسؤول المستفيد (يصدر باسمه الإشهاد)</th>
+          ${poolItems.map(p => `
+            <th style="min-width:150px;">
+              <div style="font-size:0.82rem;font-weight:900;color:#fde68a;">${escapeHtml(p.item.name)}</div>
+              <div style="font-size:0.72rem;color:#cbd5e1;margin-top:2px;">
+                المسحوب للسلة: <strong class="tabular-nums">${p.qty}</strong>
+              </div>
+              <div style="margin-top:5px;display:flex;gap:4px;justify-content:center;">
+                <button type="button" class="btn btn-sm" style="padding:2px 7px;font-size:0.68rem;background:rgba(255,255,255,0.16);color:#fff;border:none;border-radius:6px;cursor:pointer;" onclick="distributeSingleItemEqually('${p.itemId}')" title="توزيع هذه المادة بالتساوي على الجهات المفعلة">⚖️ بالتساوي</button>
+                <button type="button" class="btn btn-sm" style="padding:2px 7px;font-size:0.68rem;background:rgba(239,68,68,0.28);color:#fecaca;border:none;border-radius:6px;cursor:pointer;" onclick="clearSingleItemAllocations('${p.itemId}')" title="تصفير هذه المادة">تصفير</button>
+              </div>
+            </th>
+          `).join('')}
+          <th style="width:105px;">مجموع حصة الجهة</th>
+        </tr>
+      `;
+
+      tbody.innerHTML = bulkDistState.rows.map(row => {
+        const recs = typeof getRecipientsForDestination === 'function'
+          ? getRecipientsForDestination(row.destName)
+          : (Array.isArray(state.data.destinations?.[row.destName]) ? state.data.destinations[row.destName] : []);
+
+        const recOptions = recs.length
+          ? recs.map(rName => `<option value="${escapeHtml(rName)}" ${rName === row.recipientName ? 'selected' : ''}>${escapeHtml(rName)}</option>`).join('')
+          : `<option value="${escapeHtml(row.recipientName || 'رئيس كتابة الضبط')}">${escapeHtml(row.recipientName || 'رئيس كتابة الضبط')}</option>`;
+
+        const rowTotal = poolItems.reduce((s, p) => s + (row.enabled ? (parseInt(row.allocations[p.itemId], 10) || 0) : 0), 0);
+
+        const destCellHtml = row.isExtra
+          ? `<div style="display:flex;align-items:center;gap:6px;">
+               <select class="form-control" style="height:32px;font-size:0.8rem;font-weight:800;" onchange="updateExtraBulkRowDest('${row.rowId}', this.value)">
+                 ${allDestNames.map(d => `<option value="${escapeHtml(d)}" ${d === row.destName ? 'selected' : ''}>${escapeHtml(d)}</option>`).join('')}
+               </select>
+               <button type="button" class="btn-icon danger" style="width:26px;height:26px;flex-shrink:0;" onclick="removeExtraBulkRow('${row.rowId}')" title="حذف السطر الإضافي">&times;</button>
+             </div>`
+          : `<div style="font-weight:800;color:var(--text-main);">🏛️ ${escapeHtml(row.destName)}</div>`;
+
+        return `
+          <tr style="${!row.enabled ? 'opacity:0.45;' : ''}">
+            <td>
+              <input type="checkbox" ${row.enabled ? 'checked' : ''} onchange="toggleBulkRowEnabled('${row.rowId}', this.checked)" style="width:17px;height:17px;cursor:pointer;">
+            </td>
+            <td style="text-align:right;">
+              ${destCellHtml}
+            </td>
+            <td style="text-align:right;">
+              <select class="form-control" style="height:34px;font-size:0.8rem;font-weight:700;" onchange="updateBulkRowRecipient('${row.rowId}', this.value)" ${!row.enabled ? 'disabled' : ''}>
+                ${recOptions}
+              </select>
+            </td>
+            ${poolItems.map(p => {
+              const val = parseInt(row.allocations[p.itemId], 10) || 0;
+              return `
+                <td>
+                  <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                    <input type="number"
+                      id="bulk-cell-${row.rowId}-${p.itemId}"
+                      class="bulk-matrix-input tabular-nums ${val > 0 ? 'has-val' : ''}"
+                      min="0"
+                      max="${p.qty}"
+                      value="${val}"
+                      ${!row.enabled ? 'disabled' : ''}
+                      oninput="onBulkMatrixCellInput('${row.rowId}', '${p.itemId}', this.value)">
+                    <button type="button"
+                      class="btn btn-sm"
+                      style="padding:3px 6px;font-size:0.7rem;background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;border-radius:6px;cursor:pointer;"
+                      ${!row.enabled ? 'disabled' : ''}
+                      onclick="fillRemainingToBulkCell('${row.rowId}', '${p.itemId}')"
+                      title="إعطاء كامل الكمية المتبقية من هذه المادة لهذه الوجهة">+الباقي</button>
+                  </div>
+                </td>
+              `;
+            }).join('')}
+            <td id="bulk-row-sum-${row.rowId}" class="tabular-nums" style="font-weight:900;font-size:0.95rem;color:${rowTotal > 0 ? '#059669' : 'var(--text-muted)'};">
+              ${rowTotal}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      tfoot.innerHTML = `
+        <tr style="background:var(--bg-muted,#f8fafc);font-weight:900;border-top:2px solid #0f172a;">
+          <td colspan="3" style="text-align:right;padding:10px 14px;font-size:0.86rem;">
+            إجمالي الموزع / الباقي لكل مادة (القاعدة الإلزامية: الباقي = 0)
+          </td>
+          ${poolItems.map(p => {
+            const alloc = getBulkItemAllocatedSum(p.itemId);
+            const rem = p.qty - alloc;
+            const cls = rem === 0 ? 'rem-zero' : (rem > 0 ? 'rem-pos' : 'rem-neg');
+            const label = rem === 0 ? 'الباقي: 0 ✓' : (rem > 0 ? `الباقي: ${rem}` : `تجاوز بـ ${Math.abs(rem)}!`);
+            return `
+              <td id="bulk-col-foot-${p.itemId}">
+                <div style="font-size:0.8rem;" class="tabular-nums">الموزع: <strong>${alloc}</strong> / ${p.qty}</div>
+                <div style="margin-top:3px;"><span class="bulk-item-rem-pill ${cls} tabular-nums">${label}</span></div>
+              </td>
+            `;
+          }).join('')}
+          <td id="bulk-matrix-grand-total" class="tabular-nums" style="font-size:1rem;color:#2563eb;font-weight:900;">
+            ${poolItems.reduce((s, p) => s + getBulkItemAllocatedSum(p.itemId), 0)}
+          </td>
+        </tr>
+      `;
+    }
+
+    function onBulkMatrixCellInput(rowId, itemId, rawVal) {
+      const row = bulkDistState.rows.find(r => r.rowId === rowId);
+      if (!row) return;
+      let val = parseInt(rawVal, 10);
+      if (isNaN(val) || val < 0) val = 0;
+      row.allocations[itemId] = val;
+
+      const inputEl = document.getElementById(`bulk-cell-${rowId}-${itemId}`);
+      if (inputEl) inputEl.classList.toggle('has-val', val > 0);
+
+      const rowTotal = bulkDistState.pool.reduce((s, p) => s + (row.enabled ? (parseInt(row.allocations[p.itemId], 10) || 0) : 0), 0);
+      const rowSumCell = document.getElementById(`bulk-row-sum-${rowId}`);
+      if (rowSumCell) {
+        rowSumCell.textContent = rowTotal;
+        rowSumCell.style.color = rowTotal > 0 ? '#059669' : 'var(--text-muted)';
+      }
+
+      const poolEntry = bulkDistState.pool.find(p => p.itemId === itemId);
+      if (poolEntry) {
+        const alloc = getBulkItemAllocatedSum(itemId);
+        const rem = poolEntry.qty - alloc;
+        const cls = rem === 0 ? 'rem-zero' : (rem > 0 ? 'rem-pos' : 'rem-neg');
+        const label = rem === 0 ? 'الباقي: 0 ✓' : (rem > 0 ? `الباقي: ${rem}` : `تجاوز بـ ${Math.abs(rem)}!`);
+        const footCell = document.getElementById(`bulk-col-foot-${itemId}`);
+        if (footCell) {
+          footCell.innerHTML = `
+            <div style="font-size:0.8rem;" class="tabular-nums">الموزع: <strong>${alloc}</strong> / ${poolEntry.qty}</div>
+            <div style="margin-top:3px;"><span class="bulk-item-rem-pill ${cls} tabular-nums">${label}</span></div>
+          `;
+        }
+      }
+
+      const grandCell = document.getElementById('bulk-matrix-grand-total');
+      if (grandCell) {
+        grandCell.textContent = bulkDistState.pool.reduce((s, p) => s + getBulkItemAllocatedSum(p.itemId), 0);
+      }
+
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function fillRemainingToBulkCell(rowId, itemId) {
+      const row = bulkDistState.rows.find(r => r.rowId === rowId);
+      const poolEntry = bulkDistState.pool.find(p => p.itemId === itemId);
+      if (!row || !row.enabled || !poolEntry) return;
+      const currentVal = parseInt(row.allocations[itemId], 10) || 0;
+      const otherAlloc = getBulkItemAllocatedSum(itemId) - currentVal;
+      const needed = Math.max(0, poolEntry.qty - otherAlloc);
+      row.allocations[itemId] = needed;
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function toggleBulkRowEnabled(rowId, enabled) {
+      const row = bulkDistState.rows.find(r => r.rowId === rowId);
+      if (!row) return;
+      row.enabled = Boolean(enabled);
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function updateBulkRowRecipient(rowId, recName) {
+      const row = bulkDistState.rows.find(r => r.rowId === rowId);
+      if (row) row.recipientName = recName;
+    }
+
+    function updateExtraBulkRowDest(rowId, newDestName) {
+      const row = bulkDistState.rows.find(r => r.rowId === rowId);
+      if (!row) return;
+      row.destName = newDestName;
+      const recs = typeof getRecipientsForDestination === 'function'
+        ? getRecipientsForDestination(newDestName)
+        : (Array.isArray(state.data.destinations?.[newDestName]) ? state.data.destinations[newDestName] : []);
+      row.recipientName = recs.length > 0 ? recs[0] : 'رئيس كتابة الضبط';
+      renderBulkAllocationMatrix();
+    }
+
+    function addExtraBulkDestinationRow() {
+      const destNames = Object.keys(state.data.destinations || {});
+      if (!destNames.length) return;
+      const dName = destNames[0];
+      const recs = typeof getRecipientsForDestination === 'function'
+        ? getRecipientsForDestination(dName)
+        : (Array.isArray(state.data.destinations?.[dName]) ? state.data.destinations[dName] : []);
+      bulkDistState.rows.push({
+        rowId: 'brow_extra_' + Date.now(),
+        destName: dName,
+        recipientName: recs.length > 1 ? recs[1] : (recs[0] || 'رئيس كتابة الضبط'),
+        enabled: true,
+        isExtra: true,
+        allocations: {}
+      });
+      renderBulkAllocationMatrix();
+      updateBulkLiveMonitor();
+      showToast('تمت إضافة سطر مستفيد إضافي في مصفوفة التوزيع', 'info');
+    }
+
+    function removeExtraBulkRow(rowId) {
+      bulkDistState.rows = bulkDistState.rows.filter(r => r.rowId !== rowId);
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function distributeSingleItemEqually(itemId) {
+      const poolEntry = bulkDistState.pool.find(p => p.itemId === itemId);
+      if (!poolEntry) return;
+      const activeRows = bulkDistState.rows.filter(r => r.enabled);
+      if (!activeRows.length) {
+        showToast('يرجى تفعيل وجهة واحدة على الأقل للتوزيع', 'warning');
+        return;
+      }
+      const base = Math.floor(poolEntry.qty / activeRows.length);
+      const rem = poolEntry.qty % activeRows.length;
+      activeRows.forEach((r, idx) => {
+        r.allocations[itemId] = base + (idx < rem ? 1 : 0);
+      });
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function clearSingleItemAllocations(itemId) {
+      bulkDistState.rows.forEach(r => { r.allocations[itemId] = 0; });
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function autoDistributeBulkEqually() {
+      if (!bulkDistState.pool.length) {
+        showToast('أضف مواد إلى سلة التوزيع أولاً', 'warning');
+        return;
+      }
+      bulkDistState.pool.forEach(p => distributeSingleItemEqually(p.itemId));
+      showToast('تم توزيع جميع مواد السلة بالتساوي والوصول إلى الباقي = 0 ✓', 'success');
+    }
+
+    function clearAllBulkAllocations() {
+      bulkDistState.rows.forEach(r => { r.allocations = {}; });
+      renderBulkAllocationMatrix();
+      renderBulkPoolBasket();
+      updateBulkLiveMonitor();
+    }
+
+    function updateBulkLiveMonitor() {
+      const bar = document.getElementById('bulk-live-monitor-bar');
+      const countEl = document.getElementById('bulk-metric-items-count');
+      const poolEl = document.getElementById('bulk-metric-total-pool');
+      const allocEl = document.getElementById('bulk-metric-total-allocated');
+      const remEl = document.getElementById('bulk-metric-total-remainder');
+      const badgeEl = document.getElementById('bulk-zero-rule-badge');
+      const fillEl = document.getElementById('bulk-live-progress-fill');
+      const stripEl = document.getElementById('bulk-per-item-counters-strip');
+      const btnCommit = document.getElementById('btn-commit-bulk-distribution');
+      const btnCommitPrint = document.getElementById('btn-commit-and-print-bulk');
+      const helperText = document.getElementById('bulk-commit-helper-text');
+
+      const itemsCount = bulkDistState.pool.length;
+      let totalPool = 0;
+      let totalAlloc = 0;
+      let allZero = itemsCount > 0;
+      let anyNegative = false;
+
+      const stripHtml = [];
+      bulkDistState.pool.forEach(p => {
+        const it = (state.data.items || []).find(i => i.id === p.itemId);
+        const alloc = getBulkItemAllocatedSum(p.itemId);
+        const rem = p.qty - alloc;
+        totalPool += p.qty;
+        totalAlloc += alloc;
+        if (rem !== 0) allZero = false;
+        if (rem < 0) anyNegative = true;
+
+        const cls = rem === 0 ? 'rem-zero' : (rem > 0 ? 'rem-pos' : 'rem-neg');
+        const statusTxt = rem === 0 ? 'الباقي: 0 ✓' : (rem > 0 ? `الباقي: ${rem}` : `تجاوز: ${Math.abs(rem)}!`);
+        if (it) {
+          stripHtml.push(`
+            <span class="bulk-item-rem-pill ${cls} tabular-nums">
+              <strong>${escapeHtml(it.name)}:</strong> المسحوب ${p.qty} | الموزع ${alloc} | ${statusTxt}
+            </span>
+          `);
+        }
+      });
+
+      const totalRem = totalPool - totalAlloc;
+
+      if (countEl) countEl.textContent = itemsCount;
+      if (poolEl) poolEl.textContent = totalPool;
+      if (allocEl) allocEl.textContent = totalAlloc;
+      if (remEl) {
+        remEl.textContent = totalRem;
+        remEl.style.color = allZero ? '#059669' : (anyNegative ? '#dc2626' : '#d97706');
+      }
+      if (stripEl) stripEl.innerHTML = stripHtml.join('');
+
+      const pct = totalPool > 0 ? Math.min(100, Math.round((totalAlloc / totalPool) * 100)) : 0;
+      if (fillEl) {
+        fillEl.style.width = `${pct}%`;
+        fillEl.classList.toggle('zero-reached', allZero);
+      }
+
+      if (bar) {
+        bar.classList.remove('status-ready', 'status-pending', 'status-over');
+        if (itemsCount > 0) {
+          if (allZero) bar.classList.add('status-ready');
+          else if (anyNegative) bar.classList.add('status-over');
+          else bar.classList.add('status-pending');
+        }
+      }
+
+      if (badgeEl) {
+        if (itemsCount === 0) {
+          badgeEl.style.background = '#f1f5f9';
+          badgeEl.style.color = '#475569';
+          badgeEl.textContent = 'السلة فارغة — أضف مواد للبدء';
+        } else if (allZero) {
+          badgeEl.style.background = '#d1fae5';
+          badgeEl.style.color = '#065f46';
+          badgeEl.textContent = '✓ الباقي = 0 في جميع المواد — جاهز للاعتماد وتوليد الإشهادات!';
+        } else if (anyNegative) {
+          badgeEl.style.background = '#fee2e2';
+          badgeEl.style.color = '#991b1b';
+          badgeEl.textContent = '⚠️ تنبيه: مجموع التوزيع يتجاوز الكمية المسحوبة في إحدى المواد!';
+        } else {
+          badgeEl.style.background = '#fef3c7';
+          badgeEl.style.color = '#92400e';
+          badgeEl.textContent = `⏳ متبقي ${totalRem} قطعة للتوزيع للوصول إلى الباقي = 0`;
+        }
+      }
+
+      const canCommit = itemsCount > 0 && allZero && !anyNegative;
+      if (btnCommit) btnCommit.disabled = !canCommit;
+      if (btnCommitPrint) btnCommitPrint.disabled = !canCommit;
+      if (helperText) {
+        if (canCommit) {
+          const activeDestsCount = bulkDistState.rows.filter(r => r.enabled && bulkDistState.pool.some(p => (parseInt(r.allocations[p.itemId], 10) || 0) > 0)).length;
+          helperText.innerHTML = `<span style="color:#059669;font-weight:800;">✓ اكتمل التوزيع بنجاح (الباقي = 0)! سيتم خصم الكميات وتوليد (${activeDestsCount}) إشهادات رسمية مستقلة برقم الدفعة ${escapeHtml(bulkDistState.batchId)}.</span>`;
+        } else {
+          helperText.textContent = 'يجب أن يكون "الباقي للتوزيع = 0" في جميع المواد المختارة لتفعيل أزرار الاعتماد النهائي.';
+        }
+      }
+    }
+
+    let _isCommittingBulkRun = false;
+    function commitBulkDistributionRun(andPreviewPrint = false) {
+      if (_isCommittingBulkRun) return;
+      if (!bulkDistState.pool.length) {
+        showToast('سلة التوزيع فارغة!', 'warning');
+        return;
+      }
+
+      // Strict Zero-Balance Rule & Stock Validation
+      for (const p of bulkDistState.pool) {
+        const item = (state.data.items || []).find(i => i.id === p.itemId);
+        if (!item) {
+          showToast('إحدى المواد غير موجودة في المخزون', 'error');
+          return;
+        }
+        const maxStock = sanitize(item.stock);
+        if (p.qty > maxStock) {
+          showToast(`الرصيد المتاح بالمخزن (${maxStock}) غير كافٍ للمادة "${item.name}"`, 'error');
+          return;
+        }
+        const alloc = getBulkItemAllocatedSum(p.itemId);
+        if (alloc !== p.qty) {
+          showToast(`قاعدة الباقي صفر: المادة "${item.name}" لم يتم توزيع رصيدها بالكامل (المسحوب ${p.qty} والموزع ${alloc})`, 'error');
+          return;
+        }
+      }
+
+      _isCommittingBulkRun = true;
+      try {
+        const batchId = bulkDistState.batchId || generateNewBulkBatchCode(false);
+        const dateVal = document.getElementById('bulk-run-date')?.value || new Date().toISOString().split('T')[0];
+        const reasonVal = document.getElementById('bulk-run-reason')?.value || 'حصة التوزيع المركزي الدوري';
+        const channelVal = document.getElementById('bulk-run-channel')?.value || 'تسليم مباشر';
+        const userNotes = (document.getElementById('bulk-run-notes')?.value || '').trim();
+        const itemNoteText = userNotes ? `${userNotes} (${batchId})` : `دفعة التوزيع المركزي ${batchId}`;
+        const ownerName = state.profile?.userProfile?.fullName || state.profile?.projectMeta?.ownerName || 'محمد أيت حمادي';
+
+        // a. Deduct pooled quantities atomically from state.data.items
+        const pooledSummary = [];
+        bulkDistState.pool.forEach(p => {
+          const stockItem = state.data.items.find(i => i.id === p.itemId);
+          if (stockItem) {
+            stockItem.stock = Math.max(0, sanitize(stockItem.stock) - Math.max(1, sanitize(p.qty)));
+            pooledSummary.push({
+              id: stockItem.id,
+              name: stockItem.name,
+              category: stockItem.category,
+              qty: p.qty
+            });
+          }
+        });
+
+        // b. Generate an independent Official Delivery Certificate (voucher) for each destination/recipient with allocated items > 0
+        const generatedVouchers = [];
+        const activeRows = bulkDistState.rows.filter(r => r.enabled);
+
+        activeRows.forEach(row => {
+          const voucherItems = [];
+          bulkDistState.pool.forEach(p => {
+            const q = parseInt(row.allocations[p.itemId], 10) || 0;
+            if (q > 0) {
+              const stItem = state.data.items.find(i => i.id === p.itemId);
+              if (stItem) {
+                voucherItems.push({
+                  id: stItem.id,
+                  name: stItem.name,
+                  category: stItem.category,
+                  qty: q,
+                  notes: itemNoteText
+                });
+              }
+            }
+          });
+
+          if (voucherItems.length > 0) {
+            let voucherId = generateNextVoucherNumber();
+            while (state.data.transactions.some(t => t.id === voucherId) || generatedVouchers.some(v => v.id === voucherId)) {
+              voucherId = generateNextVoucherNumber();
+            }
+
+            const newVoucher = {
+              id: voucherId,
+              operationId: voucherId,
+              batchId: batchId,
+              isBulkDistribution: true,
+              date: new Date().toLocaleString('ar-MA'),
+              isoDate: dateVal,
+              destination: row.destName,
+              recipient: row.recipientName || 'رئيس كتابة الضبط',
+              reason: reasonVal,
+              channel: channelVal,
+              status: 'استجابة كلية',
+              orderRef: batchId,
+              items: voucherItems
+            };
+            newVoucher.secretCode = generateCertSecretCode(newVoucher);
+            generatedVouchers.push(newVoucher);
+          }
+        });
+
+        // c. Save all generated certificates directly in state.data.transactions & batch archive
+        for (let i = generatedVouchers.length - 1; i >= 0; i--) {
+          state.data.transactions.unshift(generatedVouchers[i]);
+        }
+
+        if (!state.data.bulkBatches) state.data.bulkBatches = [];
+        const batchRecord = {
+          batchId: batchId,
+          date: dateVal,
+          deliverer: ownerName,
+          reason: reasonVal,
+          notes: userNotes,
+          itemsCount: pooledSummary.length,
+          totalUnits: pooledSummary.reduce((s, i) => s + i.qty, 0),
+          pooledItems: pooledSummary,
+          certificatesCount: generatedVouchers.length,
+          voucherIds: generatedVouchers.map(v => v.id),
+          createdAt: new Date().toISOString()
+        };
+        state.data.bulkBatches.unshift(batchRecord);
+        bulkDistState.lastCommittedBatchId = batchId;
+
+        if (typeof logSystemNotification === 'function') {
+          logSystemNotification(
+            `📦 اعتماد عملية توزيع مركزي (${batchId})`,
+            `تم توزيع ${batchRecord.totalUnits} قطعة (${batchRecord.itemsCount} مواد) وتوليد ${generatedVouchers.length} إشهادات رسمية مستقلة.`,
+            'info',
+            'issuance'
+          );
+        }
+        if (typeof scanLowStockNotifications === 'function') {
+          scanLowStockNotifications(false);
+        }
+
+        persistAll();
+        refreshAllBadges();
+        refreshBulkBadgesCount();
+
+        // Reset current pool for next run
+        bulkDistState.pool = [];
+        bulkDistState.rows.forEach(r => { r.allocations = {}; });
+        generateNewBulkBatchCode(false);
+
+        // Move to Step 3 and show generated certificates
+        setBulkStep(3);
+        renderLastCommittedBatchCertificates(batchRecord, generatedVouchers);
+        renderBulkBatchesHistory();
+
+        showToast(`✓ تم اعتماد دفعة التوزيع المركزي (${batchRecord.batchId}) وتوليد ${generatedVouchers.length} إشهادات رسمية!`, 'success');
+
+        if (andPreviewPrint && generatedVouchers.length > 0) {
+          printBulkBatchCertificates(batchRecord.batchId);
+        }
+      } finally {
+        _isCommittingBulkRun = false;
+      }
+    }
+
+    function renderLastCommittedBatchCertificates(batchRecord, vouchersList) {
+      const container = document.getElementById('bulk-generated-certificates-container');
+      const printAllBtn = document.getElementById('btn-print-last-batch-all');
+      if (!container) return;
+
+      if (!batchRecord || !vouchersList || !vouchersList.length) {
+        if (printAllBtn) printAllBtn.style.display = 'none';
+        return;
+      }
+
+      if (printAllBtn) {
+        printAllBtn.style.display = 'inline-flex';
+        printAllBtn.setAttribute('onclick', `printBulkBatchCertificates('${batchRecord.batchId}')`);
+      }
+
+      container.innerHTML = `
+        <div style="background:linear-gradient(90deg,rgba(16,185,129,0.10),rgba(37,99,235,0.06));border:1.5px solid #10b981;border-radius:12px;padding:14px 18px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+            <div>
+              <span class="badge badge-success" style="font-size:0.82rem;padding:5px 12px;">
+                ✓ تم الخصم من المخزون وحفظ الإشهادات في الأرشيف
+              </span>
+              <strong style="font-size:0.98rem;margin-right:8px;">دفعة التوزيع المركزي: <span class="tabular-nums" style="color:#059669;">${escapeHtml(batchRecord.batchId)}</span> (${vouchersList.length} إشهادات رسمية)</strong>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="printBulkBatchCertificates('${batchRecord.batchId}')">
+              🖨️ معاينة وطباعة كافة إشهادات الدفعة (${vouchersList.length}) دفعة واحدة
+            </button>
+          </div>
+          <div class="table-scroll-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>رقم الإشهاد</th>
+                  <th>الوجهة القضائية / المستفيدة</th>
+                  <th>المسؤول المستفيد</th>
+                  <th>المواد المسلّمة</th>
+                  <th style="text-align:center;">مجموع القطع</th>
+                  <th>المعرف السري للإشهاد</th>
+                  <th style="text-align:center;">إجراءات الطباعة</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${vouchersList.map(v => {
+                  const itemsDesc = (v.items || []).map(it => `${escapeHtml(it.name)} (<strong>${it.qty}</strong>)`).join(' ، ');
+                  const totalUnits = (v.items || []).reduce((s, i) => s + sanitize(i.qty), 0);
+                  return `
+                    <tr>
+                      <td class="tabular-nums"><strong>${escapeHtml(v.id)}</strong></td>
+                      <td><strong>${escapeHtml(v.destination)}</strong></td>
+                      <td>${escapeHtml(v.recipient)}</td>
+                      <td style="font-size:0.82rem;">${itemsDesc}</td>
+                      <td style="text-align:center;"><span class="badge badge-success tabular-nums">${totalUnits}</span></td>
+                      <td class="tabular-nums" style="font-size:0.75rem;color:var(--text-muted);">${escapeHtml(v.secretCode || '')}</td>
+                      <td style="text-align:center;">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="printCertificate('${v.id}', false)">
+                          🖨️ معاينة وطباعة الإشهاد
+                        </button>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBulkBatchesHistory() {
+      const tbody = document.getElementById('bulk-batches-history-tbody');
+      if (!tbody) return;
+      const batches = Array.isArray(state.data.bulkBatches) ? state.data.bulkBatches : [];
+      refreshBulkBadgesCount();
+
+      if (!batches.length) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:22px;color:var(--text-muted);">لا توجد دفعات توزيع مركزي معتمدة في الأرشيف حتى الآن</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = batches.map(b => `
+        <tr>
+          <td class="tabular-nums"><strong style="color:#2563eb;">${escapeHtml(b.batchId)}</strong></td>
+          <td class="tabular-nums">${escapeHtml(b.date || '')}</td>
+          <td style="text-align:center;"><span class="badge badge-subtle tabular-nums">${b.itemsCount || 0} مواد</span></td>
+          <td style="text-align:center;font-weight:900;color:#059669;" class="tabular-nums">${b.totalUnits || 0} قطعة</td>
+          <td style="text-align:center;"><span class="badge badge-success tabular-nums">${b.certificatesCount || 0} إشهادات</span></td>
+          <td>${escapeHtml(b.deliverer || '—')}</td>
+          <td style="text-align:center;">
+            <div style="display:flex;gap:6px;justify-content:center;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="inspectBulkBatch('${b.batchId}')">
+                👁️ عرض الإشهادات
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="printBulkBatchCertificates('${b.batchId}')">
+                🖨️ طباعة الكل (${b.certificatesCount || 0})
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function inspectBulkBatch(batchId) {
+      const batch = (state.data.bulkBatches || []).find(b => b.batchId === batchId);
+      if (!batch) return;
+      const vouchers = (state.data.transactions || []).filter(t => t.batchId === batchId || (batch.voucherIds || []).includes(t.id));
+      renderLastCommittedBatchCertificates(batch, vouchers);
+      showToast(`تم عرض إشهادات الدفعة ${batchId} (${vouchers.length} إشهادات رسمية)`, 'info');
+    }
+
+    function printBulkBatchCertificates(batchId) {
+      const targetBatchId = batchId || bulkDistState.lastCommittedBatchId;
+      if (!targetBatchId) {
+        showToast('لا توجد دفعة محددة للطباعة', 'warning');
+        return;
+      }
+      const batch = (state.data.bulkBatches || []).find(b => b.batchId === targetBatchId);
+      const vouchers = (state.data.transactions || []).filter(t => t.batchId === targetBatchId || (batch && (batch.voucherIds || []).includes(t.id)));
+      if (!vouchers.length) {
+        showToast('لم يتم العثور على إشهادات مرتبطة بهذه الدفعة', 'error');
+        return;
+      }
+
+      const htmls = vouchers.map(v => generateVoucherA4Html(v)).join('<div style="page-break-after: always;"></div>');
+      const sandbox = document.getElementById('print-sandbox-area');
+      if (sandbox) sandbox.innerHTML = htmls;
+      openDocPreviewModal(`طباعة مجمعة لإشهادات دفعة التوزيع المركزي — ${targetBatchId} (${vouchers.length} إشهادات رسمية)`, htmls);
     }
 
     document.addEventListener('DOMContentLoaded', bootApplication);
